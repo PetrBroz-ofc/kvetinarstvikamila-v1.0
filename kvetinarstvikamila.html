@@ -1,0 +1,1376 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Květinářství Kamila | Luxusní květiny v Liberci</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Reset a základní styly */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', system-ui, sans-serif;
+        }
+
+        :root {
+            --primary-color: #f8a8c6; /* Light pink */
+            --secondary-color: #e67b9f; /* Medium pink */
+            --accent-color: #d4507f; /* Dark pink */
+            --dark-color: #333333;
+            --light-color: #fff9fb;
+            --text-color: #333;
+            --transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            --section-padding: 5rem 2rem;
+        }
+
+        body {
+            background-color: var(--light-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        /* Header */
+        header {
+            background-color: rgba(255, 255, 255, 0.95);
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            backdrop-filter: blur(10px);
+        }
+
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.2rem 0;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .logo-icon {
+            font-size: 2.2rem;
+            color: var(--accent-color);
+        }
+
+        .logo-text {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--dark-color);
+        }
+
+        .logo-text span {
+            color: var(--accent-color);
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        nav ul li a {
+            text-decoration: none;
+            color: var(--dark-color);
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: var(--transition);
+            position: relative;
+        }
+
+        nav ul li a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--accent-color);
+            transition: var(--transition);
+        }
+
+        nav ul li a:hover {
+            color: var(--accent-color);
+        }
+
+        nav ul li a:hover::after {
+            width: 100%;
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: var(--dark-color);
+            cursor: pointer;
+        }
+
+        /* Hero Section - Jako Olio */
+        .hero {
+            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), 
+                        url('https://images.unsplash.com/photo-1519378058457-4c29a0a2efac?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+            padding: 0 2rem;
+            margin-top: 80px;
+        }
+
+        .hero-content {
+            max-width: 900px;
+            animation: fadeInUp 1s ease-out;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .hero h1 {
+            font-size: 4rem;
+            margin-bottom: 1.5rem;
+            text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.5);
+        }
+
+        .hero p {
+            font-size: 1.5rem;
+            margin-bottom: 2.5rem;
+            font-weight: 300;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .hero-features {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .feature-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1.1rem;
+        }
+
+        .feature-item i {
+            color: var(--primary-color);
+            font-size: 1.3rem;
+        }
+
+        .hero-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: var(--transition);
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+        }
+
+        .btn-primary {
+            background-color: var(--accent-color);
+            color: white;
+            box-shadow: 0 5px 15px rgba(212, 80, 127, 0.4);
+        }
+
+        .btn-secondary {
+            background-color: transparent;
+            color: white;
+            border: 2px solid white;
+        }
+
+        .btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .btn-primary:hover {
+            background-color: #c03c70;
+        }
+
+        .btn-secondary:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+
+        /* Action Buttons */
+        .action-buttons {
+            padding: 3rem 2rem;
+            background-color: white;
+        }
+
+        .action-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            justify-content: center;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .action-btn {
+            flex: 1 1 200px;
+            background: var(--accent-color);
+            padding: 18px;
+            text-align: center;
+            color: white;
+            font-weight: bold;
+            border-radius: 12px;
+            text-decoration: none;
+            font-size: 16px;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            box-shadow: 0 4px 12px rgba(212, 80, 127, 0.3);
+        }
+
+        .action-btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(212, 80, 127, 0.5);
+            background: #c03c70;
+        }
+
+        /* Services Section */
+        .services {
+            padding: var(--section-padding);
+            background-color: #f9f9f9;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 4rem;
+            position: relative;
+        }
+
+        .section-title h2 {
+            font-size: 3rem;
+            color: var(--dark-color);
+            display: inline-block;
+            padding-bottom: 1rem;
+        }
+
+        .section-title h2::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 150px;
+            height: 4px;
+            background: linear-gradient(to right, var(--primary-color), var(--accent-color));
+            border-radius: 2px;
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2.5rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .service-card {
+            background: white;
+            border-radius: 15px;
+            padding: 2.5rem 2rem;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            transition: var(--transition);
+        }
+
+        .service-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.12);
+        }
+
+        .service-icon {
+            width: 80px;
+            height: 80px;
+            background: var(--primary-color);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1.5rem;
+            color: white;
+            font-size: 2rem;
+        }
+
+        .service-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--dark-color);
+        }
+
+        .service-card p {
+            color: #666;
+            line-height: 1.7;
+        }
+
+        /* About Section */
+        .about {
+            padding: var(--section-padding);
+            background-color: white;
+        }
+
+        .about-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .about-image {
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .about-image img {
+            width: 100%;
+            height: auto;
+            display: block;
+            transition: var(--transition);
+        }
+
+        .about-image:hover img {
+            transform: scale(1.05);
+        }
+
+        .about-content h2 {
+            font-size: 2.8rem;
+            margin-bottom: 1.5rem;
+            color: var(--dark-color);
+        }
+
+        .about-content p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            line-height: 1.8;
+            color: #666;
+        }
+
+        .about-features {
+            margin-top: 2rem;
+        }
+
+        .about-feature {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 1.5rem;
+        }
+
+        .about-feature i {
+            color: var(--accent-color);
+            margin-right: 1rem;
+            font-size: 1.3rem;
+            margin-top: 5px;
+        }
+
+        /* Gallery Section - Jako Olio s filtrem */
+        .gallery {
+            padding: var(--section-padding);
+            background-color: #f9f9f9;
+        }
+
+        .gallery-categories {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-bottom: 4rem;
+        }
+
+        .gallery-category-btn {
+            padding: 0.8rem 1.8rem;
+            background-color: white;
+            border: 2px solid #e0e0e0;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: var(--transition);
+            font-weight: 600;
+            font-size: 1rem;
+        }
+
+        .gallery-category-btn.active, .gallery-category-btn:hover {
+            background-color: var(--accent-color);
+            color: white;
+            border-color: var(--accent-color);
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(212, 80, 127, 0.3);
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .gallery-item {
+            border-radius: 15px;
+            overflow: hidden;
+            height: 280px;
+            position: relative;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: var(--transition);
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: var(--transition);
+        }
+
+        .gallery-item:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.1);
+        }
+
+        /* Reviews Section */
+        .reviews {
+            padding: var(--section-padding);
+            background: linear-gradient(to right, var(--dark-color), #444);
+            color: white;
+        }
+
+        .reviews-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .review-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 2rem;
+            transition: var(--transition);
+        }
+
+        .review-card:hover {
+            transform: translateY(-10px);
+            background: rgba(255, 255, 255, 0.15);
+        }
+
+        .review-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .review-avatar {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            overflow: hidden;
+            margin-right: 1rem;
+            background: var(--primary-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.5rem;
+        }
+
+        .review-info h4 {
+            font-size: 1.2rem;
+            margin-bottom: 0.3rem;
+        }
+
+        .review-stars {
+            color: #ffd700;
+            font-size: 1rem;
+        }
+
+        .review-text {
+            font-style: italic;
+            line-height: 1.7;
+        }
+
+        /* Contact/Order Section */
+        .contact {
+            padding: var(--section-padding);
+            background-color: white;
+        }
+
+        .contact-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .contact-info h2 {
+            font-size: 2.5rem;
+            margin-bottom: 2rem;
+            color: var(--dark-color);
+        }
+
+        .contact-info p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            line-height: 1.8;
+            color: #666;
+        }
+
+        .contact-details {
+            margin-bottom: 2.5rem;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            font-size: 1.1rem;
+        }
+
+        .contact-icon {
+            width: 50px;
+            height: 50px;
+            background: var(--primary-color);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 1rem;
+            color: white;
+            font-size: 1.2rem;
+        }
+
+        .social-icons {
+            display: flex;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .social-icon {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            background-color: var(--primary-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: var(--transition);
+            color: white;
+            font-size: 1.2rem;
+            text-decoration: none;
+        }
+
+        .social-icon:hover {
+            background-color: var(--accent-color);
+            transform: translateY(-5px);
+        }
+
+        /* Order Form */
+        .order-form-container {
+            background: #f9f9f9;
+            border-radius: 15px;
+            padding: 2.5rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+        }
+
+        .order-form-container h3 {
+            font-size: 1.8rem;
+            margin-bottom: 1.5rem;
+            color: var(--dark-color);
+            text-align: center;
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--dark-color);
+            color: white;
+            padding: 4rem 2rem 2rem;
+        }
+
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 3rem;
+        }
+
+        .footer-section h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+            color: var(--primary-color);
+        }
+
+        .footer-section p, .footer-section a {
+            color: #ccc;
+            margin-bottom: 0.8rem;
+            display: block;
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .footer-section a:hover {
+            color: var(--primary-color);
+            transform: translateX(5px);
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 0.8rem;
+        }
+
+        .copyright {
+            text-align: center;
+            margin-top: 4rem;
+            padding-top: 2rem;
+            border-top: 1px solid #444;
+            color: #999;
+            font-size: 0.9rem;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1024px) {
+            .about-container, .contact-container {
+                grid-template-columns: 1fr;
+                gap: 3rem;
+            }
+            
+            .hero h1 {
+                font-size: 3rem;
+            }
+            
+            .section-title h2 {
+                font-size: 2.5rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .header-container {
+                padding: 1rem 0;
+            }
+            
+            nav ul {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background: white;
+                flex-direction: column;
+                padding: 1rem;
+                box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+                gap: 0;
+            }
+            
+            nav ul.active {
+                display: flex;
+            }
+            
+            nav ul li {
+                margin: 0.5rem 0;
+            }
+            
+            .mobile-menu-btn {
+                display: block;
+            }
+            
+            .hero {
+                height: 80vh;
+                margin-top: 70px;
+            }
+            
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .hero p {
+                font-size: 1.2rem;
+            }
+            
+            .gallery-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .action-btn {
+                flex: 1 1 100%;
+            }
+            
+            :root {
+                --section-padding: 4rem 1.5rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero h1 {
+                font-size: 2rem;
+            }
+            
+            .hero p {
+                font-size: 1rem;
+            }
+            
+            .btn {
+                padding: 0.8rem 1.5rem;
+                font-size: 1rem;
+            }
+            
+            .section-title h2 {
+                font-size: 2rem;
+            }
+            
+            .hero-features {
+                flex-direction: column;
+                align-items: center;
+                gap: 1rem;
+            }
+            
+            .gallery-categories {
+                gap: 0.5rem;
+            }
+            
+            .gallery-category-btn {
+                padding: 0.6rem 1.2rem;
+                font-size: 0.9rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container header-container">
+            <div class="logo">
+                <div class="logo-icon">
+                    <i class="fas fa-spa"></i>
+                </div>
+                <div class="logo-text">Květinářství <span>Kamila</span></div>
+            </div>
+            <nav>
+                <ul id="nav-menu">
+                    <li><a href="#domu">Domů</a></li>
+                    <li><a href="#sluzby">Naše služby</a></li>
+                    <li><a href="#onas">O nás</a></li>
+                    <li><a href="#galerie">Galerie</a></li>
+                    <li><a href="#recenze">Recenze</a></li>
+                    <li><a href="#kontakt">Objednat kytici</a></li>
+                </ul>
+            </nav>
+            <button class="mobile-menu-btn" id="mobile-menu-toggle">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero" id="domu">
+        <div class="hero-content">
+            <h1>Květinářství Kamila</h1>
+            <p>Čerstvé květiny plné lásky a péče. Ručně vázané kytice z nejčerstvějších květin pro každou příležitost.</p>
+            
+            <div class="hero-features">
+                <div class="feature-item">
+                    <i class="fas fa-check-circle"></i>
+                    <span>Denně čerstvé dodávky</span>
+                </div>
+                <div class="feature-item">
+                    <i class="fas fa-check-circle"></i>
+                    <span>Osobní vazby na míru</span>
+                </div>
+                <div class="feature-item">
+                    <i class="fas fa-check-circle"></i>
+                    <span>Expresní objednávky</span>
+                </div>
+            </div>
+            
+            <p><strong>Objednejte do 17:00 a vyzvedněte ještě dnes</strong></p>
+            
+            <div class="hero-buttons">
+                <a href="#kontakt" class="btn btn-primary">
+                    <i class="fas fa-shopping-bag"></i> Objednat kytici
+                </a>
+                <a href="#galerie" class="btn btn-secondary">
+                    <i class="fas fa-images"></i> Prohlédnout galerii
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Action Buttons -->
+    <section class="action-buttons">
+        <div class="container action-container">
+            <a href="tel:+420772272720" class="action-btn">
+                <i class="fas fa-phone"></i> Zavolat: +420 772 272 720
+            </a>
+
+            <a href="#kontakt" class="action-btn">
+                <i class="fas fa-envelope"></i> Poslat zprávu
+            </a>
+
+            <a href="https://www.google.com/maps/place/Kv%C4%9Btin%C3%A1%C5%99stv%C3%AD+Kamila/@50.76099,15.0931142,17z/data=!3m1!4b1!4m6!3m5!1s0x470935d8db2fffd3:0xbded85d6727edc9e!8m2!3d50.7609866!4d15.0956891!16s%2Fg%2F11vd6rpfdm?entry=ttu&g_ep=EgoyMDI1MTEzMC4wIKXMDSoASAFQAw%3D%3D" target="_blank" class="action-btn">
+                <i class="fas fa-map-marker-alt"></i> OC Luna, Liberec
+            </a>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section class="services" id="sluzby">
+        <div class="container">
+            <div class="section-title">
+                <h2>Naše služby pro každou příležitost</h2>
+            </div>
+            
+            <div class="services-grid">
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-seedling"></i>
+                    </div>
+                    <h3>Hrnkové květiny</h3>
+                    <p>Kvalitní hrnkové rostliny, které potěší a vydrží dlouho krásné. Péče po zakoupení zajištěna.</p>
+                </div>
+                
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-calendar-check"></i>
+                    </div>
+                    <h3>Předobjednávky</h3>
+                    <p>Plánujete dopředu? Objednejte si kytici nebo výrobek předem a mějte jistotu. Vše připravíme k vyzvednutí.</p>
+                </div>
+                
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-comments"></i>
+                    </div>
+                    <h3>Poradenství</h3>
+                    <p>Nevíte si rady s výběrem? Rádi vám pomůžeme s výběrem květin. Poradíme pro každou příležitost.</p>
+                </div>
+                
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-store"></i>
+                    </div>
+                    <h3>Vyzvednutí v obchodě</h3>
+                    <p>Najdete nás v obchodním centru Luna v Liberci. Těšíme se na vaši návštěvu a prohlídku naší nabídky.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="about" id="onas">
+        <div class="container about-container">
+            <div class="about-image">
+                <img src="https://images.unsplash.com/photo-1487222477894-8943e31ef7b2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2073&q=80" alt="Květinářství Kamila v Liberci">
+            </div>
+            <div class="about-content">
+                <h2>O nás</h2>
+                <p>Vítejte v našem květinářství v srdci Liberce! Najdete nás v obchodním centru Luna na adrese Obchodní 123, Liberec.</p>
+                <p>Specializujeme se na ručně vázané kytice z nejčerstvějších sezónních květin. Každý střih má u nás svůj příběh a každá vazba je vytvořena s láskou k detailu a individuálním přístupem.</p>
+                
+                <div class="about-features">
+                    <div class="about-feature">
+                        <i class="fas fa-heart"></i>
+                        <div>
+                            <h4>Osobní přístup</h4>
+                            <p>Každému zákazníkovi věnujeme maximální pozornost a vytvoříme kytici podle jeho přání a potřeb.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="about-feature">
+                        <i class="fas fa-leaf"></i>
+                        <div>
+                            <h4>Sezónní květiny</h4>
+                            <p>Používáme pouze čerstvé sezónní květiny, které zajistí dlouhou životnost a krásu vašich kytic.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Gallery Section - s filtrem jako Olio -->
+    <section class="gallery" id="galerie">
+        <div class="container">
+            <div class="section-title">
+                <h2>Nahlédněte do naší galerie</h2>
+            </div>
+            
+            <div class="gallery-categories">
+                <button class="gallery-category-btn active" data-category="vazane-kytice">Vázané kytice</button>
+                <button class="gallery-category-btn" data-category="ruze">Růže</button>
+                <button class="gallery-category-btn" data-category="tulipany">Tulipány</button>
+                <button class="gallery-category-btn" data-category="gerbery">Gerbery</button>
+                <button class="gallery-category-btn" data-category="pohrebni">Pohřební kvítí</button>
+                <button class="gallery-category-btn" data-category="svatebni">Svatební kvítí</button>
+            </div>
+            
+            <div class="gallery-grid" id="gallery-grid">
+                <!-- Vázané kytice (místo "vše") -->
+                <div class="gallery-item" data-category="vazane-kytice">
+                    <img src="https://images.unsplash.com/photo-1519378058457-4c29a0a2efac?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" alt="Vázaná kytice 1">
+                </div>
+                
+                <div class="gallery-item" data-category="vazane-kytice">
+                    <img src="https://images.unsplash.com/photo-1464207687429-7505649dae38?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2072&q=80" alt="Vázaná kytice 2">
+                </div>
+                
+                <div class="gallery-item" data-category="vazane-kytice">
+                    <img src="https://images.unsplash.com/photo-1562690868-60bbe7293e94?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2080&q=80" alt="Vázaná kytice 3">
+                </div>
+                
+                <!-- Růže -->
+                <div class="gallery-item" data-category="ruze">
+                    <img src="https://images.unsplash.com/photo-1562690868-60bbe7293e94?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2080&q=80" alt="Červené růže">
+                </div>
+                
+                <div class="gallery-item" data-category="ruze">
+                    <img src="https://images.unsplash.com/photo-1559561735-2647c8f05700?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" alt="Bílé růže">
+                </div>
+                
+                <div class="gallery-item" data-category="ruze">
+                    <img src="https://images.unsplash.com/photo-1519378058457-4c29a0a2efac?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" alt="Růžové růže">
+                </div>
+                
+                <!-- Tulipány -->
+                <div class="gallery-item" data-category="tulipany">
+                    <img src="https://images.unsplash.com/photo-1520769669658-f07657f5a307?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" alt="Tulipány 1">
+                </div>
+                
+                <div class="gallery-item" data-category="tulipany">
+                    <img src="https://images.unsplash.com/photo-1496062031456-07b8f162a322?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" alt="Tulipány 2">
+                </div>
+                
+                <!-- Gerbery -->
+                <div class="gallery-item" data-category="gerbery">
+                    <img src="https://images.unsplash.com/photo-1516048015710-7a3b4c86be43?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" alt="Gerbery">
+                </div>
+                
+                <div class="gallery-item" data-category="gerbery">
+                    <img src="https://images.unsplash.com/photo-1508511046478-b3008e9e60e7?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" alt="Gerbery v kytici">
+                </div>
+                
+                <!-- Pohřební kvítí -->
+                <div class="gallery-item" data-category="pohrebni">
+                    <img src="https://images.unsplash.com/photo-1578301978693-85fa9c0320b9?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" alt="Pohřební kvítí 1">
+                </div>
+                
+                <div class="gallery-item" data-category="pohrebni">
+                    <img src="https://images.unsplash.com/photo-1512236394183-d6a6c6e8e445?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" alt="Pohřební kvítí 2">
+                </div>
+                
+                <!-- Svatební kvítí -->
+                <div class="gallery-item" data-category="svatebni">
+                    <img src="https://images.unsplash.com/photo-1512236394183-d6a6c6e8e445?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" alt="Svatební kytice">
+                </div>
+                
+                <div class="gallery-item" data-category="svatebni">
+                    <img src="https://images.unsplash.com/photo-1571407970349-bc81e7e96d47?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2025&q=80" alt="Svatební dekorace">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Reviews Section -->
+    <section class="reviews" id="recenze">
+        <div class="container">
+            <div class="section-title">
+                <h2 style="color: white;">Recenze našich zákazníků</h2>
+            </div>
+            
+            <div class="reviews-grid">
+                <div class="review-card">
+                    <div class="review-header">
+                        <div class="review-avatar">
+                            <i class="fas fa-user"></i>
+                        </div>
+                        <div class="review-info">
+                            <h4>Martina K.</h4>
+                            <div class="review-stars">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="review-text">
+                        "Nejlepší květinářství v Liberci! Kytice pro mou maminku k narozeninám byla naprosto dokonalá. Čerstvé květiny, krásné balení a milá obsluha."
+                    </div>
+                </div>
+                
+                <div class="review-card">
+                    <div class="review-header">
+                        <div class="review-avatar">
+                            <i class="fas fa-user"></i>
+                        </div>
+                        <div class="review-info">
+                            <h4>Petr S.</h4>
+                            <div class="review-stars">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star-half-alt"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="review-text">
+                        "Objednal jsem svatební kytice pro naši svatbu. Vše bylo připraveno přesně na čas, kytice byly nádherné a přesně podle našich představ. Děkujeme!"
+                    </div>
+                </div>
+                
+                <div class="review-card">
+                    <div class="review-header">
+                        <div class="review-avatar">
+                            <i class="fas fa-user"></i>
+                        </div>
+                        <div class="review-info">
+                            <h4>Jana N.</h4>
+                            <div class="review-stars">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="review-text">
+                        "Pravidelně zde nakupuji květiny do kanceláře. Vždy čerstvé, krásně uspořádané a s osobním přístupem. Doporučuji všem, kdo hledají kvalitní květiny."
+                    </div>
+                </div>
+                
+                <div class="review-card">
+                    <div class="review-header">
+                        <div class="review-avatar">
+                            <i class="fas fa-user"></i>
+                        </div>
+                        <div class="review-info">
+                            <h4>Tomáš V.</h4>
+                            <div class="review-stars">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="review-text">
+                        "Objednal jsem pohřební kytice pro babičku. Paní Kamila byla velmi empatická a vytvořila nádherné, důstojné kytice. Děkujeme za citlivý přístup."
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact/Order Section -->
+    <section class="contact" id="kontakt">
+        <div class="container contact-container">
+            <div class="contact-info">
+                <h2>Připraveni vytvořit vaši dokonalou kytici?</h2>
+                <p>Zavolejte nám, navštivte nás osobně v obchodním centru Luna nebo vyplňte objednávkový formulář. Každá kytice je u nás vázána ručně s láskou a péčí.</p>
+                
+                <div class="contact-details">
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-phone"></i>
+                        </div>
+                        <div>
+                            <h4>Telefon</h4>
+                            <p>+420 772 272 720</p>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-map-marker-alt"></i>
+                        </div>
+                        <div>
+                            <h4>Adresa</h4>
+                            <p>OC Luna Liberec<br>Obchodní 123, Liberec</p>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-clock"></i>
+                        </div>
+                        <div>
+                            <h4>Otevírací doba</h4>
+                            <p>Po-Pá: 9:00-18:00<br>So: 9:00-14:00<br>Ne: Zavřeno</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="social-icons">
+                    <a href="#" class="social-icon">
+                        <i class="fab fa-facebook-f"></i>
+                    </a>
+                    <a href="https://www.instagram.com/kvetinarstvikamila" target="_blank" class="social-icon">
+                        <i class="fab fa-instagram"></i>
+                    </a>
+                    <a href="#" class="social-icon">
+                        <i class="fab fa-pinterest-p"></i>
+                    </a>
+                </div>
+            </div>
+            
+            <div class="order-form-container">
+                <h3>Objednat kytici</h3>
+                <!-- TVŮJ FUNKČNÍ FORMULÁŘ -->
+                <div id="form-container" style="font-family:Arial, Helvetica, sans-serif;">
+                    <form id="contact-form" style="display:flex;flex-direction:column;gap:12px;">
+                        
+                        <!-- TVŮJ FUNKČNÍ ACCESS KEY -->
+                        <input type="hidden" name="access_key" value="6849d217-dc27-4995-a741-1cc7ca84d930">
+
+                        <label style="font-weight:600; color: var(--dark-color);">Jméno *</label>
+                        <input type="text" name="jmeno" required style="padding:12px;border-radius:8px;border:1px solid #ddd;">
+
+                        <label style="font-weight:600; color: var(--dark-color);">Email *</label>
+                        <input type="email" name="email" required style="padding:12px;border-radius:8px;border:1px solid #ddd;">
+
+                        <label style="font-weight:600; color: var(--dark-color);">Telefon</label>
+                        <input type="text" name="telefon" style="padding:12px;border-radius:8px;border:1px solid #ddd;">
+
+                        <label style="font-weight:600; color: var(--dark-color);">Zpráva *</label>
+                        <textarea name="zprava" rows="4" required style="padding:12px;border-radius:8px;border:1px solid #ddd;" placeholder="Popište jakou kytici potřebujete, pro jakou příležitost, preferované květiny, barvy apod."></textarea>
+
+                        <button type="submit" id="submit-btn"
+                            style="padding:14px;border:none;border-radius:8px;background:var(--accent-color);color:#fff;font-weight:700;cursor:pointer;transition:var(--transition);">
+                            Odeslat objednávku
+                        </button>
+                    </form>
+
+                    <p id="status" style="text-align:center;margin-top:12px;font-weight:600;"></p>
+
+                    <pre id="debug"
+                        style="background:#111;color:#fff;padding:10px;border-radius:8px;margin-top:12px;display:none;white-space:pre-wrap;"></pre>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container footer-container">
+            <div class="footer-section">
+                <h3>Květinářství Kamila</h3>
+                <p>Čerstvé květiny, kytice a dárkové předměty pro všechny příležitosti. Ručně vázané kytice z nejčerstvějších květin.</p>
+                <div class="social-icons">
+                    <a href="#" class="social-icon">
+                        <i class="fab fa-facebook-f"></i>
+                    </a>
+                    <a href="https://www.instagram.com/kvetinarstvikamila" target="_blank" class="social-icon">
+                        <i class="fab fa-instagram"></i>
+                    </a>
+                    <a href="#" class="social-icon">
+                        <i class="fab fa-pinterest-p"></i>
+                    </a>
+                </div>
+            </div>
+
+            <div class="footer-section">
+                <h3>Rychlé odkazy</h3>
+                <ul class="footer-links">
+                    <li><a href="#domu">Domovská stránka</a></li>
+                    <li><a href="#sluzby">Naše služby</a></li>
+                    <li><a href="#onas">O nás</a></li>
+                    <li><a href="#galerie">Galerie</a></li>
+                    <li><a href="#recenze">Recenze</a></li>
+                    <li><a href="#kontakt">Objednat kytici</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-section">
+                <h3>Kontakt</h3>
+                <p><i class="fas fa-map-marker-alt" style="margin-right: 8px;"></i> OC Luna, Obchodní 123, Liberec</p>
+                <p><i class="fas fa-phone" style="margin-right: 8px;"></i> +420 772 272 720</p>
+                <p><i class="fas fa-envelope" style="margin-right: 8px;"></i> info@kvetinarstvikamila.cz</p>
+            </div>
+
+            <div class="footer-section">
+                <h3>Otevírací doba</h3>
+                <p>Pondělí - Pátek: 9:00 - 18:00</p>
+                <p>Sobota: 9:00 - 14:00</p>
+                <p>Neděle: Zavřeno</p>
+            </div>
+        </div>
+        <div class="copyright">
+            <p>&copy; 2025 Květinářství Kamila. Všechna práva vyhrazena.</p>
+            <p>IČO: 12345678 | DIČ: CZ12345678</p>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile Menu Toggle
+        document.getElementById('mobile-menu-toggle').addEventListener('click', function() {
+            document.getElementById('nav-menu').classList.toggle('active');
+        });
+
+        // Gallery filtering - JAKO OLIO
+        document.addEventListener('DOMContentLoaded', function() {
+            const galleryButtons = document.querySelectorAll('.gallery-category-btn');
+            const galleryItems = document.querySelectorAll('.gallery-item');
+            
+            galleryButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    // Remove active class from all buttons
+                    galleryButtons.forEach(btn => btn.classList.remove('active'));
+                    
+                    // Add active class to clicked button
+                    this.classList.add('active');
+                    
+                    const category = this.getAttribute('data-category');
+                    
+                    // Show/hide gallery items based on category
+                    galleryItems.forEach(item => {
+                        if (item.getAttribute('data-category') === category) {
+                            item.style.display = 'block';
+                        } else {
+                            item.style.display = 'none';
+                        }
+                    });
+                });
+            });
+            
+            // Smooth scrolling for anchor links
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    
+                    const targetId = this.getAttribute('href');
+                    if (targetId === '#') return;
+                    
+                    const targetElement = document.querySelector(targetId);
+                    if (targetElement) {
+                        window.scrollTo({
+                            top: targetElement.offsetTop - 100,
+                            behavior: 'smooth'
+                        });
+                        
+                        // Close mobile menu if open
+                        document.getElementById('nav-menu').classList.remove('active');
+                    }
+                });
+            });
+            
+            // Header scroll effect
+            window.addEventListener('scroll', function() {
+                const header = document.querySelector('header');
+                if (window.scrollY > 100) {
+                    header.style.backgroundColor = 'rgba(255, 255, 255, 0.98)';
+                    header.style.boxShadow = '0 5px 20px rgba(0, 0, 0, 0.1)';
+                } else {
+                    header.style.backgroundColor = 'rgba(255, 255, 255, 0.95)';
+                    header.style.boxShadow = '0 5px 20px rgba(0, 0, 0, 0.1)';
+                }
+            });
+            
+            // Form submission
+            document.getElementById("contact-form").addEventListener("submit", async function(e) {
+                e.preventDefault();
+                const statusEl = document.getElementById("status");
+                const debugEl = document.getElementById("debug");
+                const submitBtn = document.getElementById("submit-btn");
+                
+                statusEl.style.color = "#333";
+                statusEl.innerText = "Odesílám objednávku...";
+                debugEl.style.display = "none";
+                debugEl.innerText = "";
+                submitBtn.disabled = true;
+                submitBtn.style.opacity = "0.7";
+
+                const form = e.target;
+                const fd = new FormData(form);
+
+                try {
+                    const res = await fetch("https://api.web3forms.com/submit", {
+                        method: "POST",
+                        body: fd
+                    });
+
+                    const text = await res.text().catch(()=>null);
+                    let json;
+                    try { json = JSON.parse(text); } catch(e){ json = null; }
+
+                    if (res.ok && json && json.success) {
+                        statusEl.style.color = "green";
+                        statusEl.innerText = "Objednávka úspěšně odeslána! Vyčkejte na SMS potvrzení.";
+                        form.reset();
+                    } else {
+                        statusEl.style.color = "crimson";
+                        statusEl.innerText = "Chyba při odesílání — viz detail níže.";
+                        debugEl.style.display = "block";
+                        debugEl.innerText = "HTTP " + res.status + " " + res.statusText + "\n\n" +
+                            (json ? JSON.stringify(json, null, 2) : text || "No response body");
+                    }
+                } catch (err) {
+                    statusEl.style.color = "crimson";
+                    statusEl.innerText = "Síťová chyba při odesílání.";
+                    debugEl.style.display = "block";
+                    debugEl.innerText = String(err);
+                } finally {
+                    submitBtn.disabled = false;
+                    submitBtn.style.opacity = "1";
+                }
+            });
+        });
+    </script>
+</body>
+</html>
