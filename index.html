@@ -48,6 +48,7 @@
             width: 100%;
             z-index: 1000;
             backdrop-filter: blur(10px);
+            transition: var(--transition);
         }
 
         .header-container {
@@ -78,6 +79,7 @@
             color: var(--accent-color);
         }
 
+        /* Desktop Navigation */
         nav ul {
             display: flex;
             list-style: none;
@@ -119,6 +121,91 @@
             font-size: 1.5rem;
             color: var(--dark-color);
             cursor: pointer;
+            z-index: 1001;
+            padding: 0.5rem;
+            transition: var(--transition);
+        }
+
+        .mobile-menu-btn:hover {
+            color: var(--accent-color);
+            transform: scale(1.1);
+        }
+
+        /* Mobile Menu - Opravené a s animací */
+        @media (max-width: 768px) {
+            nav ul {
+                display: flex;
+                position: fixed;
+                top: 70px;
+                left: 0;
+                width: 100vw;
+                max-width: 100%;
+                background: white;
+                flex-direction: column;
+                padding: 1.5rem;
+                box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+                gap: 0;
+                text-align: center;
+                z-index: 9999;
+                transform: translateY(-20px);
+                opacity: 0;
+                visibility: hidden;
+                transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+                border-radius: 0 0 15px 15px;
+                max-height: 0;
+                overflow: hidden;
+                margin: 0;
+            }
+            
+            nav ul.active {
+                display: flex;
+                transform: translateY(0);
+                opacity: 1;
+                visibility: visible;
+                max-height: 70vh;
+                overflow-y: auto;
+                padding: 1.5rem;
+            }
+            
+            nav ul li {
+                margin: 0.8rem 0;
+                width: 100%;
+                opacity: 0;
+                transform: translateY(-10px);
+                transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+                transition-delay: calc(0.05s * var(--i));
+            }
+            
+            nav ul.active li {
+                opacity: 1;
+                transform: translateY(0);
+            }
+            
+            nav ul li a {
+                display: block;
+                padding: 1rem;
+                font-size: 1.2rem;
+                border-radius: 8px;
+                transition: var(--transition);
+            }
+            
+            nav ul li a:hover {
+                background-color: rgba(212, 80, 127, 0.1);
+                transform: translateX(5px);
+            }
+            
+            .mobile-menu-btn {
+                display: block;
+                font-size: 1.8rem;
+            }
+            
+            .mobile-menu-btn.active i {
+                transform: rotate(90deg);
+            }
+            
+            .mobile-menu-btn i {
+                transition: var(--transition);
+            }
         }
 
         /* Hero Section - Jako Olio */
@@ -142,7 +229,7 @@
         .hero-content {
             max-width: 900px;
             animation: fadeInUp 1s ease-out;
-            padding-top: 2rem; /* Větší odsazení od horní části */
+            padding-top: 2rem;
         }
 
         @keyframes fadeInUp {
@@ -158,7 +245,7 @@
 
         .hero h1 {
             font-size: 4rem;
-            margin-bottom: 2rem; /* Větší mezera pod nadpisem */
+            margin-bottom: 2rem;
             text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.5);
         }
 
@@ -537,11 +624,11 @@
             position: relative;
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
             transition: var(--transition);
-            display: none; /* Skryté při načtení */
+            display: none;
         }
 
         .gallery-item.active {
-            display: block; /* Zobrazené pouze aktivní kategorie */
+            display: block;
         }
 
         .gallery-item img {
@@ -678,7 +765,7 @@
             display: flex;
             gap: 1rem;
             margin-top: 2rem;
-            justify-content: flex-start; /* Zarovnání sociálních ikon doleva */
+            justify-content: flex-start;
         }
 
         .social-icon {
@@ -761,7 +848,7 @@
             display: flex;
             gap: 1rem;
             margin-top: 1.5rem;
-            justify-content: center; /* Centrování sociálních ikon v footeru */
+            justify-content: center;
         }
 
         .footer-social-icon {
@@ -816,43 +903,6 @@
                 padding: 1rem 0;
             }
             
-            nav ul {
-                display: none;
-                position: fixed;
-                top: 80px;
-                left: 0;
-                width: 100%;
-                background: white;
-                flex-direction: column;
-                padding: 2rem;
-                box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-                gap: 0;
-                text-align: center;
-                z-index: 999;
-            }
-            
-            nav ul.active {
-                display: flex;
-            }
-            
-            nav ul li {
-                margin: 0.8rem 0;
-                width: 100%;
-            }
-            
-            nav ul li a {
-                display: block;
-                padding: 0.8rem;
-                font-size: 1.2rem;
-            }
-            
-            .mobile-menu-btn {
-                display: block;
-                font-size: 1.8rem;
-                padding: 0.5rem;
-                margin-right: -0.5rem; /* Trochu odsazení od pravého okraje */
-            }
-            
             .hero {
                 height: 90vh;
                 margin-top: 70px;
@@ -894,7 +944,6 @@
                 justify-content: center;
             }
             
-            /* Zlepšení tlačítka "Zavolat" pro mobil - telefonní číslo na jednom řádku */
             .action-btn[href^="tel:"] {
                 white-space: nowrap;
                 overflow: hidden;
@@ -922,7 +971,7 @@
             .hero h1 {
                 font-size: 2.2rem;
                 margin-bottom: 2rem;
-                padding-top: 1rem; /* Větší odsazení od horního okraje na telefonu */
+                padding-top: 1rem;
             }
             
             .hero p {
@@ -978,7 +1027,6 @@
                 font-size: 0.8rem;
             }
             
-            /* Akční tlačítka na mobilu - upravené rozložení */
             .action-container {
                 gap: 10px;
             }
@@ -989,7 +1037,6 @@
                 min-height: 60px;
             }
             
-            /* Tlačítko "Zavolat" - optimalizace pro mobil */
             .action-btn[href^="tel:"] {
                 font-size: 15px;
                 padding: 15px 8px;
@@ -1000,7 +1047,6 @@
                 min-width: 24px;
             }
             
-            /* Footer sociální ikony - zarovnání do řady */
             .footer-social-icons {
                 justify-content: center;
                 gap: 0.8rem;
@@ -1013,7 +1059,6 @@
                 font-size: 1.1rem;
             }
             
-            /* Formulář optimalizace pro mobil */
             .order-form-container {
                 padding: 1.8rem;
             }
@@ -1022,7 +1067,6 @@
                 font-size: 1.6rem;
             }
             
-            /* Kontaktní sekce - lepší rozložení */
             .contact-info h2 {
                 font-size: 2rem;
             }
@@ -1031,7 +1075,6 @@
                 font-size: 1.1rem;
             }
             
-            /* Services karty - lepší rozložení */
             .service-card {
                 padding: 2rem 1.5rem;
             }
@@ -1046,7 +1089,6 @@
                 font-size: 1.3rem;
             }
             
-            /* Recenze karty - lepší rozložení */
             .review-card {
                 padding: 1.5rem;
             }
@@ -1057,7 +1099,6 @@
                 font-size: 1.3rem;
             }
             
-            /* O nás sekce - lepší rozložení */
             .about-content h2 {
                 font-size: 2.2rem;
             }
@@ -1066,7 +1107,6 @@
                 font-size: 1.1rem;
             }
             
-            /* Footer - lepší rozložení */
             .footer-container {
                 gap: 2rem;
             }
@@ -1192,14 +1232,14 @@
     <section class="action-buttons">
         <div class="container action-container">
             <a href="tel:+420772272720" class="action-btn">
-                <i class="fas fa-phone"></i> Zavolat: +420 772 272 720
+                <i class="fas fa-phone"></i> Zavolat: +420 772 724 220
             </a>
 
             <a href="#kontakt" class="action-btn">
                 <i class="fas fa-envelope"></i> Poslat zprávu
             </a>
 
-            <a href="https://www.google.com/maps/place/Obchodn%C3%AD+centrum+Luna+Liberec" target="_blank" class="action-btn">
+            <a href="https://www.google.com/maps/place/Kv%C4%9Btin%C3%A1%C5%99stv%C3%AD+Kamila/@50.76099,15.0931142,17z/data=!3m1!4b1!4m6!3m5!1s0x470935d8db2fffd3:0xbded85d6727edc9e!8m2!3d50.7609866!4d15.0956891!16s%2Fg%2F11vd6rpfdm?entry=ttu&g_ep=EgoyMDI1MTIwMS4wIKXMDSoASAFQAw%3D%3D" target="_blank" class="action-btn">
                 <i class="fas fa-map-marker-alt"></i> OC Luna, Liberec
             </a>
         </div>
@@ -1218,7 +1258,7 @@
                         <i class="fas fa-seedling"></i>
                     </div>
                     <h3>Hrnkové květiny</h3>
-                    <p>Kvalitní hrnkové rostliny, které potěší a vydrží dlouho krásné. Péče po zakoupení zajištěna.</p>
+                    <p>Krásné hrnkové rostliny, které potěší a vydrží dlouho. Ideální dárek pro každého milovníka květin.</p>
                 </div>
                 
                 <div class="service-card">
@@ -1226,7 +1266,7 @@
                         <i class="fas fa-calendar-check"></i>
                     </div>
                     <h3>Předobjednávky</h3>
-                    <p>Plánujete dopředu? Objednejte si kytici nebo výrobek předem a mějte jistotu. Vše připravíme k vyzvednutí.</p>
+                    <p>Plánujete dopředu? Objednejte si kytice nebo výzdobu předem a mějte jistotu, že vše bude perfektní.</p>
                 </div>
                 
                 <div class="service-card">
@@ -1234,7 +1274,7 @@
                         <i class="fas fa-comments"></i>
                     </div>
                     <h3>Poradenství</h3>
-                    <p>Nevíte si rady s výběrem? Rádi vám pomůžeme s výběrem květin. Poradíme pro každou příležitost.</p>
+                    <p>Nevíte si rady s výběrem? Rádi vám poradíme s výběrem květin, barev i stylu pro každou příležitost.</p>
                 </div>
                 
                 <div class="service-card">
@@ -1252,10 +1292,10 @@
     <section class="about" id="onas">
         <div class="container about-container">
             <div class="about-image">
-                <img src="https://images.unsplash.com/photo-1487222477894-8943e31ef7b2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2073&q=80" alt="Květinářství Kamila v Liberci">
+                <img src="https://scontent-prg1-1.xx.fbcdn.net/v/t39.30808-6/473169317_122267299460002115_7316661650215925812_n.jpg?_nc_cat=106&ccb=1-7&_nc_sid=833d8c&_nc_ohc=DhwpuoJNn9kQ7kNvwF8bfwq&_nc_oc=Adm4tHLg5f3rZ4les7sAJkcYJ7wFwqjaxuuwTTTRYIl_oB83XGBcgGxK8RJmxqO6G3E&_nc_zt=23&_nc_ht=scontent-prg1-1.xx&_nc_gid=0KWXSihWMcRoSQHWwtjQig&oh=00_AfmXx5DpUUyGaYhQYlt25yd7kV6v79uWyMFK2oo3O4S4kw&oe=6937825D" alt="Květinářství Kamila v Liberci">
             </div>
             <div class="about-content">
-                <h2>O nás</h2>
+                <h2>O Nás</h2>
                 <p>Vítejte v našem květinářství v srdci Liberce! Najdete nás v obchodním centru Luna na adrese Obchodní 123, Liberec.</p>
                 <p>Specializujeme se na ručně vázané kytice z nejčerstvějších sezónních květin. Každý střih má u nás svůj příběh a každá vazba je vytvořena s láskou k detailu a individuálním přístupem.</p>
                 
@@ -1299,65 +1339,98 @@
             <div class="gallery-grid" id="gallery-grid">
                 <!-- Vázané kytice (zobrazené při načtení) -->
                 <div class="gallery-item active" data-category="vazane-kytice">
-                    <img src="https://images.unsplash.com/photo-1519378058457-4c29a0a2efac?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" alt="Vázaná kytice 1">
+                    <img src="kytice.jpg" alt="Vázaná kytice 1">
                 </div>
                 
                 <div class="gallery-item active" data-category="vazane-kytice">
-                    <img src="https://images.unsplash.com/photo-1464207687429-7505649dae38?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2072&q=80" alt="Vázaná kytice 2">
+                    <img src="kytice2.jpg" alt="Vázaná kytice 2">
                 </div>
                 
                 <div class="gallery-item active" data-category="vazane-kytice">
-                    <img src="https://images.unsplash.com/photo-1562690868-60bbe7293e94?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2080&q=80" alt="Vázaná kytice 3">
+                    <img src="kvetina3.jpg" alt="Vázaná kytice 2">
+                </div>
+
+                <div class="gallery-item active" data-category="vazane-kytice">
+                    <img src="kytice4.jpg" alt="Vázaná kytice 2">
+                </div>
+
+                <div class="gallery-item active" data-category="vazane-kytice">
+                    <img src="kytice6.jpg" alt="Vázaná kytice 2">
                 </div>
                 
                 <!-- Růže (skryté při načtení) -->
                 <div class="gallery-item" data-category="ruze">
-                    <img src="https://images.unsplash.com/photo-1562690868-60bbe7293e94?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2080&q=80" alt="Červené růže">
+                    <img src="ruze3.jpg" alt="Červené růže">
                 </div>
                 
                 <div class="gallery-item" data-category="ruze">
-                    <img src="https://images.unsplash.com/photo-1559561735-2647c8f05700?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" alt="Bílé růže">
+                    <img src="ruze.jpg" alt="Červené růže">
                 </div>
                 
                 <div class="gallery-item" data-category="ruze">
-                    <img src="https://images.unsplash.com/photo-1519378058457-4c29a0a2efac?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" alt="Růžové růže">
+                    <img src="ruze4.jpg" alt="Červené růže">
+                </div>
+
+                <div class="gallery-item" data-category="ruze">
+                    <img src="ruze5.jpg" alt="Červené růže">
+                </div>
+
+                <div class="gallery-item" data-category="ruze">
+                    <img src="ruze2.jpg" alt="Červené růže">
                 </div>
                 
                 <!-- Tulipány (skryté při načtení) -->
                 <div class="gallery-item" data-category="tulipany">
-                    <img src="https://images.unsplash.com/photo-1520769669658-f07657f5a307?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" alt="Tulipány 1">
+                    <img src="tulipany.jpg" alt="Tulipány 1">
                 </div>
                 
                 <div class="gallery-item" data-category="tulipany">
-                    <img src="https://images.unsplash.com/photo-1496062031456-07b8f162a322?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" alt="Tulipány 2">
+                    <img src="tulipan3.jpg" alt="Tulipány 1">
+                </div>
+
+                <div class="gallery-item" data-category="tulipany">
+                    <img src="tulipan2.jpg" alt="Tulipány 1">
+                </div>
+
+                <div class="gallery-item" data-category="tulipany">
+                    <img src="tulipan4.jpg" alt="Tulipány 1">
                 </div>
                 
                 <!-- Gerbery (skryté při načtení) -->
                 <div class="gallery-item" data-category="gerbery">
-                    <img src="https://images.unsplash.com/photo-1516048015710-7a3b4c86be43?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" alt="Gerbery">
+                    <img src="gerbera.jpg" alt="Gerbery">
                 </div>
                 
                 <div class="gallery-item" data-category="gerbery">
-                    <img src="https://images.unsplash.com/photo-1508511046478-b3008e9e60e7?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" alt="Gerbery v kytici">
+                    <img src="gerbera3.jpg" alt="Gerbery">
+                </div>
+
+                <div class="gallery-item" data-category="gerbery">
+                    <img src="gerbera2.jpg" alt="Gerbery">
                 </div>
                 
                 <!-- Pohřební kvítí (skryté při načtení) -->
                 <div class="gallery-item" data-category="pohrebni">
-                    <img src="https://images.unsplash.com/photo-1578301978693-85fa9c0320b9?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" alt="Pohřební kvítí 1">
+                    <img src="pohrebnikviti.jpg" alt="Pohřební kvítí 1">
                 </div>
                 
                 <div class="gallery-item" data-category="pohrebni">
-                    <img src="https://images.unsplash.com/photo-1512236394183-d6a6c6e8e445?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" alt="Pohřební kvítí 2">
+                    <img src="pohrebnikviti2.jpg" alt="Pohřební kvítí 1">
                 </div>
                 
                 <!-- Svatební kvítí (skryté při načtení) -->
                 <div class="gallery-item" data-category="svatebni">
-                    <img src="https://images.unsplash.com/photo-1512236394183-d6a6c6e8e445?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" alt="Svatební kytice">
+                    <img src="svatebnikviti.jpg" alt="Svatební kytice">
                 </div>
                 
                 <div class="gallery-item" data-category="svatebni">
-                    <img src="https://images.unsplash.com/photo-1571407970349-bc81e7e96d47?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2025&q=80" alt="Svatební dekorace">
+                    <img src="svatebnikviti2.jpg" alt="Svatební kytice">
                 </div>
+
+                <div class="gallery-item" data-category="svatebni">
+                    <img src="svatebnikviti3.jpg" alt="Svatební kytice">
+                </div>
+
             </div>
         </div>
     </section>
@@ -1376,7 +1449,7 @@
                             <i class="fas fa-user"></i>
                         </div>
                         <div class="review-info">
-                            <h4>Martina K.</h4>
+                            <h4>Beach Volley Vratislavice n. N</h4>
                             <div class="review-stars">
                                 <i class="fas fa-star"></i>
                                 <i class="fas fa-star"></i>
@@ -1387,7 +1460,7 @@
                         </div>
                     </div>
                     <div class="review-text">
-                        "Nejlepší květinářství v Liberci! Kytice pro mou maminku k narozeninám byla naprosto dokonalá. Čerstvé květiny, krásné balení a milá obsluha."
+                        "Přátelský, ale profesionální přístup, určitě přijdu i příště"
                     </div>
                 </div>
                 
@@ -1397,18 +1470,18 @@
                             <i class="fas fa-user"></i>
                         </div>
                         <div class="review-info">
-                            <h4>Petr S.</h4>
+                            <h4>Dagmar F.</h4>
                             <div class="review-stars">
                                 <i class="fas fa-star"></i>
                                 <i class="fas fa-star"></i>
                                 <i class="fas fa-star"></i>
                                 <i class="fas fa-star"></i>
-                                <i class="fas fa-star-half-alt"></i>
+                                <i class="fas fa-star"></i>
                             </div>
                         </div>
                     </div>
                     <div class="review-text">
-                        "Objednal jsem svatební kytice pro naši svatbu. Vše bylo připraveno přesně na čas, kytice byly nádherné a přesně podle našich představ. Děkujeme!"
+                        "Jsem s tímto kvetinarstvim maximálně spokojena - kupovala jsem už nekolik kytic a všechny byly luxusní 👏🤗"
                     </div>
                 </div>
                 
@@ -1418,7 +1491,7 @@
                             <i class="fas fa-user"></i>
                         </div>
                         <div class="review-info">
-                            <h4>Jana N.</h4>
+                            <h4>Petra H.</h4>
                             <div class="review-stars">
                                 <i class="fas fa-star"></i>
                                 <i class="fas fa-star"></i>
@@ -1429,17 +1502,17 @@
                         </div>
                     </div>
                     <div class="review-text">
-                        "Pravidelně zde nakupuji květiny do kanceláře. Vždy čerstvé, krásně uspořádané a s osobním přístupem. Doporučuji všem, kdo hledají kvalitní květiny."
+                        "Velice příjemná a komunikativní paní majitelka, květiny krásné 👍. Ať se daří a mnoho spokojených dalších zákazníků 😊."
                     </div>
                 </div>
-                
+
                 <div class="review-card">
                     <div class="review-header">
                         <div class="review-avatar">
                             <i class="fas fa-user"></i>
                         </div>
                         <div class="review-info">
-                            <h4>Tomáš V.</h4>
+                            <h4>Libor K.</h4>
                             <div class="review-stars">
                                 <i class="fas fa-star"></i>
                                 <i class="fas fa-star"></i>
@@ -1450,9 +1523,10 @@
                         </div>
                     </div>
                     <div class="review-text">
-                        "Objednal jsem pohřební kytice pro babičku. Paní Kamila byla velmi empatická a vytvořila nádherné, důstojné kytice. Děkujeme za citlivý přístup."
+                        "Je mi ctí přidat první recenzi. První den zaplnili prodejnu zákazníci i podporovatelé, všechny přivítala majitelka hosty malým pohoštěním. Vazba květin je bezchybná, ceny přiměřené, paní majitelka milá a komunikativní."
                     </div>
                 </div>
+                
             </div>
         </div>
     </section>
@@ -1462,7 +1536,7 @@
         <div class="container contact-container">
             <div class="contact-info">
                 <h2>Připraveni vytvořit vaši dokonalou kytici?</h2>
-                <p>Zavolejte nám, navštivte nás osobně v obchodním centru Luna nebo vyplňte objednávkový formulář. Každá kytice je u nás vázána ručně s láskou a péčí.</p>
+                <p>Zavolejte nám, navštivte nás nebo vyplňte objednávkový formulář. Každá kytice je u nás vázána ručně s láskou a péčí.</p>
                 
                 <div class="contact-details">
                     <div class="contact-item">
@@ -1471,7 +1545,7 @@
                         </div>
                         <div>
                             <h4>Telefon</h4>
-                            <p>+420 772 272 720</p>
+                            <p>+420 774 724 220</p>
                         </div>
                     </div>
                     
@@ -1481,7 +1555,7 @@
                         </div>
                         <div>
                             <h4>Adresa</h4>
-                            <p>OC Luna Liberec<br>Obchodní 123, Liberec</p>
+                            <p>OC Luna Liberec<br>Sídliště Kunratická Olbrachtova 618/37, Liberec 15</p>
                         </div>
                     </div>
                     
@@ -1491,31 +1565,26 @@
                         </div>
                         <div>
                             <h4>Otevírací doba</h4>
-                            <p>Po-Pá: 9:00-18:00<br>So: 9:00-14:00<br>Ne: Zavřeno</p>
+                            <p>Po-Pá: 9:00-17:00<br>So: 9:00-12:30<br>Ne: Zavřeno</p>
                         </div>
                     </div>
                 </div>
                 
                 <div class="social-icons">
-                    <a href="#" class="social-icon">
+                    <a href="https://www.facebook.com/profile.php?id=61550063466987&sk=photos&locale=cs_CZ" class="social-icon">
                         <i class="fab fa-facebook-f"></i>
                     </a>
-                    <a href="https://www.instagram.com/kvetinarstvikamila" target="_blank" class="social-icon">
+                    <a href="https://www.instagram.com/kvetinarstvi.kamila/" target="_blank" class="social-icon">
                         <i class="fab fa-instagram"></i>
                     </a>
-                    <a href="#" class="social-icon">
-                        <i class="fab fa-pinterest-p"></i>
-                    </a>
+                    
                 </div>
             </div>
             
             <div class="order-form-container">
                 <h3>Objednat kytici</h3>
-                <!-- TVŮJ FUNKČNÍ FORMULÁŘ -->
                 <div id="form-container" style="font-family:Arial, Helvetica, sans-serif;">
                     <form id="contact-form" style="display:flex;flex-direction:column;gap:12px;">
-                        
-                        <!-- TVŮJ FUNKČNÍ ACCESS KEY -->
                         <input type="hidden" name="access_key" value="6849d217-dc27-4995-a741-1cc7ca84d930">
 
                         <label style="font-weight:600; color: var(--dark-color);">Jméno *</label>
@@ -1524,7 +1593,7 @@
                         <label style="font-weight:600; color: var(--dark-color);">Email *</label>
                         <input type="email" name="email" required style="padding:12px;border-radius:8px;border:1px solid #ddd;">
 
-                        <label style="font-weight:600; color: var(--dark-color);">Telefon</label>
+                        <label style="font-weight:600; color: var(--dark-color);">Telefon *</label>
                         <input type="text" name="telefon" style="padding:12px;border-radius:8px;border:1px solid #ddd;">
 
                         <label style="font-weight:600; color: var(--dark-color);">Zpráva *</label>
@@ -1552,15 +1621,13 @@
                 <h3>Květinářství Kamila</h3>
                 <p>Čerstvé květiny, kytice a dárkové předměty pro všechny příležitosti. Ručně vázané kytice z nejčerstvějších květin.</p>
                 <div class="footer-social-icons">
-                    <a href="#" class="footer-social-icon">
+                    <a href="https://www.facebook.com/profile.php?id=61550063466987&sk=photos&locale=cs_CZ" class="footer-social-icon">
                         <i class="fab fa-facebook-f"></i>
                     </a>
-                    <a href="https://www.instagram.com/kvetinarstvikamila" target="_blank" class="footer-social-icon">
+                    <a href="https://www.instagram.com/kvetinarstvi.kamila/" target="_blank" class="footer-social-icon">
                         <i class="fab fa-instagram"></i>
                     </a>
-                    <a href="#" class="footer-social-icon">
-                        <i class="fab fa-pinterest-p"></i>
-                    </a>
+                    
                 </div>
             </div>
 
@@ -1569,7 +1636,7 @@
                 <ul class="footer-links">
                     <li><a href="#domu">Domovská stránka</a></li>
                     <li><a href="#sluzby">Naše služby</a></li>
-                    <li><a href="#onas">O nás</a></li>
+                    <li><a href="#onas">O Nás</a></li>
                     <li><a href="#galerie">Galerie</a></li>
                     <li><a href="#recenze">Recenze</a></li>
                     <li><a href="#kontakt">Objednat kytici</a></li>
@@ -1578,28 +1645,50 @@
 
             <div class="footer-section">
                 <h3>Kontakt</h3>
-                <p><i class="fas fa-map-marker-alt" style="margin-right: 8px;"></i> OC Luna, Obchodní 123, Liberec</p>
-                <p><i class="fas fa-phone" style="margin-right: 8px;"></i> +420 772 272 720</p>
-                <p><i class="fas fa-envelope" style="margin-right: 8px;"></i> info@kvetinarstvikamila.cz</p>
+                <p><i class="fas fa-map-marker-alt" style="margin-right: 8px;"></i> OC Luna, Sídliště Kunratická Olbrachtova 618/37, Liberec 15</p>
+                <p><i class="fas fa-phone" style="margin-right: 8px;"></i> +420 774 724 220</p>
+                <p><i class="fas fa-envelope" style="margin-right: 8px;"></i> kvetinarstvikamila@seznam.cz</p>
             </div>
 
             <div class="footer-section">
                 <h3>Otevírací doba</h3>
-                <p>Pondělí - Pátek: 9:00 - 18:00</p>
-                <p>Sobota: 9:00 - 14:00</p>
+                <p>Pondělí - Pátek: 9:00 - 17:00</p>
+                <p>Sobota: 9:00 - 12:30</p>
                 <p>Neděle: Zavřeno</p>
             </div>
         </div>
         <div class="copyright">
+            <p>Vytvořil Petr Brož www.broz-petr.cz</p>
             <p>&copy; 2025 Květinářství Kamila. Všechna práva vyhrazena.</p>
-            <p>IČO: 12345678 | DIČ: CZ12345678</p>
+            <p>IČO: 06644392 | Datová schránka: zbqv4hk</p>
         </div>
     </footer>
 
     <script>
-        // Mobile Menu Toggle
+        // Mobile Menu Toggle with animation
         document.getElementById('mobile-menu-toggle').addEventListener('click', function() {
-            document.getElementById('nav-menu').classList.toggle('active');
+            const menu = document.getElementById('nav-menu');
+            const button = this;
+            
+            menu.classList.toggle('active');
+            button.classList.toggle('active');
+            
+            // Add index to menu items for staggered animation
+            const menuItems = menu.querySelectorAll('li');
+            menuItems.forEach((item, index) => {
+                item.style.setProperty('--i', index);
+            });
+        });
+
+        // Close menu when clicking outside
+        document.addEventListener('click', function(event) {
+            const menu = document.getElementById('nav-menu');
+            const button = document.getElementById('mobile-menu-toggle');
+            
+            if (!menu.contains(event.target) && !button.contains(event.target) && menu.classList.contains('active')) {
+                menu.classList.remove('active');
+                button.classList.remove('active');
+            }
         });
 
         // Gallery filtering - JAKO OLIO
@@ -1654,6 +1743,7 @@
                         
                         // Close mobile menu if open
                         document.getElementById('nav-menu').classList.remove('active');
+                        document.getElementById('mobile-menu-toggle').classList.remove('active');
                     }
                 });
             });
@@ -1719,11 +1809,31 @@
                 }
             });
             
-            // Zavření menu při kliknutí na odkaz na mobilu
+            // Zavření menu při kliknutí na odkaz
             document.querySelectorAll('#nav-menu a').forEach(link => {
                 link.addEventListener('click', function() {
                     document.getElementById('nav-menu').classList.remove('active');
+                    document.getElementById('mobile-menu-toggle').classList.remove('active');
                 });
+            });
+            
+            // Prevent scrolling when menu is open
+            const menuToggle = document.getElementById('mobile-menu-toggle');
+            menuToggle.addEventListener('click', function() {
+                if (document.getElementById('nav-menu').classList.contains('active')) {
+                    document.body.style.overflow = 'hidden';
+                } else {
+                    document.body.style.overflow = 'auto';
+                }
+            });
+            
+            // Close menu on escape key
+            document.addEventListener('keydown', function(event) {
+                if (event.key === 'Escape') {
+                    document.getElementById('nav-menu').classList.remove('active');
+                    document.getElementById('mobile-menu-toggle').classList.remove('active');
+                    document.body.style.overflow = 'auto';
+                }
             });
         });
     </script>
