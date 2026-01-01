@@ -1786,5 +1786,543 @@
             });
         });
     </script>
+    <!-- AI Chatbot Widget -->
+<style>
+    /* Styly pro AI Chatbot */
+    #chatbot-container {
+        position: fixed;
+        bottom: 30px;
+        right: 30px;
+        z-index: 10000;
+        font-family: 'Segoe UI', system-ui, sans-serif;
+    }
+    
+    /* Hlavní tlačítko chatbotu - kolečko */
+    #chatbot-toggle {
+        width: 70px;
+        height: 70px;
+        border-radius: 50%;
+        background: linear-gradient(135deg, var(--accent-color), var(--secondary-color));
+        border: none;
+        color: white;
+        cursor: pointer;
+        box-shadow: 0 5px 20px rgba(212, 80, 127, 0.4);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        overflow: hidden;
+        position: relative;
+        z-index: 10001;
+    }
+    
+    #chatbot-toggle:hover {
+        transform: scale(1.1);
+        box-shadow: 0 8px 25px rgba(212, 80, 127, 0.6);
+    }
+    
+    #chatbot-toggle.active {
+        transform: scale(1.15);
+        box-shadow: 0 10px 30px rgba(212, 80, 127, 0.7);
+    }
+    
+    #chatbot-toggle i {
+        font-size: 26px;
+        transition: transform 0.3s ease;
+    }
+    
+    #chatbot-toggle.active i {
+        transform: rotate(90deg);
+    }
+    
+    #chatbot-toggle span {
+        font-size: 11px;
+        font-weight: 600;
+        margin-top: 4px;
+    }
+    
+    /* Chatovací okno */
+    #chatbot-window {
+        position: absolute;
+        bottom: 85px;
+        right: 0;
+        width: 350px;
+        height: 500px;
+        background-color: white;
+        border-radius: 20px;
+        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
+        overflow: hidden;
+        display: none;
+        flex-direction: column;
+        opacity: 0;
+        transform: translateY(20px) scale(0.95);
+        transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        z-index: 10000;
+    }
+    
+    #chatbot-window.active {
+        display: flex;
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+    
+    /* Hlavička chatu */
+    #chat-header {
+        background: linear-gradient(to right, var(--accent-color), var(--secondary-color));
+        color: white;
+        padding: 18px 20px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+    
+    #chat-header h3 {
+        font-size: 18px;
+        margin: 0;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+    
+    #chat-header h3 i {
+        font-size: 20px;
+    }
+    
+    #chat-close {
+        background: none;
+        border: none;
+        color: white;
+        font-size: 28px;
+        cursor: pointer;
+        line-height: 1;
+        padding: 0;
+        width: 30px;
+        height: 30px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 50%;
+        transition: background-color 0.2s;
+    }
+    
+    #chat-close:hover {
+        background-color: rgba(255, 255, 255, 0.2);
+    }
+    
+    /* Oblast zpráv */
+    #chat-messages {
+        flex-grow: 1;
+        padding: 20px;
+        overflow-y: auto;
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+        background-color: #f9f9f9;
+    }
+    
+    /* Stylování jednotlivých zpráv */
+    .message {
+        max-width: 80%;
+        padding: 12px 16px;
+        border-radius: 18px;
+        line-height: 1.4;
+        font-size: 15px;
+        word-wrap: break-word;
+    }
+    
+    .bot-message {
+        background-color: white;
+        color: #333;
+        border-bottom-left-radius: 5px;
+        align-self: flex-start;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+        border: 1px solid #f0f0f0;
+    }
+    
+    .user-message {
+        background: linear-gradient(to right, var(--accent-color), var(--secondary-color));
+        color: white;
+        border-bottom-right-radius: 5px;
+        align-self: flex-end;
+    }
+    
+    /* Indikátor psaní */
+    #typing-indicator {
+        display: none;
+        align-self: flex-start;
+        background-color: white;
+        padding: 12px 16px;
+        border-radius: 18px;
+        border-bottom-left-radius: 5px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+        border: 1px solid #f0f0f0;
+        margin-bottom: 5px;
+    }
+    
+    .typing-dots {
+        display: flex;
+        gap: 4px;
+    }
+    
+    .typing-dots span {
+        width: 8px;
+        height: 8px;
+        background-color: #bbb;
+        border-radius: 50%;
+        animation: typing 1.4s infinite ease-in-out;
+    }
+    
+    .typing-dots span:nth-child(1) { animation-delay: -0.32s; }
+    .typing-dots span:nth-child(2) { animation-delay: -0.16s; }
+    
+    @keyframes typing {
+        0%, 80%, 100% { transform: scale(0); }
+        40% { transform: scale(1); }
+    }
+    
+    /* Vstupní oblast */
+    #chat-input-area {
+        padding: 20px;
+        border-top: 1px solid #eee;
+        background-color: white;
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+    }
+    
+    #user-input {
+        padding: 14px 16px;
+        border: 1px solid #ddd;
+        border-radius: 25px;
+        font-size: 15px;
+        outline: none;
+        transition: border-color 0.3s;
+    }
+    
+    #user-input:focus {
+        border-color: var(--accent-color);
+    }
+    
+    #send-btn {
+        background: linear-gradient(to right, var(--accent-color), var(--secondary-color));
+        color: white;
+        border: none;
+        padding: 12px 20px;
+        border-radius: 25px;
+        font-weight: 600;
+        font-size: 15px;
+        cursor: pointer;
+        transition: all 0.3s;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+    }
+    
+    #send-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(212, 80, 127, 0.4);
+    }
+    
+    #send-btn:disabled {
+        opacity: 0.6;
+        cursor: not-allowed;
+        transform: none;
+        box-shadow: none;
+    }
+    
+    /* Rychlé odpovědi */
+    #quick-replies {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        margin-top: 5px;
+    }
+    
+    .quick-reply {
+        background-color: #f0f0f0;
+        border: none;
+        border-radius: 20px;
+        padding: 8px 16px;
+        font-size: 13px;
+        cursor: pointer;
+        transition: all 0.2s;
+        color: #555;
+    }
+    
+    .quick-reply:hover {
+        background-color: #e0e0e0;
+        transform: translateY(-2px);
+    }
+    
+    /* Responsivita */
+    @media (max-width: 768px) {
+        #chatbot-container {
+            bottom: 20px;
+            right: 20px;
+        }
+        
+        #chatbot-toggle {
+            width: 60px;
+            height: 60px;
+        }
+        
+        #chatbot-toggle i {
+            font-size: 22px;
+        }
+        
+        #chatbot-toggle span {
+            font-size: 10px;
+        }
+        
+        #chatbot-window {
+            width: calc(100vw - 40px);
+            right: -10px;
+            height: 450px;
+        }
+        
+        #chat-header {
+            padding: 15px;
+        }
+    }
+    
+    @media (max-width: 480px) {
+        #chatbot-container {
+            bottom: 15px;
+            right: 15px;
+        }
+        
+        #chatbot-toggle {
+            width: 55px;
+            height: 55px;
+        }
+        
+        #chatbot-window {
+            width: calc(100vw - 30px);
+            height: 400px;
+        }
+    }
+</style>
+
+<div id="chatbot-container">
+    <button id="chatbot-toggle" aria-label="Otevřít chat">
+        <i class="fas fa-robot"></i>
+        <span>AI Asistent</span>
+    </button>
+    
+    <div id="chatbot-window">
+        <div id="chat-header">
+            <h3><i class="fas fa-robot"></i> Květinářství Kamila AI</h3>
+            <button id="chat-close" aria-label="Zavřít chat">×</button>
+        </div>
+        
+        <div id="chat-messages">
+            <!-- Zprávy budou přidávány dynamicky -->
+            <div class="message bot-message">
+                Ahoj! Jsem AI asistent Květinářství Kamila. Jak vám mohu pomoci? 😊
+            </div>
+        </div>
+        
+        <div id="chat-input-area">
+            <div id="quick-replies">
+                <button class="quick-reply" data-question="Otevírací doba">Otevírací doba</button>
+                <button class="quick-reply" data-question="Ceník">Ceník květin</button>
+                <button class="quick-reply" data-question="Adresa">Kde se nacházíte?</button>
+                <button class="quick-reply" data-question="Objednávka">Jak objednat kytici?</button>
+            </div>
+            
+            <input type="text" id="user-input" placeholder="Napište svůj dotaz..." maxlength="500">
+            <button id="send-btn"><i class="fas fa-paper-plane"></i> Odeslat</button>
+        </div>
+    </div>
+</div>
+
+<script>
+    // Chatbot logika
+    document.addEventListener('DOMContentLoaded', function() {
+        const chatbotToggle = document.getElementById('chatbot-toggle');
+        const chatbotWindow = document.getElementById('chatbot-window');
+        const chatClose = document.getElementById('chat-close');
+        const userInput = document.getElementById('user-input');
+        const sendBtn = document.getElementById('send-btn');
+        const chatMessages = document.getElementById('chat-messages');
+        const quickReplies = document.querySelectorAll('.quick-reply');
+        
+        // Otevření/zavření chatbota
+        chatbotToggle.addEventListener('click', function() {
+            chatbotWindow.classList.toggle('active');
+            chatbotToggle.classList.toggle('active');
+            
+            if (chatbotWindow.classList.contains('active')) {
+                // Posuneme se na poslední zprávu
+                setTimeout(() => {
+                    chatMessages.scrollTop = chatMessages.scrollHeight;
+                }, 100);
+                
+                // Zaměříme vstupní pole
+                setTimeout(() => {
+                    userInput.focus();
+                }, 300);
+            }
+        });
+        
+        chatClose.addEventListener('click', function() {
+            chatbotWindow.classList.remove('active');
+            chatbotToggle.classList.remove('active');
+        });
+        
+        // Funkce pro přidání zprávy do chatu
+        function addMessage(text, isUser = false) {
+            const messageDiv = document.createElement('div');
+            messageDiv.classList.add('message');
+            messageDiv.classList.add(isUser ? 'user-message' : 'bot-message');
+            messageDiv.textContent = text;
+            
+            chatMessages.appendChild(messageDiv);
+            
+            // Posuneme se na novou zprávu
+            setTimeout(() => {
+                chatMessages.scrollTop = chatMessages.scrollHeight;
+            }, 50);
+        }
+        
+        // Funkce pro simulaci psaní
+        function showTypingIndicator() {
+            const typingDiv = document.createElement('div');
+            typingDiv.id = 'typing-indicator';
+            typingDiv.innerHTML = `
+                <div class="typing-dots">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            `;
+            chatMessages.appendChild(typingDiv);
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+        }
+        
+        function hideTypingIndicator() {
+            const typingIndicator = document.getElementById('typing-indicator');
+            if (typingIndicator) {
+                typingIndicator.remove();
+            }
+        }
+        
+        // Funkce pro zpracování dotazu uživatele
+        function processUserQuery(query) {
+            const lowerQuery = query.toLowerCase().trim();
+            
+            // Simulujeme zpoždění odpovědi
+            showTypingIndicator();
+            
+            setTimeout(() => {
+                hideTypingIndicator();
+                
+                let response = "";
+                
+                // Rozpoznání dotazu a odpověď
+                if (lowerQuery.includes('otevírací') || lowerQuery.includes('oteviraci') || lowerQuery.includes('doba')) {
+                    response = "🕒 Naše otevírací doba:\n• Po-Pá: 9:00-17:00\n• So: 9:00-12:30\n• Ne: Zavřeno\n\nMůžete nás také kontaktovat na telefonu +420 774 724 220.";
+                } 
+                else if (lowerQuery.includes('ceník') || lowerQuery.includes('cena') || lowerQuery.includes('kolik') || lowerQuery.includes('stojí')) {
+                    response = "💐 Ceny se liší podle typu květin a velikosti kytice:\n• Malá kytice: 200-400 Kč\n• Střední kytice: 400-800 Kč\n• Velká kytice: 800-1500 Kč\n• Růže (kus): 40-80 Kč\n\nPřesnou cenu vám rádi sdělíme po konzultaci. Všechny ceny jsou včetně DPH.";
+                }
+                else if (lowerQuery.includes('kde') || lowerQuery.includes('adresa') || lowerQuery.includes('nacházíte') || lowerQuery.includes('liberec')) {
+                    response = "📍 Najdete nás v OC Luna v Liberci na adrese:\nSídliště Kunratická Olbrachtova 618/37, Liberec 15\n\nPodívejte se na mapu: https://maps.app.goo.gl/example";
+                }
+                else if (lowerQuery.includes('objednat') || lowerQuery.includes('objednávka') || lowerQuery.includes('objednavka') || lowerQuery.includes('kytice')) {
+                    response = "💌 Kytici můžete objednat několika způsoby:\n1. Přijďte k nám do obchodu\n2. Zavolejte na +420 774 724 220\n3. Vyplňte formulář na stránce 'Objednat kytici'\n4. Napište nám na Instagram @kvetinarstvi.kamila";
+                }
+                else if (lowerQuery.includes('kontakt') || lowerQuery.includes('telefon') || lowerQuery.includes('číslo')) {
+                    response = "📞 Kontaktní údaje:\n• Telefon: +420 774 724 220\n• Adresa: OC Luna, Liberec\n• Email: kvetinarstvikamila@seznam.cz\n• Instagram: @kvetinarstvi.kamila\n• Facebook: Květinářství Kamila";
+                }
+                else if (lowerQuery.includes('služby') || lowerQuery.includes('sluzby') || lowerQuery.includes('co děláte') || lowerQuery.includes('nabízíte')) {
+                    response = "🌺 Nabízíme tyto služby:\n• Ručně vázané kytice\n• Hrnkové květiny\n• Svatební květiny\n• Pohřební květinovou výzdobu\n• Předobjednávky\n• Poradenství s výběrem\n• Dárkové balení";
+                }
+                else if (lowerQuery.includes('svatba') || lowerQuery.includes('svatební') || lowerQuery.includes('svatebni')) {
+                    response = "👰 Pro svatby nabízíme:\n• Květinovou výzdobu\n• Svatební kytice\n• Boutonniery pro ženicha\n• Květinové dekorace\n\nRezervace doporučujeme minimálně 2 měsíce předem. Rádi se s vámi setkáme na konzultaci.";
+                }
+                else if (lowerQuery.includes('pohřeb') || lowerQuery.includes('pohreb') || lowerQuery.includes('smuteční') || lowerQuery.includes('smutecni')) {
+                    response = "⚰️ Pro pohřby nabízíme:\n• Smuteční kytice a věnce\n• Květinové dekorace\n• Rychlé vyřízení objednávek\n• Citlivý přístup\n\nV případě potřeby nás prosím kontaktujte telefonicky pro rychlejší domluvu.";
+                }
+                else if (lowerQuery.includes('ahoj') || lowerQuery.includes('čau') || lowerQuery.includes('dobrý den') || lowerQuery.includes('dobry den')) {
+                    response = "Ahoj! 😊 Jsem rád, že jste tady. Jak vám dnes mohu pomoct?";
+                }
+                else if (lowerQuery.includes('děkuji') || lowerQuery.includes('diky') || lowerQuery.includes('díky') || lowerQuery.includes('děkuju')) {
+                    response = "Nemáte zač! 😊 Pokud máte další dotazy, jsem tu pro vás.";
+                }
+                else {
+                    response = "Promiňte, úplně nerozumím vašemu dotazu. Můžete se mě zeptat na:\n• Otevírací dobu\n• Ceník květin\n• Naši adresu\n• Jak objednat kytici\n• Naše služby\n\nNebo mi napište svůj dotas jinak, pokusím se vám pomoci!";
+                }
+                
+                addMessage(response);
+            }, 1000 + Math.random() * 1000); // Náhodné zpoždění mezi 1-2 vteřinami
+        }
+        
+        // Odeslání zprávy
+        function sendMessage() {
+            const query = userInput.value.trim();
+            
+            if (query === "") return;
+            
+            // Přidáme zprávu uživatele
+            addMessage(query, true);
+            
+            // Vyčistíme vstupní pole
+            userInput.value = "";
+            
+            // Zpracujeme dotaz
+            processUserQuery(query);
+        }
+        
+        // Event listener pro odeslání zprávy
+        sendBtn.addEventListener('click', sendMessage);
+        
+        // Odeslání pomocí Enter
+        userInput.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                sendMessage();
+            }
+        });
+        
+        // Rychlé odpovědi
+        quickReplies.forEach(button => {
+            button.addEventListener('click', function() {
+                const question = this.getAttribute('data-question');
+                
+                // Přidáme zprávu uživatele
+                addMessage(question, true);
+                
+                // Zpracujeme dotaz
+                processUserQuery(question);
+            });
+        });
+        
+        // Přidání úvodní zprávy po načtení
+        setTimeout(() => {
+            const welcomeMessage = "Potřebujete poradit s výběrem květin nebo máte dotaz? Jsem tu pro vás!";
+            addMessage(welcomeMessage);
+        }, 1500);
+        
+        // Automatické otevření po 10 sekundách nečinnosti
+        let userInteracted = false;
+        
+        document.addEventListener('click', function() {
+            userInteracted = true;
+        });
+        
+        setTimeout(() => {
+            if (!userInteracted && !chatbotWindow.classList.contains('active')) {
+                chatbotToggle.classList.add('active');
+                chatbotWindow.classList.add('active');
+                
+                setTimeout(() => {
+                    userInput.focus();
+                }, 300);
+            }
+        }, 10000);
+    });
+</script>
 </body>
 </html>
