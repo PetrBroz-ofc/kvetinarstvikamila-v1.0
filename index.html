@@ -2,7 +2,7 @@
 <html lang="cs">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Květinářství Kamila v Liberci nabízí čerstvé květiny, rozvoz květin a svatební kytice. Objednejte ještě dnes online nebo telefonicky.">
     <title>Květinářství Kamila | Luxusní květiny v Liberci</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
@@ -15,13 +15,14 @@
         }
 
         :root {
-            --primary-color: #f8a8c6;
-            --secondary-color: #e67b9f;
-            --accent-color: #d4507f;
+            --primary-color: #f8a8c6; /* Light pink */
+            --secondary-color: #e67b9f; /* Medium pink */
+            --accent-color: #d4507f; /* Dark pink */
             --dark-color: #333333;
             --light-color: #fff9fb;
             --text-color: #333;
-            --transition: all 0.3s ease;
+            --transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            --section-padding: 5rem 2rem;
         }
 
         body {
@@ -29,183 +30,286 @@
             color: var(--text-color);
             line-height: 1.6;
             overflow-x: hidden;
-            font-size: 18px; /* ZÁKLADNÍ VELKÉ PÍSMO */
         }
 
         .container {
-            width: 100%;
-            padding: 0 20px;
-            max-width: 1200px;
+            max-width: 1400px;
             margin: 0 auto;
+            padding: 0 2rem;
         }
 
-        /* Header - VELKÝ PRO MOBIL */
+        /* Header - ZMENŠENÝ */
         header {
-            background-color: white;
-            box-shadow: 0 3px 15px rgba(0, 0, 0, 0.1);
+            background-color: rgba(255, 255, 255, 0.95);
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             z-index: 1000;
-            height: 80px;
+            backdrop-filter: blur(10px);
+            transition: var(--transition);
+            height: 70px; /* Zmenšená výška */
         }
 
         .header-container {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 15px 0;
+            padding: 0.8rem 0; /* Zmenšený padding */
             height: 100%;
         }
 
         .logo {
             display: flex;
             align-items: center;
-            gap: 12px;
+            gap: 10px;
         }
 
         .logo-icon {
-            font-size: 32px !important; /* VELKÁ IKONA */
+            font-size: 1.8rem; /* Zmenšené */
             color: var(--accent-color);
         }
 
         .logo-text {
-            font-size: 22px !important; /* VELKÝ TEXT */
+            font-size: 1.5rem; /* Zmenšené */
             font-weight: 700;
             color: var(--dark-color);
+            line-height: 1.2;
         }
 
         .logo-text span {
             color: var(--accent-color);
         }
 
-        /* MOBILE MENU - VELKÉ */
-        .mobile-menu-btn {
-            background: none;
-            border: none;
-            font-size: 32px !important; /* VELKÉ MENU TLAČÍTKO */
-            color: var(--dark-color);
-            cursor: pointer;
-            padding: 10px;
+        /* Desktop Navigation */
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 1.5rem; /* Zmenšený gap */
         }
 
-        nav ul {
-            display: none;
-            position: fixed;
-            top: 80px;
-            left: 0;
-            width: 100%;
-            background: white;
-            flex-direction: column;
-            padding: 20px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
-            gap: 0;
-            text-align: center;
-            z-index: 9999;
-        }
-        
-        nav ul.active {
-            display: flex;
-        }
-        
-        nav ul li {
-            margin: 12px 0;
-            width: 100%;
-        }
-        
         nav ul li a {
-            display: block;
-            padding: 18px; /* VELKÉ TLAČÍTKO MENU */
-            font-size: 20px !important; /* VELKÝ TEXT MENU */
-            border-radius: 10px;
-            transition: var(--transition);
             text-decoration: none;
             color: var(--dark-color);
             font-weight: 600;
-            background: #f9f9f9;
-        }
-        
-        nav ul li a:hover {
-            background-color: var(--accent-color);
-            color: white;
+            font-size: 1rem; /* Zmenšené */
+            transition: var(--transition);
+            position: relative;
         }
 
-        /* HERO SECTION - VELKÁ PRO MOBIL */
+        nav ul li a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--accent-color);
+            transition: var(--transition);
+        }
+
+        nav ul li a:hover {
+            color: var(--accent-color);
+        }
+
+        nav ul li a:hover::after {
+            width: 100%;
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: var(--dark-color);
+            cursor: pointer;
+            z-index: 1001;
+            padding: 0.5rem;
+            transition: var(--transition);
+        }
+
+        .mobile-menu-btn:hover {
+            color: var(--accent-color);
+            transform: scale(1.1);
+        }
+
+        /* Mobile Menu - Opravené a s animací */
+        @media (max-width: 768px) {
+            .logo-text {
+                font-size: 1.3rem; /* Ještě menší na mobilech */
+            }
+            
+            .logo-icon {
+                font-size: 1.5rem;
+            }
+            
+            nav ul {
+                display: flex;
+                position: fixed;
+                top: 70px; /* Zarovnáno s výškou headeru */
+                left: 0;
+                width: 100vw;
+                max-width: 100%;
+                background: white;
+                flex-direction: column;
+                padding: 1rem; /* Zmenšený padding */
+                box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+                gap: 0;
+                text-align: center;
+                z-index: 9999;
+                transform: translateY(-20px);
+                opacity: 0;
+                visibility: hidden;
+                transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+                border-radius: 0 0 15px 15px;
+                max-height: 0;
+                overflow: hidden;
+                margin: 0;
+            }
+            
+            nav ul.active {
+                display: flex;
+                transform: translateY(0);
+                opacity: 1;
+                visibility: visible;
+                max-height: 60vh; /* Zmenšené */
+                overflow-y: auto;
+                padding: 1rem;
+            }
+            
+            nav ul li {
+                margin: 0.6rem 0; /* Zmenšená mezera */
+                width: 100%;
+                opacity: 0;
+                transform: translateY(-10px);
+                transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+                transition-delay: calc(0.05s * var(--i));
+            }
+            
+            nav ul.active li {
+                opacity: 1;
+                transform: translateY(0);
+            }
+            
+            nav ul li a {
+                display: block;
+                padding: 0.8rem; /* Zmenšený padding */
+                font-size: 1.1rem; /* Zmenšené */
+                border-radius: 8px;
+                transition: var(--transition);
+            }
+            
+            nav ul li a:hover {
+                background-color: rgba(212, 80, 127, 0.1);
+                transform: translateX(5px);
+            }
+            
+            .mobile-menu-btn {
+                display: block;
+                font-size: 1.6rem; /* Zmenšené */
+            }
+            
+            .mobile-menu-btn.active i {
+                transform: rotate(90deg);
+            }
+            
+            .mobile-menu-btn i {
+                transition: var(--transition);
+            }
+        }
+
+        /* Hero Section */
         .hero {
             background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), 
-                        url('https://images.unsplash.com/photo-1519378058457-4c29a0a2efac?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80');
+                        url('https://images.unsplash.com/photo-1519378058457-4c29a0a2efac?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80');
             background-size: cover;
             background-position: center;
+            background-attachment: fixed;
             height: 100vh;
             display: flex;
             align-items: center;
             justify-content: center;
             text-align: center;
             color: white;
-            padding: 0 20px;
-            margin-top: 80px;
+            padding: 0 2rem;
+            margin-top: 70px; /* Upraveno podle zmenšeného headeru */
+            position: relative;
         }
 
         .hero-content {
-            width: 100%;
+            max-width: 900px;
+            animation: fadeInUp 1s ease-out;
+            padding-top: 1rem; /* Zmenšené */
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         .hero h1 {
-            font-size: 36px !important; /* VELKÝ NADPIS */
-            margin-bottom: 25px;
+            font-size: 3.5rem; /* Zmenšené pro lepší čitelnost */
+            margin-bottom: 1.5rem;
             text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.5);
-            line-height: 1.3;
+            line-height: 1.2;
         }
 
         .hero p {
-            font-size: 20px !important; /* VELKÝ TEXT */
-            margin-bottom: 30px;
+            font-size: 1.3rem; /* Zmenšené */
+            margin-bottom: 2rem;
             font-weight: 300;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
             line-height: 1.5;
         }
 
         .hero-features {
             display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 18px;
-            margin-bottom: 30px;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 1.5rem; /* Zmenšené */
+            margin-bottom: 2rem; /* Zmenšené */
         }
 
         .feature-item {
             display: flex;
             align-items: center;
-            gap: 12px;
-            font-size: 18px !important; /* VELKÝ TEXT */
+            gap: 8px; /* Zmenšené */
+            font-size: 1rem; /* Zmenšené */
         }
 
         .feature-item i {
             color: var(--primary-color);
-            font-size: 22px !important;
+            font-size: 1.1rem; /* Zmenšené */
         }
 
         .hero-buttons {
             display: flex;
-            flex-direction: column;
-            gap: 15px;
-            width: 100%;
+            justify-content: center;
+            gap: 1.2rem; /* Zmenšené */
+            flex-wrap: wrap;
         }
 
         .btn {
-            padding: 20px 30px !important; /* VELKÁ TLAČÍTKA */
+            padding: 0.9rem 1.8rem; /* Zmenšené */
             border: none;
             border-radius: 50px;
             font-weight: 600;
-            font-size: 18px !important; /* VELKÝ TEXT */
+            font-size: 1rem; /* Zmenšené */
             cursor: pointer;
             transition: var(--transition);
-            display: flex;
+            display: inline-flex;
             align-items: center;
-            justify-content: center;
-            gap: 12px;
+            gap: 8px; /* Zmenšené */
             text-decoration: none;
-            width: 100%;
         }
 
         .btn-primary {
@@ -217,60 +321,83 @@
         .btn-secondary {
             background-color: transparent;
             color: white;
-            border: 3px solid white; /* TLUSTŠÍ OKRAJ */
+            border: 2px solid white;
         }
 
-        /* ACTION BUTTONS - VELKÉ */
+        .btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .btn-primary:hover {
+            background-color: #c03c70;
+        }
+
+        .btn-secondary:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+
+        /* ODSTRANĚNÍ MYŠKY A SCROLL INDICATORU */
+        .scroll-indicator {
+            display: none; /* Skryto */
+        }
+
+        /* Action Buttons */
         .action-buttons {
-            padding: 30px 20px;
+            padding: 2.5rem 2rem; /* Zmenšené */
             background-color: white;
         }
 
         .action-container {
             display: flex;
-            flex-direction: column;
-            gap: 15px;
-            width: 100%;
+            flex-wrap: wrap;
+            gap: 10px; /* Zmenšené */
+            justify-content: center;
+            max-width: 1200px;
+            margin: 0 auto;
         }
 
         .action-btn {
+            flex: 1 1 180px; /* Zmenšené */
             background: var(--accent-color);
-            padding: 22px 20px !important; /* VELKÉ TLAČÍTKA */
+            padding: 16px; /* Zmenšené */
             text-align: center;
             color: white;
             font-weight: bold;
             border-radius: 12px;
             text-decoration: none;
-            font-size: 18px !important; /* VELKÝ TEXT */
+            font-size: 15px; /* Zmenšené */
             transition: var(--transition);
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 10px;
+            gap: 6px; /* Zmenšené */
             box-shadow: 0 4px 12px rgba(212, 80, 127, 0.3);
-            width: 100%;
         }
 
-        .action-btn i {
-            font-size: 22px !important;
+        .action-btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(212, 80, 127, 0.5);
+            background: #c03c70;
         }
 
-        /* SERVICES - VELKÉ */
+        /* Services Section */
         .services {
-            padding: 50px 20px;
+            padding: var(--section-padding);
             background-color: #f9f9f9;
         }
 
         .section-title {
             text-align: center;
-            margin-bottom: 40px;
+            margin-bottom: 3rem; /* Zmenšené */
+            position: relative;
         }
 
         .section-title h2 {
-            font-size: 32px !important; /* VELKÝ NADPIS */
+            font-size: 2.5rem; /* Zmenšené */
             color: var(--dark-color);
-            padding-bottom: 15px;
-            position: relative;
+            display: inline-block;
+            padding-bottom: 1rem;
         }
 
         .section-title h2::after {
@@ -279,65 +406,76 @@
             bottom: 0;
             left: 50%;
             transform: translateX(-50%);
-            width: 150px;
-            height: 5px;
+            width: 120px; /* Zmenšené */
+            height: 4px;
             background: linear-gradient(to right, var(--primary-color), var(--accent-color));
-            border-radius: 3px;
+            border-radius: 2px;
         }
 
         .services-grid {
-            display: flex;
-            flex-direction: column;
-            gap: 25px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); /* Zmenšené */
+            gap: 2rem; /* Zmenšené */
+            max-width: 1200px;
+            margin: 0 auto;
         }
 
         .service-card {
             background: white;
             border-radius: 15px;
-            padding: 30px 25px;
+            padding: 2rem 1.5rem; /* Zmenšené */
             text-align: center;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            transition: var(--transition);
+        }
+
+        .service-card:hover {
+            transform: translateY(-8px); /* Zmenšené */
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.12);
         }
 
         .service-icon {
-            width: 90px;
-            height: 90px;
+            width: 70px; /* Zmenšené */
+            height: 70px;
             background: var(--primary-color);
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            margin: 0 auto 25px;
+            margin: 0 auto 1.2rem; /* Zmenšené */
             color: white;
-            font-size: 36px !important; /* VELKÁ IKONA */
+            font-size: 1.8rem; /* Zmenšené */
         }
 
         .service-card h3 {
-            font-size: 24px !important; /* VELKÝ NADPIS */
-            margin-bottom: 15px;
+            font-size: 1.3rem; /* Zmenšené */
+            margin-bottom: 0.8rem; /* Zmenšené */
             color: var(--dark-color);
         }
 
         .service-card p {
             color: #666;
-            line-height: 1.6;
-            font-size: 18px !important; /* VELKÝ TEXT */
+            line-height: 1.6; /* Zmenšené */
+            font-size: 0.95rem; /* Zmenšené */
         }
 
-        /* ABOUT - VELKÉ */
+        /* About Section */
         .about {
-            padding: 50px 20px;
+            padding: var(--section-padding);
             background-color: white;
         }
 
         .about-container {
-            display: flex;
-            flex-direction: column;
-            gap: 40px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem; /* Zmenšené */
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
         }
 
         .about-image {
-            border-radius: 15px;
+            border-radius: 15px; /* Zmenšené */
             overflow: hidden;
             box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
         }
@@ -346,210 +484,237 @@
             width: 100%;
             height: auto;
             display: block;
+            transition: var(--transition);
+        }
+
+        .about-image:hover img {
+            transform: scale(1.05);
         }
 
         .about-content h2 {
-            font-size: 32px !important; /* VELKÝ NADPIS */
-            margin-bottom: 20px;
+            font-size: 2.3rem; /* Zmenšené */
+            margin-bottom: 1.2rem; /* Zmenšené */
             color: var(--dark-color);
         }
 
         .about-content p {
-            font-size: 18px !important; /* VELKÝ TEXT */
-            margin-bottom: 20px;
-            line-height: 1.6;
+            font-size: 1.1rem; /* Zmenšené */
+            margin-bottom: 1.5rem; /* Zmenšené */
+            line-height: 1.7; /* Zmenšené */
             color: #666;
         }
 
         .about-features {
-            margin-top: 25px;
+            margin-top: 1.5rem; /* Zmenšené */
         }
 
         .about-feature {
             display: flex;
             align-items: flex-start;
-            margin-bottom: 20px;
+            margin-bottom: 1.2rem; /* Zmenšené */
         }
 
         .about-feature i {
             color: var(--accent-color);
-            margin-right: 15px;
-            font-size: 24px !important;
-            margin-top: 3px;
+            margin-right: 0.8rem; /* Zmenšené */
+            font-size: 1.2rem; /* Zmenšené */
+            margin-top: 3px; /* Zmenšené */
         }
 
-        .about-feature h4 {
-            font-size: 20px !important;
-            margin-bottom: 5px;
-        }
-
-        /* GALLERY - VELKÉ */
+        /* Gallery Section */
         .gallery {
-            padding: 50px 20px;
+            padding: var(--section-padding);
             background-color: #f9f9f9;
         }
 
         .gallery-categories {
             display: flex;
-            flex-wrap: wrap;
             justify-content: center;
-            gap: 10px;
-            margin-bottom: 40px;
+            flex-wrap: wrap;
+            gap: 0.8rem; /* Zmenšené */
+            margin-bottom: 3rem; /* Zmenšené */
         }
 
         .gallery-category-btn {
-            padding: 15px 20px !important;
+            padding: 0.7rem 1.5rem; /* Zmenšené */
             background-color: white;
             border: 2px solid #e0e0e0;
             border-radius: 50px;
             cursor: pointer;
             transition: var(--transition);
             font-weight: 600;
-            font-size: 16px !important;
-            flex: 1 1 45%;
-            text-align: center;
-            min-width: 140px;
+            font-size: 0.95rem; /* Zmenšené */
         }
 
         .gallery-category-btn.active, .gallery-category-btn:hover {
             background-color: var(--accent-color);
             color: white;
             border-color: var(--accent-color);
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(212, 80, 127, 0.3);
         }
 
         .gallery-grid {
             display: grid;
-            grid-template-columns: 1fr;
-            gap: 20px;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); /* Zmenšené */
+            gap: 1.2rem; /* Zmenšené */
         }
 
         .gallery-item {
-            border-radius: 15px;
+            border-radius: 12px; /* Zmenšené */
             overflow: hidden;
-            height: 280px;
+            height: 250px; /* Zmenšené */
             position: relative;
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: var(--transition);
+            display: none;
+        }
+
+        .gallery-item.active {
+            display: block;
         }
 
         .gallery-item img {
             width: 100%;
             height: 100%;
             object-fit: cover;
+            transition: var(--transition);
         }
 
-        /* REVIEWS - VELKÉ */
+        .gallery-item:hover {
+            transform: translateY(-8px); /* Zmenšené */
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.1);
+        }
+
+        /* Reviews Section */
         .reviews {
-            padding: 50px 20px;
+            padding: var(--section-padding);
             background: linear-gradient(to right, var(--dark-color), #444);
             color: white;
         }
 
         .reviews-grid {
-            display: flex;
-            flex-direction: column;
-            gap: 25px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); /* Zmenšené */
+            gap: 1.5rem; /* Zmenšené */
+            max-width: 1200px;
+            margin: 0 auto;
         }
 
         .review-card {
             background: rgba(255, 255, 255, 0.1);
-            border-radius: 15px;
-            padding: 25px;
+            backdrop-filter: blur(10px);
+            border-radius: 12px; /* Zmenšené */
+            padding: 1.5rem; /* Zmenšené */
+            transition: var(--transition);
+        }
+
+        .review-card:hover {
+            transform: translateY(-8px); /* Zmenšené */
+            background: rgba(255, 255, 255, 0.15);
         }
 
         .review-header {
             display: flex;
             align-items: center;
-            margin-bottom: 20px;
+            margin-bottom: 1.2rem; /* Zmenšené */
         }
 
         .review-avatar {
-            width: 70px;
-            height: 70px;
+            width: 50px; /* Zmenšené */
+            height: 50px;
             border-radius: 50%;
             overflow: hidden;
-            margin-right: 20px;
+            margin-right: 1rem;
             background: var(--primary-color);
             display: flex;
             align-items: center;
             justify-content: center;
             color: white;
-            font-size: 28px !important;
+            font-size: 1.3rem; /* Zmenšené */
         }
 
         .review-info h4 {
-            font-size: 20px !important;
-            margin-bottom: 5px;
+            font-size: 1.1rem; /* Zmenšené */
+            margin-bottom: 0.3rem;
         }
 
         .review-stars {
             color: #ffd700;
-            font-size: 18px !important;
+            font-size: 0.9rem; /* Zmenšené */
         }
 
         .review-text {
             font-style: italic;
-            line-height: 1.6;
-            font-size: 17px !important;
+            line-height: 1.6; /* Zmenšené */
+            font-size: 0.95rem; /* Zmenšené */
         }
 
-        /* CONTACT - VELKÉ */
+        /* Contact/Order Section */
         .contact {
-            padding: 50px 20px;
+            padding: var(--section-padding);
             background-color: white;
         }
 
         .contact-container {
-            display: flex;
-            flex-direction: column;
-            gap: 40px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem; /* Zmenšené */
+            max-width: 1200px;
+            margin: 0 auto;
         }
 
         .contact-info h2 {
-            font-size: 32px !important;
-            margin-bottom: 20px;
+            font-size: 2.2rem; /* Zmenšené */
+            margin-bottom: 1.5rem; /* Zmenšené */
             color: var(--dark-color);
         }
 
         .contact-info p {
-            font-size: 18px !important;
-            margin-bottom: 20px;
-            line-height: 1.6;
+            font-size: 1.1rem; /* Zmenšené */
+            margin-bottom: 1.5rem; /* Zmenšené */
+            line-height: 1.7; /* Zmenšené */
             color: #666;
         }
 
         .contact-details {
-            margin-bottom: 30px;
+            margin-bottom: 2rem; /* Zmenšené */
         }
 
         .contact-item {
             display: flex;
             align-items: center;
-            margin-bottom: 25px;
-            font-size: 18px !important;
+            margin-bottom: 1.2rem; /* Zmenšené */
+            font-size: 1rem; /* Zmenšené */
         }
 
         .contact-icon {
-            width: 60px;
-            height: 60px;
+            width: 45px; /* Zmenšené */
+            height: 45px;
             background: var(--primary-color);
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            margin-right: 20px;
+            margin-right: 1rem;
             color: white;
-            font-size: 24px !important;
+            font-size: 1.1rem; /* Zmenšené */
         }
 
         .social-icons {
             display: flex;
-            gap: 15px;
-            margin-top: 25px;
+            gap: 0.8rem; /* Zmenšené */
+            margin-top: 1.5rem; /* Zmenšené */
+            justify-content: flex-start;
         }
 
         .social-icon {
-            width: 60px;
-            height: 60px;
+            width: 40px; /* Zmenšené */
+            height: 40px;
             border-radius: 50%;
             background-color: var(--primary-color);
             display: flex;
@@ -557,97 +722,83 @@
             justify-content: center;
             transition: var(--transition);
             color: white;
-            font-size: 24px !important;
+            font-size: 1.1rem; /* Zmenšené */
             text-decoration: none;
         }
 
-        /* ORDER FORM - VELKÉ */
+        .social-icon:hover {
+            background-color: var(--accent-color);
+            transform: translateY(-5px);
+        }
+
+        /* Order Form */
         .order-form-container {
             background: #f9f9f9;
-            border-radius: 15px;
-            padding: 30px 25px;
+            border-radius: 12px; /* Zmenšené */
+            padding: 2rem; /* Zmenšené */
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
         }
 
         .order-form-container h3 {
-            font-size: 28px !important;
-            margin-bottom: 25px;
+            font-size: 1.6rem; /* Zmenšené */
+            margin-bottom: 1.2rem; /* Zmenšené */
             color: var(--dark-color);
             text-align: center;
         }
 
-        .order-form-container label {
-            font-weight: 600;
-            color: var(--dark-color);
-            font-size: 18px !important;
-            margin-bottom: 8px;
-            display: block;
-        }
-
-        .order-form-container input,
-        .order-form-container textarea {
-            width: 100%;
-            padding: 18px 20px !important;
-            border-radius: 10px;
-            border: 2px solid #ddd;
-            font-size: 18px !important;
-            margin-bottom: 20px;
-        }
-
-        .order-form-container button {
-            padding: 20px !important;
-            border: none;
-            border-radius: 10px;
-            background: var(--accent-color);
-            color: white;
-            font-weight: 700;
-            font-size: 20px !important;
-            cursor: pointer;
-            transition: var(--transition);
-            width: 100%;
-        }
-
-        /* FOOTER - VELKÉ */
+        /* Footer */
         footer {
             background-color: var(--dark-color);
             color: white;
-            padding: 40px 20px 20px;
+            padding: 3rem 2rem 1.5rem; /* Zmenšené */
         }
 
         .footer-container {
-            display: flex;
-            flex-direction: column;
-            gap: 30px;
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); /* Zmenšené */
+            gap: 2rem; /* Zmenšené */
         }
 
         .footer-section h3 {
-            font-size: 24px !important;
-            margin-bottom: 20px;
+            font-size: 1.3rem; /* Zmenšené */
+            margin-bottom: 1.2rem; /* Zmenšené */
             color: var(--primary-color);
         }
 
         .footer-section p, .footer-section a {
             color: #ccc;
-            margin-bottom: 12px;
+            margin-bottom: 0.6rem; /* Zmenšené */
             display: block;
             text-decoration: none;
-            font-size: 17px !important;
+            transition: var(--transition);
+            font-size: 0.9rem; /* Zmenšené */
         }
 
         .footer-section a:hover {
             color: var(--primary-color);
+            transform: translateX(5px);
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 0.6rem; /* Zmenšené */
         }
 
         .footer-social-icons {
             display: flex;
-            gap: 15px;
-            margin-top: 20px;
+            gap: 0.8rem; /* Zmenšené */
+            margin-top: 1.2rem; /* Zmenšené */
             justify-content: center;
         }
 
         .footer-social-icon {
-            width: 55px;
-            height: 55px;
+            width: 40px; /* Zmenšené */
+            height: 40px;
             border-radius: 50%;
             background-color: rgba(255, 255, 255, 0.1);
             display: flex;
@@ -655,128 +806,294 @@
             justify-content: center;
             transition: var(--transition);
             color: white;
-            font-size: 22px !important;
+            font-size: 1.1rem; /* Zmenšené */
             text-decoration: none;
+        }
+
+        .footer-social-icon:hover {
+            background-color: var(--accent-color);
+            transform: translateY(-5px);
         }
 
         .copyright {
             text-align: center;
-            margin-top: 40px;
-            padding-top: 20px;
+            margin-top: 2.5rem; /* Zmenšené */
+            padding-top: 1.5rem; /* Zmenšené */
             border-top: 1px solid #444;
             color: #999;
-            font-size: 16px !important;
+            font-size: 0.8rem; /* Zmenšené */
         }
 
-        /* ============ DESKTOP STYLY ============ */
-        @media (min-width: 769px) {
-            .mobile-menu-btn {
-                display: none;
-            }
-            
-            nav ul {
-                display: flex;
-                position: static;
-                flex-direction: row;
-                background: transparent;
-                padding: 0;
-                box-shadow: none;
-                gap: 25px;
-                width: auto;
-            }
-            
-            nav ul li a {
-                padding: 0;
-                background: transparent;
-                font-size: 18px !important;
+        /* ============ RESPONSIVE DESIGN ============ */
+        
+        /* Tablet a menší notebooky */
+        @media (max-width: 1024px) {
+            .about-container, .contact-container {
+                grid-template-columns: 1fr;
+                gap: 2.5rem; /* Zmenšené */
             }
             
             .hero h1 {
-                font-size: 48px !important;
-            }
-            
-            .hero p {
-                font-size: 22px !important;
-            }
-            
-            .hero-buttons {
-                flex-direction: row;
-                justify-content: center;
-            }
-            
-            .btn {
-                width: auto;
-            }
-            
-            .action-container {
-                flex-direction: row;
-            }
-            
-            .action-btn {
-                width: auto;
-            }
-            
-            .services-grid {
-                display: grid;
-                grid-template-columns: repeat(2, 1fr);
-            }
-            
-            .about-container {
-                flex-direction: row;
-                align-items: center;
-            }
-            
-            .gallery-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
-            
-            .reviews-grid {
-                display: grid;
-                grid-template-columns: repeat(2, 1fr);
-            }
-            
-            .contact-container {
-                flex-direction: row;
-            }
-            
-            .footer-container {
-                display: grid;
-                grid-template-columns: repeat(4, 1fr);
-            }
-            
-            /* Zmenšení písma na desktopu pro lepší proporce */
-            body {
-                font-size: 16px;
-            }
-            
-            .hero h1 {
-                font-size: 42px !important;
-            }
-            
-            .hero p {
-                font-size: 20px !important;
+                font-size: 3rem;
             }
             
             .section-title h2 {
-                font-size: 36px !important;
+                font-size: 2.2rem; /* Zmenšené */
+            }
+            
+            :root {
+                --section-padding: 4rem 1.5rem;
             }
         }
 
-        @media (min-width: 1024px) {
-            .services-grid {
-                grid-template-columns: repeat(4, 1fr);
+        /* Tablety a velké mobily */
+        @media (max-width: 768px) {
+            .header-container {
+                padding: 0.5rem 0; /* Zmenšené */
             }
             
-            .gallery-grid {
-                grid-template-columns: repeat(3, 1fr);
-            }
-            
-            .reviews-grid {
-                grid-template-columns: repeat(4, 1fr);
+            .hero {
+                height: 90vh;
+                margin-top: 70px;
+                padding: 0 1.5rem;
             }
             
             .hero h1 {
-                font-size: 52px !important;
+                font-size: 2.5rem; /* Zmenšené */
+                margin-bottom: 1.5rem;
+                line-height: 1.2;
+            }
+            
+            .hero p {
+                font-size: 1.1rem; /* Zmenšené */
+                margin-bottom: 1.5rem;
+                line-height: 1.4;
+            }
+            
+            .hero-features {
+                flex-direction: column;
+                align-items: center;
+                gap: 1rem; /* Zmenšené */
+                margin-bottom: 1.5rem; /* Zmenšené */
+            }
+            
+            .feature-item {
+                font-size: 1rem;
+            }
+            
+            .gallery-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .action-btn {
+                flex: 1 1 100%;
+                padding: 14px; /* Zmenšené */
+                font-size: 14px; /* Zmenšené */
+                text-align: center;
+                justify-content: center;
+            }
+            
+            .action-btn[href^="tel:"] {
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                padding: 14px 10px; /* Zmenšené */
+            }
+            
+            .container {
+                padding: 0 1.5rem;
+            }
+        }
+
+        /* Mobilní telefony */
+        @media (max-width: 480px) {
+            .hero {
+                height: 85vh;
+                margin-top: 70px;
+                padding: 0 1rem;
+            }
+            
+            .hero h1 {
+                font-size: 2rem; /* Zmenšené */
+                margin-bottom: 1.2rem;
+                padding-top: 0.5rem;
+            }
+            
+            .hero p {
+                font-size: 1rem;
+                margin-bottom: 1.2rem;
+            }
+            
+            .btn {
+                padding: 0.8rem 1.5rem; /* Zmenšené */
+                font-size: 0.95rem; /* Zmenšené */
+                width: 100%;
+                justify-content: center;
+            }
+            
+            .hero-buttons {
+                flex-direction: column;
+                gap: 0.8rem; /* Zmenšené */
+                width: 100%;
+            }
+            
+            .section-title h2 {
+                font-size: 1.8rem; /* Zmenšené */
+                margin-bottom: 2rem;
+            }
+            
+            .hero-features {
+                gap: 0.8rem; /* Zmenšené */
+                margin-bottom: 1.2rem; /* Zmenšené */
+            }
+            
+            .feature-item {
+                font-size: 0.95rem; /* Zmenšené */
+            }
+            
+            .gallery-categories {
+                gap: 0.5rem; /* Zmenšené */
+                margin-bottom: 2rem;
+            }
+            
+            .gallery-category-btn {
+                padding: 0.6rem 1.2rem; /* Zmenšené */
+                font-size: 0.85rem; /* Zmenšené */
+                flex: 1 1 calc(50% - 0.5rem); /* Zmenšené */
+                text-align: center;
+                min-width: 110px;
+            }
+            
+            .action-container {
+                gap: 8px; /* Zmenšené */
+            }
+            
+            .action-btn {
+                padding: 12px 8px; /* Zmenšené */
+                font-size: 13px; /* Zmenšené */
+                min-height: 55px; /* Zmenšené */
+            }
+            
+            .action-btn[href^="tel:"] {
+                font-size: 14px; /* Zmenšené */
+                padding: 12px 6px; /* Zmenšené */
+            }
+            
+            .action-btn i {
+                font-size: 1.1rem; /* Zmenšené */
+                min-width: 22px; /* Zmenšené */
+            }
+            
+            .footer-social-icons {
+                justify-content: center;
+                gap: 0.6rem; /* Zmenšené */
+                flex-wrap: wrap;
+            }
+            
+            .footer-social-icon {
+                width: 35px; /* Zmenšené */
+                height: 35px;
+                font-size: 1rem; /* Zmenšené */
+            }
+            
+            .order-form-container {
+                padding: 1.5rem; /* Zmenšené */
+            }
+            
+            .order-form-container h3 {
+                font-size: 1.4rem; /* Zmenšené */
+            }
+            
+            .contact-info h2 {
+                font-size: 1.8rem; /* Zmenšené */
+            }
+            
+            .contact-info p {
+                font-size: 1rem;
+            }
+            
+            .service-card {
+                padding: 1.5rem 1.2rem; /* Zmenšené */
+            }
+            
+            .service-icon {
+                width: 60px; /* Zmenšené */
+                height: 60px;
+                font-size: 1.6rem; /* Zmenšené */
+            }
+            
+            .service-card h3 {
+                font-size: 1.2rem;
+            }
+            
+            .review-card {
+                padding: 1.2rem; /* Zmenšené */
+            }
+            
+            .review-avatar {
+                width: 45px; /* Zmenšené */
+                height: 45px;
+                font-size: 1.2rem; /* Zmenšené */
+            }
+            
+            .about-content h2 {
+                font-size: 1.9rem; /* Zmenšené */
+            }
+            
+            .about-content p {
+                font-size: 1rem;
+            }
+            
+            .footer-container {
+                gap: 1.5rem; /* Zmenšené */
+            }
+            
+            .footer-section {
+                text-align: center;
+            }
+            
+            .footer-section h3 {
+                font-size: 1.2rem;
+            }
+            
+            .footer-section p, .footer-section a {
+                font-size: 0.85rem; /* Zmenšené */
+            }
+            
+            .copyright {
+                font-size: 0.75rem; /* Zmenšené */
+                margin-top: 2rem; /* Zmenšené */
+                padding-top: 1.2rem; /* Zmenšené */
+            }
+        }
+
+        /* Velmi malé mobily */
+        @media (max-width: 360px) {
+            .hero h1 {
+                font-size: 1.8rem; /* Zmenšené */
+            }
+            
+            .hero p {
+                font-size: 0.95rem; /* Zmenšené */
+            }
+            
+            .gallery-category-btn {
+                font-size: 0.8rem; /* Zmenšené */
+                padding: 0.5rem 1rem; /* Zmenšené */
+                min-width: 100px; /* Zmenšené */
+            }
+            
+            .action-btn {
+                font-size: 12px; /* Zmenšené */
+                padding: 10px 6px; /* Zmenšené */
+            }
+            
+            .logo-text {
+                font-size: 1.2rem; /* Zmenšené */
+            }
+            
+            .logo-icon {
+                font-size: 1.3rem; /* Zmenšené */
             }
         }
     </style>
@@ -809,7 +1126,7 @@
 
     <!-- Hero Section -->
     <section class="hero" id="domu">
-        <div class="container hero-content">
+        <div class="hero-content">
             <h1>Květinářství Kamila</h1>
             <p>Čerstvé květiny plné lásky a péče. Ručně vázané kytice z nejčerstvějších květin pro každou příležitost.</p>
             
@@ -839,6 +1156,8 @@
                 </a>
             </div>
         </div>
+        
+        <!-- Scroll indicator - ODSTRANĚNO -->
     </section>
 
     <!-- Action Buttons -->
@@ -1190,32 +1509,39 @@
                     <a href="https://www.instagram.com/kvetinarstvi.kamila/" target="_blank" class="social-icon">
                         <i class="fab fa-instagram"></i>
                     </a>
+                    
                 </div>
             </div>
             
             <div class="order-form-container">
                 <h3>Objednat kytici</h3>
-                <form id="contact-form" style="display:flex;flex-direction:column;gap:15px;">
-                    <input type="hidden" name="access_key" value="6849d217-dc27-4995-a741-1cc7ca84d930">
+                <div id="form-container" style="font-family:Arial, Helvetica, sans-serif;">
+                    <form id="contact-form" style="display:flex;flex-direction:column;gap:12px;">
+                        <input type="hidden" name="access_key" value="6849d217-dc27-4995-a741-1cc7ca84d930">
 
-                    <label>Jméno *</label>
-                    <input type="text" name="jmeno" required>
+                        <label style="font-weight:600; color: var(--dark-color);">Jméno *</label>
+                        <input type="text" name="jmeno" required style="padding:12px;border-radius:8px;border:1px solid #ddd;">
 
-                    <label>Email *</label>
-                    <input type="email" name="email" required>
+                        <label style="font-weight:600; color: var(--dark-color);">Email *</label>
+                        <input type="email" name="email" required style="padding:12px;border-radius:8px;border:1px solid #ddd;">
 
-                    <label>Telefon *</label>
-                    <input type="text" name="telefon" required>
+                        <label style="font-weight:600; color: var(--dark-color);">Telefon *</label>
+                        <input type="text" name="telefon" style="padding:12px;border-radius:8px;border:1px solid #ddd;">
 
-                    <label>Zpráva *</label>
-                    <textarea name="zprava" rows="4" required placeholder="Popište jakou kytici potřebujete, pro jakou příležitost, preferované květiny, barvy apod."></textarea>
+                        <label style="font-weight:600; color: var(--dark-color);">Zpráva *</label>
+                        <textarea name="zprava" rows="4" required style="padding:12px;border-radius:8px;border:1px solid #ddd;" placeholder="Popište jakou kytici potřebujete, pro jakou příležitost, preferované květiny, barvy apod."></textarea>
 
-                    <button type="submit" id="submit-btn">
-                        Odeslat objednávku
-                    </button>
-                </form>
+                        <button type="submit" id="submit-btn"
+                            style="padding:14px;border:none;border-radius:8px;background:var(--accent-color);color:#fff;font-weight:700;cursor:pointer;transition:var(--transition);">
+                            Odeslat objednávku
+                        </button>
+                    </form>
 
-                <p id="status" style="text-align:center;margin-top:15px;font-weight:600;"></p>
+                    <p id="status" style="text-align:center;margin-top:12px;font-weight:600;"></p>
+
+                    <pre id="debug"
+                        style="background:#111;color:#fff;padding:10px;border-radius:8px;margin-top:12px;display:none;white-space:pre-wrap;"></pre>
+                </div>
             </div>
         </div>
     </section>
@@ -1233,12 +1559,13 @@
                     <a href="https://www.instagram.com/kvetinarstvi.kamila/" target="_blank" class="footer-social-icon">
                         <i class="fab fa-instagram"></i>
                     </a>
+                    
                 </div>
             </div>
 
             <div class="footer-section">
                 <h3>Rychlé odkazy</h3>
-                <ul style="list-style:none; padding:0;">
+                <ul class="footer-links">
                     <li><a href="#domu">Domovská stránka</a></li>
                     <li><a href="#sluzby">Naše služby</a></li>
                     <li><a href="#onas">O Nás</a></li>
@@ -1270,16 +1597,48 @@
     </footer>
 
     <script>
-        // Mobile Menu Toggle
+        // Mobile Menu Toggle with animation - OPRAVENO
         document.getElementById('mobile-menu-toggle').addEventListener('click', function() {
-            document.getElementById('nav-menu').classList.toggle('active');
+            const menu = document.getElementById('nav-menu');
+            const button = this;
+            
+            const isActive = menu.classList.contains('active');
+            
+            if (isActive) {
+                menu.classList.remove('active');
+                button.classList.remove('active');
+                document.body.style.overflow = 'auto'; // POVOLENÍ SCROLLU
+            } else {
+                menu.classList.add('active');
+                button.classList.add('active');
+                document.body.style.overflow = 'hidden'; // ZABLOKOVÁNÍ SCROLLU
+            }
+            
+            // Add index to menu items for staggered animation
+            const menuItems = menu.querySelectorAll('li');
+            menuItems.forEach((item, index) => {
+                item.style.setProperty('--i', index);
+            });
         });
 
-        // Gallery filtering
+        // Close menu when clicking outside
+        document.addEventListener('click', function(event) {
+            const menu = document.getElementById('nav-menu');
+            const button = document.getElementById('mobile-menu-toggle');
+            
+            if (!menu.contains(event.target) && !button.contains(event.target) && menu.classList.contains('active')) {
+                menu.classList.remove('active');
+                button.classList.remove('active');
+                document.body.style.overflow = 'auto'; // POVOLENÍ SCROLLU
+            }
+        });
+
+        // Gallery filtering - JAKO OLIO
         document.addEventListener('DOMContentLoaded', function() {
             const galleryButtons = document.querySelectorAll('.gallery-category-btn');
             const galleryItems = document.querySelectorAll('.gallery-item');
             
+            // Při načtení: zobrazit pouze "Vázané kytice"
             galleryItems.forEach(item => {
                 if (item.getAttribute('data-category') === 'vazane-kytice') {
                     item.classList.add('active');
@@ -1290,11 +1649,15 @@
             
             galleryButtons.forEach(button => {
                 button.addEventListener('click', function() {
+                    // Remove active class from all buttons
                     galleryButtons.forEach(btn => btn.classList.remove('active'));
+                    
+                    // Add active class to clicked button
                     this.classList.add('active');
                     
                     const category = this.getAttribute('data-category');
                     
+                    // Show/hide gallery items based on category
                     galleryItems.forEach(item => {
                         if (item.getAttribute('data-category') === category) {
                             item.classList.add('active');
@@ -1305,7 +1668,7 @@
                 });
             });
             
-            // Smooth scrolling
+            // Smooth scrolling for anchor links - OPRAVENO
             document.querySelectorAll('a[href^="#"]').forEach(anchor => {
                 anchor.addEventListener('click', function (e) {
                     e.preventDefault();
@@ -1315,11 +1678,19 @@
                     
                     const targetElement = document.querySelector(targetId);
                     if (targetElement) {
-                        document.getElementById('nav-menu').classList.remove('active');
+                        // Zavření menu před scrollováním
+                        const menu = document.getElementById('nav-menu');
+                        const button = document.getElementById('mobile-menu-toggle');
+                        if (menu.classList.contains('active')) {
+                            menu.classList.remove('active');
+                            button.classList.remove('active');
+                            document.body.style.overflow = 'auto'; // POVOLENÍ SCROLLU
+                        }
                         
+                        // Krátká pauza pro zavření menu před scrollováním
                         setTimeout(() => {
                             window.scrollTo({
-                                top: targetElement.offsetTop - 80,
+                                top: targetElement.offsetTop - 80, // Upraveno pro menší header
                                 behavior: 'smooth'
                             });
                         }, 100);
@@ -1327,14 +1698,29 @@
                 });
             });
             
+            // Header scroll effect
+            window.addEventListener('scroll', function() {
+                const header = document.querySelector('header');
+                if (window.scrollY > 100) {
+                    header.style.backgroundColor = 'rgba(255, 255, 255, 0.98)';
+                    header.style.boxShadow = '0 5px 20px rgba(0, 0, 0, 0.1)';
+                } else {
+                    header.style.backgroundColor = 'rgba(255, 255, 255, 0.95)';
+                    header.style.boxShadow = '0 5px 20px rgba(0, 0, 0, 0.1)';
+                }
+            });
+            
             // Form submission
             document.getElementById("contact-form").addEventListener("submit", async function(e) {
                 e.preventDefault();
                 const statusEl = document.getElementById("status");
+                const debugEl = document.getElementById("debug");
                 const submitBtn = document.getElementById("submit-btn");
                 
                 statusEl.style.color = "#333";
                 statusEl.innerText = "Odesílám objednávku...";
+                debugEl.style.display = "none";
+                debugEl.innerText = "";
                 submitBtn.disabled = true;
                 submitBtn.style.opacity = "0.7";
 
@@ -1347,32 +1733,1115 @@
                         body: fd
                     });
 
-                    const json = await res.json();
+                    const text = await res.text().catch(()=>null);
+                    let json;
+                    try { json = JSON.parse(text); } catch(e){ json = null; }
 
-                    if (res.ok && json.success) {
+                    if (res.ok && json && json.success) {
                         statusEl.style.color = "green";
                         statusEl.innerText = "Objednávka úspěšně odeslána! Vyčkejte na SMS potvrzení.";
                         form.reset();
                     } else {
                         statusEl.style.color = "crimson";
-                        statusEl.innerText = "Chyba při odesílání. Zkuste to prosím znovu.";
+                        statusEl.innerText = "Chyba při odesílání — viz detail níže.";
+                        debugEl.style.display = "block";
+                        debugEl.innerText = "HTTP " + res.status + " " + res.statusText + "\n\n" +
+                            (json ? JSON.stringify(json, null, 2) : text || "No response body");
                     }
                 } catch (err) {
                     statusEl.style.color = "crimson";
                     statusEl.innerText = "Síťová chyba při odesílání.";
+                    debugEl.style.display = "block";
+                    debugEl.innerText = String(err);
                 } finally {
                     submitBtn.disabled = false;
                     submitBtn.style.opacity = "1";
                 }
             });
             
-            // Close menu when clicking on link
+            // Zavření menu při kliknutí na odkaz - OPRAVENO
             document.querySelectorAll('#nav-menu a').forEach(link => {
                 link.addEventListener('click', function() {
-                    document.getElementById('nav-menu').classList.remove('active');
+                    const menu = document.getElementById('nav-menu');
+                    const button = document.getElementById('mobile-menu-toggle');
+                    
+                    menu.classList.remove('active');
+                    button.classList.remove('active');
+                    document.body.style.overflow = 'auto'; // POVOLENÍ SCROLLU
                 });
+            });
+            
+            // Close menu on escape key - OPRAVENO
+            document.addEventListener('keydown', function(event) {
+                if (event.key === 'Escape') {
+                    const menu = document.getElementById('nav-menu');
+                    const button = document.getElementById('mobile-menu-toggle');
+                    
+                    if (menu.classList.contains('active')) {
+                        menu.classList.remove('active');
+                        button.classList.remove('active');
+                        document.body.style.overflow = 'auto'; // POVOLENÍ SCROLLU
+                    }
+                }
             });
         });
     </script>
+    <!-- AI Chatbot Widget -->
+<style>
+    /* Styly pro AI Chatbot */
+    #chatbot-container {
+        position: fixed;
+        bottom: 30px;
+        right: 30px;
+        z-index: 10000;
+        font-family: 'Segoe UI', system-ui, sans-serif;
+    }
+    
+    /* Hlavní tlačítko chatbotu - kolečko */
+    #chatbot-toggle {
+        width: 75px;
+        height: 75px;
+        border-radius: 50%;
+        background: linear-gradient(135deg, var(--accent-color), var(--secondary-color));
+        border: none;
+        color: white;
+        cursor: pointer;
+        box-shadow: 0 5px 20px rgba(212, 80, 127, 0.4);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        overflow: hidden;
+        position: relative;
+        z-index: 10001;
+    }
+    
+    #chatbot-toggle:hover {
+        transform: scale(1.1);
+        box-shadow: 0 8px 25px rgba(212, 80, 127, 0.6);
+    }
+    
+    #chatbot-toggle.active {
+        transform: scale(1.15);
+        box-shadow: 0 10px 30px rgba(212, 80, 127, 0.7);
+    }
+    
+    #chatbot-toggle i {
+        font-size: 26px;
+        transition: transform 0.3s ease;
+    }
+    
+    #chatbot-toggle.active i {
+        transform: rotate(90deg);
+    }
+    
+    #chatbot-toggle span {
+        font-size: 11px;
+        font-weight: 600;
+        margin-top: 4px;
+    }
+    
+    /* Chatovací okno */
+    #chatbot-window {
+        position: absolute;
+        bottom: 85px;
+        right: 0;
+        width: 400px;
+        height: 560px;
+        background-color: white;
+        border-radius: 20px;
+        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
+        overflow: hidden;
+        display: none;
+        flex-direction: column;
+        opacity: 0;
+        transform: translateY(20px) scale(0.95);
+        transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        z-index: 10000;
+    }
+    
+    #chatbot-window.active {
+        display: flex;
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+    
+    /* Hlavička chatu */
+    #chat-header {
+        background: linear-gradient(to right, var(--accent-color), var(--secondary-color));
+        color: white;
+        padding: 18px 20px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+    
+    #chat-header h3 {
+        font-size: 18px;
+        margin: 0;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+    
+    #chat-header h3 i {
+        font-size: 20px;
+    }
+    
+    #chat-close {
+        background: none;
+        border: none;
+        color: white;
+        font-size: 28px;
+        cursor: pointer;
+        line-height: 1;
+        padding: 0;
+        width: 30px;
+        height: 30px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 50%;
+        transition: background-color 0.2s;
+    }
+    
+    #chat-close:hover {
+        background-color: rgba(255, 255, 255, 0.2);
+    }
+    
+    /* Oblast zpráv */
+    #chat-messages {
+        flex-grow: 1;
+        padding: 20px;
+        overflow-y: auto;
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+        background-color: #f9f9f9;
+    }
+    
+    /* Stylování jednotlivých zpráv */
+    .message {
+        max-width: 80%;
+        padding: 12px 16px;
+        border-radius: 18px;
+        line-height: 1.4;
+        font-size: 15px;
+        word-wrap: break-word;
+    }
+    
+    .bot-message {
+        background-color: white;
+        color: #333;
+        border-bottom-left-radius: 5px;
+        align-self: flex-start;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+        border: 1px solid #f0f0f0;
+    }
+    
+    .user-message {
+        background: linear-gradient(to right, var(--accent-color), var(--secondary-color));
+        color: white;
+        border-bottom-right-radius: 5px;
+        align-self: flex-end;
+    }
+    
+    /* Indikátor psaní */
+    #typing-indicator {
+        display: none;
+        align-self: flex-start;
+        background-color: white;
+        padding: 12px 16px;
+        border-radius: 18px;
+        border-bottom-left-radius: 5px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+        border: 1px solid #f0f0f0;
+        margin-bottom: 5px;
+    }
+    
+    .typing-dots {
+        display: flex;
+        gap: 4px;
+    }
+    
+    .typing-dots span {
+        width: 8px;
+        height: 8px;
+        background-color: #bbb;
+        border-radius: 50%;
+        animation: typing 1.4s infinite ease-in-out;
+    }
+    
+    .typing-dots span:nth-child(1) { animation-delay: -0.32s; }
+    .typing-dots span:nth-child(2) { animation-delay: -0.16s; }
+    
+    @keyframes typing {
+        0%, 80%, 100% { transform: scale(0); }
+        40% { transform: scale(1); }
+    }
+    
+    /* Vstupní oblast */
+    #chat-input-area {
+        padding: 20px;
+        border-top: 1px solid #eee;
+        background-color: white;
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+    }
+    
+    #user-input {
+        padding: 14px 16px;
+        border: 1px solid #ddd;
+        border-radius: 25px;
+        font-size: 15px;
+        outline: none;
+        transition: border-color 0.3s;
+    }
+    
+    #user-input:focus {
+        border-color: var(--accent-color);
+    }
+    
+    #send-btn {
+        background: linear-gradient(to right, var(--accent-color), var(--secondary-color));
+        color: white;
+        border: none;
+        padding: 12px 20px;
+        border-radius: 25px;
+        font-weight: 600;
+        font-size: 15px;
+        cursor: pointer;
+        transition: all 0.3s;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+    }
+    
+    #send-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(212, 80, 127, 0.4);
+    }
+    
+    #send-btn:disabled {
+        opacity: 0.6;
+        cursor: not-allowed;
+        transform: none;
+        box-shadow: none;
+    }
+    
+    /* Rychlé odpovědi */
+    #quick-replies {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        margin-top: 5px;
+    }
+    
+    .quick-reply {
+        background-color: #f0f0f0;
+        border: none;
+        border-radius: 20px;
+        padding: 8px 16px;
+        font-size: 13px;
+        cursor: pointer;
+        transition: all 0.2s;
+        color: #555;
+    }
+    
+    .quick-reply:hover {
+        background-color: #e0e0e0;
+        transform: translateY(-2px);
+    }
+    
+    /* Responsivita */
+    @media (max-width: 768px) {
+        #chatbot-container {
+            bottom: 20px;
+            right: 20px;
+        }
+        
+        #chatbot-toggle {
+            width: 60px;
+            height: 60px;
+        }
+        
+        #chatbot-toggle i {
+            font-size: 22px;
+        }
+        
+        #chatbot-toggle span {
+            font-size: 10px;
+        }
+        
+        #chatbot-window {
+            width: calc(100vw - 40px);
+            right: -10px;
+            height: 450px;
+        }
+        
+        #chat-header {
+            padding: 15px;
+        }
+    }
+    
+    @media (max-width: 480px) {
+        #chatbot-container {
+            bottom: 15px;
+            right: 15px;
+        }
+        
+        #chatbot-toggle {
+            width: 55px;
+            height: 55px;
+        }
+        
+        #chatbot-window {
+            width: calc(100vw - 30px);
+            height: 400px;
+        }
+    }
+</style>
+
+<div id="chatbot-container">
+    <button id="chatbot-toggle" aria-label="Otevřít chat">
+        <i class="fas fa-robot"></i>
+        <span>AI Asistent</span>
+    </button>
+    
+    <div id="chatbot-window">
+        <div id="chat-header">
+            <h3><i class="fas fa-robot"></i> Květinářství Kamila AI</h3>
+            <button id="chat-close" aria-label="Zavřít chat">×</button>
+        </div>
+        
+        <div id="chat-messages">
+            <!-- Zprávy budou přidávány dynamicky -->
+            <div class="message bot-message">
+                Ahoj! Jsem AI asistent Květinářství Kamila. Jak vám mohu pomoci? 😊
+            </div>
+        </div>
+        
+        <div id="chat-input-area">
+            <div id="quick-replies">
+                <button class="quick-reply" data-question="Otevírací doba">Otevírací doba</button>
+                <button class="quick-reply" data-question="Ceník">Ceník květin</button>
+                <button class="quick-reply" data-question="Adresa">Kde se nacházíte?</button>
+                <button class="quick-reply" data-question="Objednávka">Jak objednat kytici?</button>
+            </div>
+            
+            <input type="text" id="user-input" placeholder="Napište svůj dotaz..." maxlength="500">
+            <button id="send-btn"><i class="fas fa-paper-plane"></i> Odeslat</button>
+        </div>
+    </div>
+</div>
+
+<script>
+    // Chatbot logika
+    document.addEventListener('DOMContentLoaded', function() {
+        const chatbotToggle = document.getElementById('chatbot-toggle');
+        const chatbotWindow = document.getElementById('chatbot-window');
+        const chatClose = document.getElementById('chat-close');
+        const userInput = document.getElementById('user-input');
+        const sendBtn = document.getElementById('send-btn');
+        const chatMessages = document.getElementById('chat-messages');
+        const quickReplies = document.querySelectorAll('.quick-reply');
+        
+        // Otevření/zavření chatbota
+        chatbotToggle.addEventListener('click', function() {
+            chatbotWindow.classList.toggle('active');
+            chatbotToggle.classList.toggle('active');
+            
+            if (chatbotWindow.classList.contains('active')) {
+                // Posuneme se na poslední zprávu
+                setTimeout(() => {
+                    chatMessages.scrollTop = chatMessages.scrollHeight;
+                }, 100);
+                
+                // Zaměříme vstupní pole
+                setTimeout(() => {
+                    userInput.focus();
+                }, 300);
+            }
+        });
+        
+        chatClose.addEventListener('click', function() {
+            chatbotWindow.classList.remove('active');
+            chatbotToggle.classList.remove('active');
+        });
+        
+        // Funkce pro přidání zprávy do chatu
+function addMessage(text, isUser = false) {
+    const messageDiv = document.createElement('div');
+    messageDiv.classList.add('message');
+    messageDiv.classList.add(isUser ? 'user-message' : 'bot-message');
+    
+    // Nahradíme \n za HTML <br> pro řádkování
+    const formattedText = text.replace(/\n/g, '<br>');
+    messageDiv.innerHTML = formattedText;
+    
+    chatMessages.appendChild(messageDiv);
+    
+    // Posuneme se na novou zprávu
+    setTimeout(() => {
+        chatMessages.scrollTop = chatMessages.scrollHeight;
+    }, 50);
+}
+        
+        // Funkce pro simulaci psaní
+        function showTypingIndicator() {
+            const typingDiv = document.createElement('div');
+            typingDiv.id = 'typing-indicator';
+            typingDiv.innerHTML = `
+                <div class="typing-dots">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            `;
+            chatMessages.appendChild(typingDiv);
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+        }
+        
+        function hideTypingIndicator() {
+            const typingIndicator = document.getElementById('typing-indicator');
+            if (typingIndicator) {
+                typingIndicator.remove();
+            }
+        }
+        
+        // Funkce pro zpracování dotazu uživatele
+// Funkce pro zpracování dotazu uživatele
+function processUserQuery(query) {
+    const lowerQuery = query.toLowerCase().trim();
+    
+    // Simulujeme zpoždění odpovědi
+    showTypingIndicator();
+    
+    setTimeout(() => {
+        hideTypingIndicator();
+        
+        let response = "";
+        
+        // ============ OTEVÍRACÍ DOBA ============
+        if (/(otevírací|oteviraci|otevírací doba|oteviraci doba|otevřeno|otevreno|kdy otevřeno|kdy otvíráte|doba otevření|kdy máte otevřeno|kdy jste otevreni|kdy mate otevreno|provozní doba|pracovní doba|kdy fungujete|kdy jste dostupni|kdy zavíráte|zavírací doba|zavirací doba|kdy máte zavřeno|od kolika do kolika|kolikátá|kolikata|kolik hodin|jak dlouho|kdy příště|kdypříště|kdy příští|kdypřístí)/.test(lowerQuery)) {
+            response = "🕒 <strong>Naše otevírací doba:</strong><br><br>" +
+                       "• <strong>Momentálně máme zavřeno do 11.1.</strong> <br>" +
+                       " <strong></strong> <br>" +
+                       "• <strong>Pondělí - Pátek:</strong> 9:00-17:00<br>" +
+                       "• <strong>Sobota:</strong> 9:00-12:30<br>" +
+                       "• <strong>Neděle:</strong> Zavřeno<br><br>" +
+                       "🎯 <strong>Důležité:</strong><br>" +
+                       "• Objednávky přijímáme do 16:30<br>" +
+                       "• Vyzvednutí kytic možné do 17:00<br>" +
+                       "• Expresní objednávky: do 16:00<br><br>" +
+                       "📞 Telefon: +420 774 724 220";
+        } 
+        
+        // ============ CENY ============
+        else if (/(ceník|cena|ceník|ceny|kolik stojí|kolik stoji|za kolik|jaká cena|jaka cena|jaké ceny|jake ceny|cenovka|moc drahý|moc drahy|drahý|drahy|levný|levny|hodně stojí|hodne stoji|málo|moc|přesná cena|presna cena|kolik za|kolik to je|kolik kytice|kolik ruze|kolik ruzi|kolik tulipany|kolik gerbery|kolik kyticka|kolik kytici|kolik za malou|kolik za střední|kolik za velkou|kolik za malej|kolik za stredni|kolik za velkej|price|cost|how much|€|eur|dolar|dollar)/.test(lowerQuery)) {
+            response = "💐 <strong>Ceny květin - orientační přehled:</strong><br><br>" +
+                       "🌸 <strong>Vázané kytice:</strong><br>" +
+                       "• Malá kytice: 200-400 Kč<br>" +
+                       "• Střední kytice: 400-800 Kč<br>" +
+                       "• Velká/luxusní kytice: 800-1500 Kč<br><br>" +
+                       "🌹 <strong>Jednotlivé květiny (kus):</strong><br>" +
+                       "• Růže: 89 Kč<br>" +
+                       "• Tulipány: 25-45 Kč<br>" +
+                       "• Gerbery: 35-60 Kč<br>" +
+                       "• Lilie: 50-90 Kč<br>" +
+                       "• Orchideje: 120-250 Kč<br><br>" +
+                       "🎁 <strong>Speciální služby:</strong><br>" +
+                       "• Svatební kytice: od 800 Kč<br>" +
+                       "• Pohřební věnce: od 1000 Kč<br>" +
+                       "• Hrnkové rostliny: 150-800 Kč<br><br>" +
+                       "💡 <strong>Poznámka:</strong><br>" +
+                       "• Cena závisí na sezóně, druhu květin a velikosti kytice<br>" +
+                       "• Všechny ceny jsou včetně DPH<br>" +
+                       "• Přesnou cenu vám rádi sdělíme po konzultaci<br>" +
+                       "• Akceptujeme hotovost i kartu";
+        }
+        
+        // ============ ADRESA / POLOHA ============
+        else if (/(kde se nacházíte|kde jste|adresa|kam jít|kde hledat|kde najdu|poloha|lokace|místo|kam přijít|kde sídlíte|jak se dostat|navigace|mapa|google maps|mapy|gps|souřadnice|ulice|číslo popisné|cislo popisne|liberec|liberecký|liberecky|oc luna|obchodní centrum|obchodni centrum|shopping|nákupní centrum|nakupni centrum|kde v liberci|v jaké části|v jake casti|kunratická|kunraticka|olbrachtova|sídliště|sidliste|kde parkovat|parkování|parkovani|doprava|mhd|bus|tramvaj|autobus)/.test(lowerQuery)) {
+            response = "📍 <strong>Kde nás najdete:</strong><br><br>" +
+                       "🏬 <strong>Adresa:</strong><br>" +
+                       "OC Luna Liberec<br>" +
+                       "Sídliště Kunratická<br>" +
+                       "Olbrachtova 618/37<br>" +
+                       "Liberec 15<br><br>" +
+                       "🗺️ <strong>Navigace:</strong><br>" +
+                       "• GPS: 50.76099°N, 15.09311°E<br>" +
+                       "• Google Maps: https://goo.gl/maps/...<br>" +
+                       "• Mapy.cz: https://mapy.cz/zakladni?q=...<br><br>" +
+                       "🚗 <strong>Doprava a parkování:</strong><br>" +
+                       "• Přímo před OC Luna zdarma<br>" +
+                       "• Velké parkoviště u obchodního centra<br>" +
+                       "• MHD: zastávka 'Luna' (linky 12, 17, 19)<br>" +
+                       "• 5 minut od centra Liberce";
+        }
+        
+        // ============ OBJEDNÁVKY ============
+        else if (/(objednat|objednávka|objednavka|koupit|zakoupit|koupit kytici|koupit kytice|koupit květiny|koupit kvetiny|nakupovat|nakoupit|kde objednat|jak objednat|online objednávka|online objednavka|e-shop|eshop|internetová objednávka|internetova objednavka|můžu objednat|mužu objednat|mohu objednat|chci objednat|potřebuji objednat|potrebuji objednat|chci kytici|potřebuji kytici|potrebuji kytici|rezervace|rezervovat|zarezervovat|předobjednávka|predobjednavka|objednat dopředu|objednat dopredu|expresní objednávka|expresni objednavka|rychlá objednávka|rychla objednavka|dnes ještě|ještě dnes|jeste dnes|do 17:00|do 17 hodin|dodání|dodani|doprava|rozvoz|donáška|donaska|přivezu|privezu|dovezu|doneste|přinesete|prinesete)/.test(lowerQuery)) {
+            response = "💌 <strong>Jak objednat kytici - 5 způsobů:</strong><br><br>" +
+                       "1️⃣ <strong>Telefonicky:</strong><br>" +
+                       "   📞 +420 774 724 220<br>" +
+                       "   (9:00-17:00 Po-Pá, 9:00-12:30 So)<br><br>" +
+                       "2️⃣ <strong>Osobně v obchodě:</strong><br>" +
+                       "   🏬 OC Luna, Liberec<br>" +
+                       "   (nejlepší pro konzultaci)<br><br>" +
+                       "3️⃣ <strong>Online formulář:</strong><br>" +
+                       "   📝 Na této stránce sekce 'Objednat kytici'<br>" +
+                       "   (vyplňte popis a my se ozveme)<br><br>" +
+                       "4️⃣ <strong>Sociální sítě:</strong><br>" +
+                       "   📱 Instagram: @kvetinarstvi.kamila<br>" +
+                       "   👍 Facebook: Květinářství Kamila<br><br>" +
+                       "5️⃣ <strong>E-mail:</strong><br>" +
+                       "   ✉️ kvetinarstvikamila@seznam.cz<br><br>" +
+                       "⚡ <strong>Expresní objednávky:</strong><br>" +
+                       "• Do 16:00 – vyzvednutí ještě dnes<br>" +
+                       "• Platba: hotovost, kartou, převodem<br>" +
+                       "• Dárek: přidáme přáníčko zdarma";
+        }
+        
+        // ============ KONTAKT ============
+        else if (/(kontakt|kontakty|telefon|číslo|cislo|mobil|telefonní číslo|telefoni cislo|číslo mobilu|cislo mobilu|volat|zavolat|zavolejte|volejte|zavolám|zavolam|zatelefonuji|zatelefonuju|sms|zpráva|zprava|e-mail|email|mail|adresa emailu|emailová adresa|emailova adresa|můj email|muj email|poslat email|poslat mail|napsat|napsat email|napsat mail|zavolej mi|volej mi|zavoláš|zavolas|kamarád|kamarat|kamarádka|kamaratka|známý|znamy|známá|znama)/.test(lowerQuery)) {
+            response = "📞 <strong>Kontaktní údaje:</strong><br><br>" +
+                       "📱 <strong>Telefon:</strong><br>" +
+                       "+420 774 724 220<br>" +
+                       "(volat Po-Pá 9:00-17:00, So 9:00-12:30)<br><br>" +
+                       "🏬 <strong>Adresa prodejny:</strong><br>" +
+                       "Květinářství Kamila<br>" +
+                       "OC Luna Liberec<br>" +
+                       "Olbrachtova 618/37, Liberec 15<br><br>" +
+                       "📧 <strong>E-mail:</strong><br>" +
+                       "kvetinarstvikamila@seznam.cz<br>" +
+                       "(odpovídáme do 24 hodin)<br><br>" +
+                       "🌐 <strong>Sociální sítě:</strong><br>" +
+                       "• Instagram: @kvetinarstvi.kamila<br>" +
+                       "• Facebook: Květinářství Kamila<br><br>" +
+                       "💬 <strong>Chat:</strong><br>" +
+                       "Právě jsme v kontaktu! 😊";
+        }
+        
+        // ============ SLUŽBY ============
+        else if (/(služby|sluzby|co děláte|co delate|co nabízíte|co nabizite|co prodáváte|co prodavate|co máte|co mate|co je u vás|co je u vas|co všechno|co vsechno|jaké služby|jake sluzby|jaké máte služby|jake mate sluzby|sortiment|nabídka|nabidka|produkty|zboží|zbozi|květiny|kvetiny|kytice|květinové vazby|kvetinove vazby|vázané kytice|vazane kytice|svatební|svatebni|pohřební|pohrební|pohrebni|smuteční|smutecni|hrnkové|hrnkove|pokojové rostliny|pokojove rostliny|rostliny v květináči|rostliny v kvetinaci|květiny v květináči|kvetiny v kvetinaci|darčeky|dárky|darky|darek|dárek|balení|baleni|dárkové balení|darkove baleni|kytice na míru|kytice na miru|na přání|na prani|speciální přání|specialni prani)/.test(lowerQuery)) {
+            response = "🌺 <strong>Naše služby - kompletní přehled:</strong><br><br>" +
+                       "💐 <strong>Vázané kytice:</strong><br>" +
+                       "• Sezónní kytice (jaro/léto/podzim/zima)<br>" +
+                       "• Romantické kytice (růže, tulipány)<br>" +
+                       "• Kytice na narozeniny, výročí, svátky<br>" +
+                       "• Děkuji, promiň, gratulace<br>" +
+                       "• Kytice na první rande<br><br>" +
+                       "👰 <strong>Svatební květiny:</strong><br>" +
+                       "• Svatební kytice nevěsty<br>" +
+                       "• Boutonniery pro ženicha<br>" +
+                       "• Květinová výzdoba obřadu<br>" +
+                       "• Květiny na svatební tabuli<br>" +
+                       "• Květiny pro družičky<br><br>" +
+                       "⚰️ <strong>Pohřební květiny:</strong><br>" +
+                       "• Smuteční kytice a věnce<br>" +
+                       "• Květinové dekorace<br>" +
+                       "• Stuhy s nápisy<br>" +
+                       "• Rychlé vyřízení (do 2 hodin)<br><br>" +
+                       "🏡 <strong>Hrnkové rostliny:</strong><br>" +
+                       "• Pokojové rostliny<br>" +
+                       "• Kaktusy a sukulenty<br>" +
+                       "• Bonsaje<br>" +
+                       "• Orchideje<br>" +
+                       "• Rostliny na terasu<br><br>" +
+                       "🎁 <strong>Doplňkové služby:</strong><br>" +
+                       "• Dárkové balení<br>" +
+                       "• Přáníčka zdarma<br>" +
+                       "• Poradenství s výběrem<br>" +
+                       "• Předobjednávky<br>" +
+                       "• Dárkové poukazy";
+        }
+        
+        // ============ SVATBY ============
+        else if (/(svatba|svatby|svatební|svatebni|svatebni kytice|svatební kytice|nevěsta|nevesta|ženich|zenich|družička|druzicka|svatební výzdoba|svatebni vyzdoba|obřad|obrad|hostina|oslava|veselka|snubní|snubni|prstýnek|prstynek|snoubenci|snoubenky|muz a zena|muž a žena|manželství|manzelstvi|oddavky|oddavkový sál|oddavkovy sal)/.test(lowerQuery)) {
+            response = "👰 <strong>Svatební služby - váš velký den:</strong><br><br>" +
+                       "💖 <strong>Co pro vás připravíme:</strong><br>" +
+                       "• Svatební kytice nevěsty na míru<br>" +
+                       "• Boutonniery pro ženicha a svědky<br>" +
+                       "• Květiny pro družičky a rodiče<br>" +
+                       "• Květinová výzdoba obřadu<br>" +
+                       "• Aranžmá na svatební tabuli<br>" +
+                       "• Květinové dekorace pro hosty<br><br>" +
+                       "📅 <strong>Postup:</strong><br>" +
+                       "1. Konzultace (osobně/telefonicky)<br>" +
+                       "2. Návrh a ukázka květin<br>" +
+                       "3. Rezervace termínu<br>" +
+                       "4. Příprava v den svatby<br>" +
+                       "5. Dodání na místo obřadu<br><br>" +
+                       "⏰ <strong>Časový harmonogram:</strong><br>" +
+                       "• Rezervace: min. 2 měsíce předem<br>" +
+                       "• Konzultace: 4-6 týdnů předem<br>" +
+                       "• Konečná domluva: 2 týdny předem<br>" +
+                       "• Příprava: den před svatbou<br><br>" +
+                       "💰 <strong>Ceny:</strong><br>" +
+                       "• Základní balíček: od 2 500 Kč<br>" +
+                       "• Kompletní výzdoba: od 5 000 Kč<br>" +
+                       "• Individuální cenová nabídka";
+        }
+        
+        // ============ POHŘEBY ============
+        else if (/(pohřeb|pohreb|pohřby|pohreby|smuteční|smutecni|smutek|úmrtí|umrti|zemřel|zemrel|zemřela|zemrela|zesnulý|zesnuly|zesnulá|zesnula|rozloučení|rozlouceni|poslední rozloučení|posledni rozlouceni|památka|pamatka|vzpomínka|vzpominka|smuteční kytice|smutecni kytice|smuteční věnec|smutecni venec|věnec|venec|kytice na rakev|květiny na rakev|kvetiny na rakev|dát květiny|dat kvetiny|položit květiny|položit kvetiny|vazba na pohřeb|vazba na pohreb)/.test(lowerQuery)) {
+            response = "⚰️ <strong>Pohřební služby - s úctou a citem:</strong><br><br>" +
+                       "🌸 <strong>Nabízíme:</strong><br>" +
+                       "• Smuteční kytice všech velikostí<br>" +
+                       "• Pohřební věnce (kulaté, srdce)<br>" +
+                       "• Květinové aranžmá na rakev<br>" +
+                       "• Stuhy s nápisy (sbohem, na památku)<br>" +
+                       "• Květiny do ruky pro pozůstalé<br><br>" +
+                       "⚡ <strong>Expresní služba:</strong><br>" +
+                       "• Rychlé vyřízení do 2 hodin<br>" +
+                       "• Donesení na místo rozloučení<br>" +
+                       "• Citlivý a diskrétní přístup<br>" +
+                       "• Poradenství s výběrem<br><br>" +
+                       "📞 <strong>Jak objednat:</strong><br>" +
+                       "• Telefon: +420 774 724 220<br>" +
+                       "• Uveďte: jméno zesnulého, datum a místo pohřbu<br>" +
+                       "• Vyberte: druh, barvu, velikost, nápis<br><br>" +
+                       "💐 <strong>Doporučené květiny:</strong><br>" +
+                       "• Bílé růže - čistota a úcta<br>" +
+                       "• Lilie - nevinnost<br>" +
+                       "• Chryzantémy - věčnost<br>" +
+                       "• Karafiáty - láska";
+        }
+        
+        // ============ DOPRAVA / ROZVOZ ============
+        else if (/(doprava|rozvoz|donáška|donaska|donesení|doneseni|přivezu|privezu|dovezu|doneste|přinesete|prinesete|zavezete|zavezete mi|donášíte|donasite|rozvážíte|rozvazite|doručení|doručeni|kurýr|kurýrní služba|kurýrni sluzba|expresní doprava|expresni doprava|rychlá doprava|rychla doprava|doprava květin|doprava kvetin|doprava kytic|doprava domu|domů|domu|na adresu|do domu|do bytu|do práce|do prace|na pracoviště|na pracoviste|dopravné|dopravne|poštovné|poštovne|pošta|posta|zásilka|zasilka|balík|balik)/.test(lowerQuery)) {
+            response = "🚚 <strong>Doprava a rozvoz květin:</strong><br><br>" +
+                       "📍 <strong>Rozvoz v Liberci:</strong><br>" +
+                       "• Do 5 km od prodejny: 79 Kč<br>" +
+                       "• 5-10 km: 129 Kč<br>" +
+                       "• 10-15 km: 179 Kč<br>" +
+                       "• Nad 15 km: individuálně<br><br>" +
+                       "⚡ <strong>Časy doručení:</strong><br>" +
+                       "• Objednávky do 14:00 – doručení tentýž den<br>" +
+                       "• Expresní doručení do 2 hodin: +100 Kč<br>" +
+                       "• Přesný čas doručení: domluvíme telefonicky<br><br>" +
+                       "🎁 <strong>Co s doručením:</strong><br>" +
+                       "• Diskrétní doručení<br>" +
+                       "• Foto doklad o doručení<br>" +
+                       "• Přáníčko s vzkazem<br>" +
+                       "• Možnost platby kurýrovi<br><br>" +
+                       "📦 <strong>Mimo Liberec:</strong><br>" +
+                       "• Možnost zaslání přes zásilkovnu<br>" +
+                       "• Cena podle tarifu přepravce<br>" +
+                       "• Speciální balení na cestu";
+        }
+        
+        // ============ PLATBY ============
+        else if (/(platba|platit|zaplatit|zaplatit kartou|kartou|platební karta|platebni karta|hotovost|hotovostí|hotovosti|převod|prevod|bankovní převod|bankovni prevod|bankovní účet|bankovni ucet|číslo účtu|cislo uctu|variabilní symbol|variabilni symbol|faktura|fakturu|účet|ucet|paragon|paragón|paragon|daňový doklad|danovy doklad|DPH|dph|můžu platit|mužu platit|mohu platit|jak zaplatit|jak platit|platba online|online platba|platba kartou online|platit přes internet|platit pres internet|apple pay|google pay)/.test(lowerQuery)) {
+            response = "💳 <strong>Možnosti platby:</strong><br><br>" +
+                       "💰 <strong>V prodejně:</strong><br>" +
+                       "• Hotovost (Kč)<br>" +
+                       "• Platební karty (Visa, MasterCard)<br>" +
+                       "• Apple Pay, Google Pay<br>" +
+                       "• Dárkové poukazy<br><br>" +
+                       "🌐 <strong>Online platby:</strong><br>" +
+                       "• Bankovní převod předem<br>" +
+                       "• Platba kartou online<br>" +
+                       "• Hotově kurýrovi při doručení<br><br>" +
+                       "🧾 <strong>Doklady:</strong><br>" +
+                       "• Paragon (vždy)<br>" +
+                       "• Faktura s IČO na vyžádání<br>" +
+                       "• Vše s DPH 21%<br><br>" +
+                       "🏦 <strong>Firemní údaje:</strong><br>" +
+                       "• IČO: 06644392<br>" +
+                       "• Datová schránka: zbqv4hk<br>" +
+                       "• Fyzická osoba podnikající";
+        }
+        
+        // ============ DÁRKOVÉ POUKAZY ============
+        else if (/(dárkový poukaz|darkovy poukaz|dárkové poukazy|darkove poukazy|poukaz|poukazy|dárkový certifikát|darkovy certifikat|certifikát|certifikat|kupón|kupon|voucher|vouchery|dárek|darek|dar|dárkový|darkovy|dát jako dárek|dat jako darek|koupit jako dárek|koupit jako darek|poukaz na květiny|poukaz na kvetiny|poukaz na kytici|dárkový list|darkovy list|dárkový balíček|darkovy balicek)/.test(lowerQuery)) {
+            response = "🎁 <strong>Dárkové poukazy - ideální dárek:</strong><br><br>" +
+                       "💝 <strong>Druhy poukazů:</strong><br>" +
+                       "• Na konkrétní částku (300, 500, 1000, 2000 Kč)<br>" +
+                       "• Na konkrétní kytici (Romantická, Jarní, Luxusní)<br>" +
+                       "• Univerzální (libovolná kytice dle výběru)<br><br>" +
+                       "✨ <strong>Výhody:</strong><br>" +
+                       "• Platnost 12 měsíců<br>" +
+                       "• Krásné dárkové balení<br>" +
+                       "• Přáníčko s osobním vzkazem<br>" +
+                       "• Možnost doručení adresátovi<br><br>" +
+                       "🛒 <strong>Jak koupit:</strong><br>" +
+                       "1. Osobně v prodejně<br>" +
+                       "2. Telefonicky s doručením<br>" +
+                       "3. Online s e-mailem poukazu<br><br>" +
+                       "💡 <strong>Tip:</strong> Poukaz na 500 Kč = střední kytice + dárkové balení!";
+        }
+        
+        // ============ PORADENSTVÍ ============
+        else if (/(poradenství|poradenstvi|rada|rady|poradit|poradíte|poradite|doporučení|doporuceni|doporučit|doporucit|jakou kytici|jakou kytici vybrat|jaké květiny|jake kvetiny|co vybrat|co zvolit|jak na to|jak vybrat|pomoc s výběrem|pomoc s vyberem|konzultace|konzultovat|zeptat se|zeptat|dotaz|dotazy|nejlepší kytice|nejlepsi kytice|nejvhodnější|nejvhodnejsi|co byste doporučili|co byste doporucili|co doporučujete|co doporucujete)/.test(lowerQuery)) {
+            response = "🤝 <strong>Poradenství - rádi vám pomůžeme:</strong><br><br>" +
+                       "💬 <strong>Co vám poradíme:</strong><br>" +
+                       "• Výběr květin podle příležitosti<br>" +
+                       "• Kombinace barev a druhů květin<br>" +
+                       "• Velikost kytice podle rozpočtu<br>" +
+                       "• Květiny, které vydrží nejdéle<br>" +
+                       "• Význam květin a jejich barev<br><br>" +
+                       "🎯 <strong>Nejčastější dotazy:</strong><br>" +
+                       "• <strong>První rande:</strong> Malá kytice růží nebo tulipánů<br>" +
+                       "• <strong>Narozeniny:</strong> Barevná kytice podle znamení<br>" +
+                       "• <strong>Výročí:</strong> Červené růže + bílé lilie<br>" +
+                       "• <strong>Poděkování:</strong> Žluté gerbery nebo slunečnice<br>" +
+                       "• <strong>Promiň:</strong> Bílé růže s modrými květy<br><br>" +
+                       "📞 <strong>Jak nás kontaktovat:</strong><br>" +
+                       "• Telefon: +420 774 724 220<br>" +
+                       "• Osobně v prodejně<br>" +
+                       "• Chatujte s námi zde 😊";
+        }
+        
+        // ============ SEZÓNNÍ KVĚTINY ============
+        else if (/(sezónní|sezonni|sezóna|sezona|jarní|jarni|letní|letni|podzimní|podzimni|zimní|zimni|aktuální květiny|aktualni kvetiny|co teď kvete|co ted kvete|květiny v sezóně|kvetiny v sezone|co je v sezóně|co je v sezone|čerstvé květiny|cerstve kvetiny|dnešní květiny|dnesni kvetiny|dodávka|dodavka|kdy jaké květiny|kdy jake kvetiny|měsíc|mesic|leden|únor|unor|březen|brezen|duben|květen|kveten|červen|cerven|červenec|cervenec|srpen|září|zari|říjen|rijen|listopad|prosinec)/.test(lowerQuery)) {
+            response = "🌷 <strong>Sezónní květiny - co právě nabízíme:</strong><br><br>" +
+                       "🌸 <strong>Jaro (březen-květen):</strong><br>" +
+                       "• Tulipány (všechny barvy)<br>" +
+                       "• Narcisy, hyacinty<br>" +
+                       "• Fialky, primulky<br>" +
+                       "• Sakury (třešňové květy)<br><br>" +
+                       "🌺 <strong>Léto (červen-srpen):</strong><br>" +
+                       "• Růže (červené, bílé, žluté)<br>" +
+                       "• Slunečnice, gerbery<br>" +
+                       "• Lilie, gladioly<br>" +
+                       "• Levandule<br><br>" +
+                       "🍂 <strong>Podzim (září-listopad):</strong><br>" +
+                       "• Chryzantémy<br>" +
+                       "• Jiřiny, astry<br>" +
+                       "• Vřes, okrasné trávy<br>" +
+                       "• Dýně jako dekorace<br><br>" +
+                       "❄️ <strong>Zima (prosinec-únor):</strong><br>" +
+                       "• Vánoční hvězdy (poinsettie)<br>" +
+                       "• Amarylis, vánoční kaktus<br>" +
+                       "• Jehličí a vánoční dekorace<br>" +
+                       "• Orchideje<br><br>" +
+                       "🌿 <strong>Celoročně:</strong><br>" +
+                       "• Růže z Holandska<br>" +
+                       "• Orchideje z Asie<br>" +
+                       "• Pokojové rostliny";
+        }
+        
+        // ============ POKOJOVÉ ROSTLINY ============
+        else if (/(pokojové rostliny|pokojove rostliny|rostliny v květináči|rostliny v kvetinaci|květiny v květináči|kvetiny v kvetinaci|hrnkové květiny|hrnkove kvetiny|kvetináč|kvetinac|hrnek|květináče|kvetinace|pokojovka|pokojovky|sukulenty|kaktusy|bonsaje|bonsaj|orchideje|orchidej|fíkus|fikus|dracena|dracéna|tchynin jazyk|tchynin jazyk|zamiokulkas|zamioculcas|monstera|šťávovky|stavovky|tilandsie|tilandsia|kapradí|kapradi|bazalka|bylinky|bylinky v květináči|bylinky v kvetinaci)/.test(lowerQuery)) {
+            response = "🌿 <strong>Pokojové rostliny - zeleň do interiéru:</strong><br><br>" +
+                       "🏡 <strong>Naše nabídka:</strong><br>" +
+                       "• Pokojové rostliny všech velikostí<br>" +
+                       "• Sukulenty a kaktusy<br>" +
+                       "• Bonsaje (od 10 cm do 50 cm)<br>" +
+                       "• Orchideje (phalaenopsis, dendrobium)<br>" +
+                       "• Popínavé rostliny (potos, šplhavnice)<br><br>" +
+                       "💧 <strong>Péče o rostliny:</strong><br>" +
+                       "• Poradenství s pěstováním<br>" +
+                       "• Vhodné místo podle světla<br>" +
+                       "• Frekvence zalévání<br>" +
+                       "• Hnojiva a substráty<br>" +
+                       "• Přesazování<br><br>" +
+                       "💰 <strong>Ceny:</strong><br>" +
+                       "• Malé rostliny: 150-350 Kč<br>" +
+                       "• Střední rostliny: 350-700 Kč<br>" +
+                       "• Velké rostliny: 700-1500 Kč<br>" +
+                       "• Bonsaje: od 500 Kč<br><br>" +
+                       "🎁 <strong>Ideální dárek:</strong><br>" +
+                       "Orchidej v květináči = dárek, který roste!";
+        }
+        
+        // ============ ZDRAVÍ KVĚTIN ============
+        else if (/(jak dlouho vydrží|jak dlouho vydrzi|jak dlouho květiny vydrží|jak dlouho kvetiny vydrzi|jak udržet květiny čerstvé|jak udrzet kvetiny cerstve|jak pečovat|jak pečovat o kytici|jak pečovat o kvetiny|jak se starat|jak se starat o kytici|jak se starat o kvetiny|jak prodloužit životnost|jak prodlouzit životnost|jak aby vydržely|jak aby vydrzely|váza|vaza|voda ve váze|voda ve vaze|přísada do vody|prisada do vody|kytice vydrží|kytice vydrzi|čerstvost|cerstvost|usychají|usychaji|uvadají|uvadaji|zvadlé|zvadle|suché|suche|žluté listy|zlute listy|opadávají|opadavaji)/.test(lowerQuery)) {
+            response = "💧 <strong>Jak prodloužit životnost květin:</strong><br><br>" +
+                       "🌡️ <strong>Základní pravidla:</strong><br>" +
+                       "1. <strong>Čerstvá voda:</strong> Měňte každý 2-3 dny<br>" +
+                       "2. <strong>Teplota:</strong> 18-22°C, ne u topení<br>" +
+                       "3. <strong>Stříhání stonků:</strong> Šikmo každý 3. den<br>" +
+                       "4. <strong>Odstraňování listů:</strong> Ne v kontaktu s vodou<br>" +
+                       "5. <strong>Výživa:</strong> Přidáme sáček s výživou<br><br>" +
+                       "⏳ <strong>Jak dlouho vydrží:</strong><br>" +
+                       "• Růže: 7-10 dní<br>" +
+                       "• Tulipány: 5-7 dní<br>" +
+                       "• Lilie: 10-14 dní<br>" +
+                       "• Gerbery: 7-10 dní<br>" +
+                       "• Orchideje: 2-4 týdny<br><br>" +
+                       "🚫 <strong>Čemu se vyhnout:</strong><br>" +
+                       "• Přímému slunci<br>" +
+                       "• Průvanu<br>" +
+                       "• Ovoce vedle květin (ethylen)<br>" +
+                       "• Klimatizaci přímo na květiny<br><br>" +
+                       "🎯 <strong>Naše tipy:</strong><br>" +
+                       "Přidáme vám výživový sáček zdarma!";
+        }
+        
+        // ============ VÝZNAM KVĚTIN ============
+        else if (/(význam květin|vyznam kvetin|co znamenají květiny|co znamenaji kvetiny|symbolika květin|symbolika kvetin|co znamená růže|co znamena ruze|co znamenají tulipány|co znamenaji tulipany|co znamenají lilie|co znamenaji lilie|barvy květin|barvy kvetin|co která barva|co jaka barva|význam barev|vyznam barev|červená růže|cervena ruze|bílá růže|bila ruze|žlutá růže|zluta ruze|růžová růže|ruzova ruze|modré květiny|modre kvetiny|fialové květiny|fialove kvetiny|květinový jazyk|kvetinovy jazyk|řeč květin|rec kvetin)/.test(lowerQuery)) {
+            response = "🌹 <strong>Význam květin a jejich barev:</strong><br><br>" +
+                       "❤️ <strong>Růže - láska:</strong><br>" +
+                       "• <strong>Červená:</strong> Vášeň, hluboká láska<br>" +
+                       "• <strong>Bílá:</strong> Čistota, nevinnost, úcta<br>" +
+                       "• <strong>Žlutá:</strong> Přátelství, radost<br>" +
+                       "• <strong>Růžová:</strong> Něha, vděčnost, obdiv<br>" +
+                       "• <strong>Oranžová:</strong> Nadšení, energie<br><br>" +
+                       "🌷 <strong>Tulipány:</strong><br>" +
+                       "• <strong>Červené:</strong> Dokonalá láska<br>" +
+                       "• <strong>Žluté:</strong> Veselí, slunce<br>" +
+                       "• <strong>Fialové:</strong> Královská důstojnost<br>" +
+                       "• <strong>Bílé:</strong> Odpuštění<br><br>" +
+                       "🌸 <strong>Lilie:</strong><br>" +
+                       "• <strong>Bílá:</strong> Čistota, nevinnost<br>" +
+                       "• <strong>Oranžová:</strong> Hrdost, bohatství<br>" +
+                       "• <strong>Růžová:</strong> Prosperita, hojnost<br><br>" +
+                       "🌼 <strong>Gerbery:</strong> Radost, pozitivní energie<br>" +
+                       "🌻 <strong>Slunečnice:</strong> Oddanost, obdiv<br>" +
+                       "🌺 <strong>Orchideje:</strong> Luxus, krása, síla<br><br>" +
+                       "💡 <strong>Tip:</strong> Rádi vám poradíme s výběrem podle příležitosti!";
+        }
+        
+        // ============ SPECIÁLNÍ PŘÁNÍ ============
+        else if (/(speciální přání|specialni prani|na míru|na miru|přizpůsobit|prizpusobit|upravit|změnit|zmenit|jiná barva|jina barva|jiný druh|jiny druh|jiné květiny|jine kvetiny|originální|originalni|jedinečná|jedinecna|unikátní|unikatni|netypická|netypicka|jinak než obvykle|jinak nez obvykle|podle fotky|podle fotografie|kopie|stejná jako|stejna jako|jako na obrázku|jako na obrazku|inspirace|inspirovat se|návrh|navrh|nápad|napad)/.test(lowerQuery)) {
+            response = "✨ <strong>Speciální přání - vytvoříme na míru:</strong><br><br>" +
+                       "🎨 <strong>Co můžeme přizpůsobit:</strong><br>" +
+                       "• Výběr konkrétních květin<br>" +
+                       "• Barvy podle vašich preferencí<br>" +
+                       "• Velikost kytice<br>" +
+                       "• Styl vazby (moderní, klasický, rustikální)<br>" +
+                       "• Doplňky (stuhy, dekorační prvky)<br><br>" +
+                       "📸 <strong>Podle fotografie:</strong><br>" +
+                       "• Pošlete nám inspiraci (WhatsApp, e-mail)<br>" +
+                       "• Pokusíme se co nejvíce přiblížit<br>" +
+                       "• Upravíme podle dostupných květin<br>" +
+                       "• Cenová nabídka po konzultaci<br><br>" +
+                       "💬 <strong>Jak postupovat:</strong><br>" +
+                       "1. Kontaktujte nás telefonicky<br>" +
+                       "2. Popište nebo pošlete inspiraci<br>" +
+                       "3. Domluvíme se na detailech<br>" +
+                       "4. Potvrdíme cenu a termín<br><br>" +
+                       "⏰ <strong>Časová náročnost:</strong><br>" +
+                       "• Jednoduché úpravy: 1-2 dny<br>" +
+                       "• Komplexní kytice na míru: 3-5 dnů";
+        }
+        
+        // ============ RECENZE / REFERENCE ============
+        else if (/(recenze|reference|hodnocení|hodnoceni|názory|nazory|zkušenosti|zkusenosti|co říkají zákazníci|co rikaji zakaznici|spokojenost|spokojeni|nespokojenost|nespokojeni|hodně hvězdiček|hodne hvezdicek|málo hvězdiček|málo hvezdicek|hodnotit|ohodnotit|komentáře|komentare|feedback|zpětná vazba|zpetna vazba|co si o vás myslí|co si o vas mysli|reputace|jméno|jmeno|pověst|povest|doporučujete|doporucujete|doporučení|doporuceni)/.test(lowerQuery)) {
+            response = "⭐ <strong>Recenze našich zákazníků:</strong><br><br>" +
+                       "🌟 <strong>Hodnocení:</strong><br>" +
+                       "• Google: ★★★★★ (4.9/5)<br>" +
+                       "• Facebook: ★★★★★ (5/5)<br>" +
+                       "• Instagram: mnoho spokojených zákazníků<br><br>" +
+                       "💬 <strong>Co o nás říkají:</strong><br>" +
+                       "„Přátelský, ale profesionální přístup, určitě přijdu i příště!“<br>" +
+                       "– Beach Volley Vratislavice<br><br>" +
+                       "„Jsem maximálně spokojena – kupovala jsem už několik kytic a všechny byly luxusní!“<br>" +
+                       "– Dagmar F.<br><br>" +
+                       "„Velice příjemná a komunikativní paní majitelka, květiny krásné.“<br>" +
+                       "– Petra H.<br><br>" +
+                       "„Vazba květin je bezchybná, ceny přiměřené, paní majitelka milá a komunikativní.“<br>" +
+                       "– Libor K.<br><br>" +
+                       "📝 <strong>Přidejte svou recenzi:</strong><br>" +
+                       "Na Google, Facebooku nebo Instagramu!";
+        }
+        
+        // ============ O FIRMĚ ============
+        else if (/(o vás|o vas|kdo jste|kdo je kamila|majitel|majitelka|vlastník|vlastnik|proprietor|zakladatel|zakladatelka|historie|příběh|pribeh|jak dlouho|kolik let|zkušenosti|zkusenosti|tradice|firemní kultura|firemni kultura|poslání|poslani|mise|vize|hodnoty|cíle|cile|tým|tym|zaměstnanci|zamestnanci|květinářství|kvetinarstvi|kdy vzniklo|kdy vzniklo květinářství|kdy bylo založeno|kdy bylo zalozene)/.test(lowerQuery)) {
+            response = "🏪 <strong>O nás - Květinářství Kamila:</strong><br><br>" +
+                       "👩 <strong>Majitelka:</strong> Kamila<br>" +
+                       "📍 <strong>Sídlo:</strong> Liberec, OC Luna<br>" +
+                       "📅 <strong>Na trhu od:</strong> 2023<br>" +
+                       "🌺 <strong>Specializace:</strong> Ručně vázané kytice<br><br>" +
+                       "💖 <strong>Naše filosofie:</strong><br>" +
+                       "„Každá kytice má svůj příběh a každá vazba je vytvořena s láskou k detailu a individuálním přístupem k zákazníkovi.“<br><br>" +
+                       "🌟 <strong>Co nás odlišuje:</strong><br>" +
+                       "• Osobní přístup ke každému zákazníkovi<br>" +
+                       "• Pouze čerstvé sezónní květiny<br>" +
+                       "• Ruční vazba přímo na místě<br>" +
+                       "• Flexibilita a ochota vyjít vstříc<br><br>" +
+                       "🏆 <strong>Naše hodnoty:</strong><br>" +
+                       "Čerstvost, kvalita, osobní přístup, krása!";
+        }
+        
+        // ============ POZDRAVY / ÚVOD ============
+        else if (/(ahoj|čau|cau|zdar|nazdar|dobrý den|dobry den|dobrý večer|dobry vecer|dobré ráno|dobre rano|dobrý podvečer|dobry podvečer|hello|hi|hey|yo|čus|cus|čauky|čauky lidi|čauky lidičky|čauky všichni|ahojky|ahojte|čaujte|čaujte vsichni|dobre odpoledne|dobré odpoledne|dobrý poledne|dobry poledne|pozdrav|pozdravy|jak se máš|jak se mas|jak se máte|jak se mate|jak je|jak se daří|jak se dari|jak to jde|jak to jde|co je nového|co je noveho|co nového|co noveho)/.test(lowerQuery)) {
+            response = "👋 <strong>Ahoj! Vítejte u Květinářství Kamila!</strong> 😊<br><br>" +
+                       "Jsem váš AI asistent a jsem tu, abych vám pomohl s výběrem květin, zodpověděl dotazy nebo vás nasměroval k objednávce.<br><br>" +
+                       "📌 <strong>Na co se mě můžete zeptat:</strong><br>" +
+                       "• Otevírací doba a kontakty<br>" +
+                       "• Ceny květin a kytic<br>" +
+                       "• Jak objednat kytici<br>" +
+                       "• Naše služby (svatby, pohřby)<br>" +
+                       "• Poradenství s výběrem<br>" +
+                       "• Doprava a platby<br>" +
+                       "• Cokoliv jiného!<br><br>" +
+                       "Jak vám mohu dnes pomoci? 🌸";
+        }
+        
+        // ============ PODĚKOVÁNÍ ============
+        else if (/(děkuji|dekuji|díky|diky|děkuju|dekuju|díky moc|diky moc|děkuji mnohokrát|dekuji mnohokrat|děkuji za pomoc|dekuji za pomoc|děkuji za radu|dekuji za radu|děkuji za informace|dekuji za informace|moc děkuji|moc dekuji|velmi děkuji|velmi dekuji|super díky|super diky|perfektní díky|perfektni diky|skvělé díky|skvele diky|výborně díky|vyborne diky|ok díky|ok diky|jo díky|jo diky|thanks|thank you|thx|tnx|merci|gracias|danke)/.test(lowerQuery)) {
+            response = "😊 <strong>Nemáte zač! Jsem rád, že jsem mohl pomoci.</strong><br><br>" +
+                       "Pokud budete mít další dotazy, jsem tu pro vás. Nebo nás můžete kontaktovat přímo:<br><br>" +
+                       "📞 Telefon: +420 774 724 220<br>" +
+                       "🏬 Osobně: OC Luna, Liberec<br>" +
+                       "📱 Instagram: @kvetinarstvi.kamila<br><br>" +
+                       "Těšíme se na vaši návštěvu nebo objednávku!<br><br>" +
+                       "S pozdravem,<br>" +
+                       "AI asistent Květinářství Kamila 🌸";
+        }
+        
+        // ============ NEGATIVNÍ / STÍŽNOSTI ============
+        else if (/(sračka|sracka|blbost|kokotina|hovno|hovně|hovne|pitomost|kravina|nesmysl|hloupost|debilní|debilni|blbý|blby|na hovno|nahovno|špatně|spatne|špatný|spatny|špatná|spatna|špatné|spatne|špatná služba|spatna sluzba|nekvalitní|nekvalitni|nestojí to za nic|nestoji to za nic|předražené|predrazene|předražený|predrazeny|předražená|predrazena|nekvalita|nekvalitně|nekvalitne|stížnost|stiznost|reklamace|reklamovat|reklamuji|stěžuji si|stezuji si|stěžovat si|stezovat si|nelíbí se mi|nelibi se mi|nemám rád|nemam rad|nemám ráda|nemam rada|nemám rádi|nemam radi|nenávidím|nenavidim|nesnáším|nesnasim|otravný|otravny|otravuješ|otravujes|otravuje mě|otravuje me|štve mě|stve me|naštvaný|nastvany|naštvaná|nastvana|naštvaní|nastvani|zlobí mě|zlobi me|seru na to|seru na vás|seru na vas|do prdele|do píče|do pice|kurva|kurevsky|kurevský)/.test(lowerQuery)) {
+            response = "😔 <strong>Omlouvám se, pokud jste měli špatnou zkušenost.</strong><br><br>" +
+                       "V Květinářství Kamila se snažíme o maximální spokojenost každého zákazníka. Pokud něco nebylo v pořádku, velmi nás to mrzí a rádi bychom to napravili.<br><br>" +
+                       "📞 <strong>Kontakt na majitelku:</strong><br>" +
+                       "Kamila, tel: +420 774 724 220<br>" +
+                       "(volat Po-Pá 9:00-17:00)<br><br>" +
+                       "✉️ <strong>E-mail pro stížnosti:</strong><br>" +
+                       "kvetinarstvikamila@seznam.cz<br><br>" +
+                       "🤝 <strong>Co můžeme udělat:</strong><br>" +
+                       "• Osobní konzultaci a vysvětlení<br>" +
+                       "• Náhradní kytici nebo vrácení peněz<br>" +
+                       "• Zohlednění při příští objednávce<br><br>" +
+                       "Děkujeme za zpětnou vazbu, pomáhá nám zlepšovat služby.";
+        }
+        
+        // ============ VTIPY / SARKASMUS ============
+        else if (/(vtip|vtípek|vtipný|vtipny|vtipná|vtipna|vtipné|vtipne|vtipálek|vtipalek|sranda|srandista|srandistka|žert|zert|žertovat|zertovat|legrace|legrační|legracni|vtipkujete|vtipkujes|sarkasmus|sarkastický|sarkasticky|ironie|ironický|ironicky|smích|smíchy|humor|humorný|humorny|komedie|komik|komický|komicky|baviš mě|bavis me|pobavil jsi mě|pobavil jsi me|pobavil si mě|pobavil si me|směju se|smeju se|smějeme se|smejeme se|ha ha|haha|hihi|hehe|hoho|checht|chechtám se|chechtam se)/.test(lowerQuery)) {
+            response = "😄 <strong>To je ale vtipálek!</strong> 🌸<br><br>" +
+                       "Jako AI asistent mám také smysl pro humor, ale raději vám pomůžu s výběrem květin!<br><br>" +
+                       "📌 <strong>Vtipný fakt o květinách:</strong><br>" +
+                       "Věděli jste, že některé květiny dokážou 'spát'? Tulipány se na noc zavírají!<br><br>" +
+                       "🌺 <strong>Vtipná nabídka:</strong><br>" +
+                       "Můžeme vám vytvořit kytici, která bude vypadat tak dobře, že vás i rozesměje!<br><br>" +
+                       "🎭 <strong>Seriózně ale ne moc:</strong><br>" +
+                       "Opravdu vám mohu pomoci s objednávkou nebo informacemi. Co vás zajímá?";
+        }
+        
+        // ============ FLIRT / ROMANTIKA ============
+        else if (/(flirt|flirtovat|flirtuješ|flirtujes|flirtujete|miluju tě|miluju te|lásku|lasku|láska|laska|zamilovaný|zamilovany|zamilovaná|zamilovana|zamilovaní|zamilovani|romantika|romantický|romanticky|romantická|romantická|romantické|romanticke|svatba|svatby|manželství|manzelstvi|první rande|prvni rande|rande|randění|randeni|partner|partnerka|přítel|prítel|přítelkyně|pritelkyně|přítelkyně|pritelkyně|chlap|chlapa|kluk|kluka|holka|holku|žena|zena|muž|muže|muz|muze|miláček|milacek|miláčku|miláčku|miláčku|miláčku|sladký|sladky|sladká|sladka)/.test(lowerQuery)) {
+            response = "💖 <strong>Romantika je naše specialita!</strong><br><br>" +
+                       "Máme mnoho zkušeností s květinami pro milostné příležitosti:<br><br>" +
+                       "🌹 <strong>První rande:</strong><br>" +
+                       "• Malá kytice růží (3-5 ks)<br>" +
+                       "• Tulipány v pastelových barvách<br>" +
+                       "• Jemné květiny bez přílišného parfému<br><br>" +
+                       "💑 <strong>Výročí:</strong><br>" +
+                       "• Červené růže (počet podle let)<br>" +
+                       "• Kombinace růží a lilií<br>" +
+                       "• Luxusní kytice s ozdobnou vazbou<br><br>" +
+                       "💍 <strong>Žádost o ruku:</strong><br>" +
+                       "• Bílé růže symbolizující čistotu<br>" +
+                       "• Kytice s místem na prstýnek<br>" +
+                       "• Romantická vazba s krajkou<br><br>" +
+                       "📞 <strong>Rádi poradíme:</strong><br>" +
+                       "Zavolejte na +420 774 724 220 a řekněte nám váš příběh!";
+        }
+        
+        // ============ NEVÍM / NÁHODA ============
+        else if (/(nevím|nevim|nemám tušení|nemam tuseni|nemám ponětí|nemam poneti|netuším|netusim|neznám|neznam|nevědět|nevedet|co dělat|co delat|co mám dělat|co mam delat|co mám udělat|co mam udelat|jak mám postupovat|jak mam postupovat|co byste doporučili|co byste doporucili|co doporučujete|co doporucujete|poradíte mi|poradite mi|pomůžete mi|pomuzete mi|můžete mi poradit|muzete mi poradit|můžete mi pomoci|muzete mi pomoci|nejsem si jistý|nejsem si jisty|nejsem si jistá|nejsem si jista|já nevím|ja nevim)/.test(lowerQuery)) {
+            response = "🤔 <strong>Žádný problém, rádi vám poradíme!</strong><br><br>" +
+                       "🎯 <strong>Nejčastější situace a naše doporučení:</strong><br><br>" +
+                       "1. <strong>Nevíte, jakou kytici vybrat?</strong><br>" +
+                       "   Řekněte nám: příležitost, barvu, rozpočet<br>" +
+                       "   My navrhneme 2-3 varianty<br><br>" +
+                       "2. <strong>Nevíte, jestli objednat?</strong><br>" +
+                       "   Zavolejte na +420 774 724 220<br>" +
+                       "   Bez závazku se poradíme<br><br>" +
+                       "3. <strong>Nevíte, jak překvapit?</strong><br>" +
+                       "   Máme dárkové poukazy<br>" +
+                       "   Nebo vytvoříme kytici na míru<br><br>" +
+                       "4. <strong>Nevíte, jestli květiny dorazí včas?</strong><br>" +
+                       "   Expresní doručení do 2 hodin<br>" +
+                       "   Vyzvednutí ještě dnes do 17:00<br><br>" +
+                       "📞 <strong>Zavolejte nám, rádi vám pomůžeme rozhodnout se!</strong>";
+        }
+        
+        // ============ DEFAULT ODPOVĚĎ ============
+        else {
+            response = "🤔 <strong>Promiňte, úplně nerozumím vašemu dotazu.</strong><br><br>" +
+                       "Jsem AI asistent Květinářství Kamila a nejlépe rozumím těmto tématům:<br><br>" +
+                       "🌺 <strong>Květiny a ceny:</strong><br>" +
+                       "• Otevírací doba<br>" +
+                       "• Ceník květin a kytic<br>" +
+                       "• Kde nás najdete<br>" +
+                       "• Jak objednat kytici<br><br>" +
+                       "💐 <strong>Služby:</strong><br>" +
+                       "• Svatební květiny<br>" +
+                       "• Pohřební kytice<br>" +
+                       "• Pokojové rostliny<br>" +
+                       "• Dárkové poukazy<br><br>" +
+                       "📞 <strong>Kontakty:</strong><br>" +
+                       "Telefon: +420 774 724 220<br>" +
+                       "Adresa: OC Luna, Liberec<br><br>" +
+                       "📝 <strong>Zkuste svůj dotaz formulovat jinak, nebo se zeptejte konkrétněji.</strong><br>" +
+                       "Jsem tu pro vás! 😊";
+        }
+        
+        addMessage(response);
+    }, 800 + Math.random() * 800); // Náhodné zpoždění 0.8-1.6 sekundy
+}
+        
+        // Odeslání zprávy
+        function sendMessage() {
+            const query = userInput.value.trim();
+            
+            if (query === "") return;
+            
+            // Přidáme zprávu uživatele
+            addMessage(query, true);
+            
+            // Vyčistíme vstupní pole
+            userInput.value = "";
+            
+            // Zpracujeme dotaz
+            processUserQuery(query);
+        }
+        
+        // Event listener pro odeslání zprávy
+        sendBtn.addEventListener('click', sendMessage);
+        
+        // Odeslání pomocí Enter
+        userInput.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                sendMessage();
+            }
+        });
+        
+        // Rychlé odpovědi
+        quickReplies.forEach(button => {
+            button.addEventListener('click', function() {
+                const question = this.getAttribute('data-question');
+                
+                // Přidáme zprávu uživatele
+                addMessage(question, true);
+                
+                // Zpracujeme dotaz
+                processUserQuery(question);
+            });
+        });
+        
+        // Přidání úvodní zprávy po načtení
+        setTimeout(() => {
+            const welcomeMessage = "Potřebujete poradit s výběrem květin nebo máte dotaz? Jsem tu pro vás!";
+            addMessage(welcomeMessage);
+        }, 1500);
+        
+        // Automatické otevření po 10 sekundách nečinnosti
+        let userInteracted = false;
+        
+        document.addEventListener('click', function() {
+            userInteracted = true;
+        });
+        
+        setTimeout(() => {
+            if (!userInteracted && !chatbotWindow.classList.contains('active')) {
+                chatbotToggle.classList.add('active');
+                chatbotWindow.classList.add('active');
+                
+                setTimeout(() => {
+                    userInput.focus();
+                }, 300);
+            }
+        }, 10000);
+    });
+</script>
 </body>
 </html>
