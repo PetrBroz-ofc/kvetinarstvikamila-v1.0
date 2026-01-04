@@ -1799,8 +1799,8 @@
     
     /* Hlavní tlačítko chatbotu - kolečko */
     #chatbot-toggle {
-        width: 70px;
-        height: 70px;
+        width: 75px;
+        height: 75px;
         border-radius: 50%;
         background: linear-gradient(135deg, var(--accent-color), var(--secondary-color));
         border: none;
@@ -1847,8 +1847,8 @@
         position: absolute;
         bottom: 85px;
         right: 0;
-        width: 350px;
-        height: 500px;
+        width: 400px;
+        height: 560px;
         background-color: white;
         border-radius: 20px;
         box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
@@ -2173,19 +2173,22 @@
         });
         
         // Funkce pro přidání zprávy do chatu
-        function addMessage(text, isUser = false) {
-            const messageDiv = document.createElement('div');
-            messageDiv.classList.add('message');
-            messageDiv.classList.add(isUser ? 'user-message' : 'bot-message');
-            messageDiv.textContent = text;
-            
-            chatMessages.appendChild(messageDiv);
-            
-            // Posuneme se na novou zprávu
-            setTimeout(() => {
-                chatMessages.scrollTop = chatMessages.scrollHeight;
-            }, 50);
-        }
+function addMessage(text, isUser = false) {
+    const messageDiv = document.createElement('div');
+    messageDiv.classList.add('message');
+    messageDiv.classList.add(isUser ? 'user-message' : 'bot-message');
+    
+    // Nahradíme \n za HTML <br> pro řádkování
+    const formattedText = text.replace(/\n/g, '<br>');
+    messageDiv.innerHTML = formattedText;
+    
+    chatMessages.appendChild(messageDiv);
+    
+    // Posuneme se na novou zprávu
+    setTimeout(() => {
+        chatMessages.scrollTop = chatMessages.scrollHeight;
+    }, 50);
+}
         
         // Funkce pro simulaci psaní
         function showTypingIndicator() {
@@ -2210,55 +2213,571 @@
         }
         
         // Funkce pro zpracování dotazu uživatele
-        function processUserQuery(query) {
-            const lowerQuery = query.toLowerCase().trim();
-            
-            // Simulujeme zpoždění odpovědi
-            showTypingIndicator();
-            
-            setTimeout(() => {
-                hideTypingIndicator();
-                
-                let response = "";
-                
-                // Rozpoznání dotazu a odpověď
-                if (lowerQuery.includes('otevírací') || lowerQuery.includes('oteviraci') || lowerQuery.includes('doba')) {
-                    response = "🕒 Naše otevírací doba:\n• Po-Pá: 9:00-17:00\n• So: 9:00-12:30\n• Ne: Zavřeno\n\nMůžete nás také kontaktovat na telefonu +420 774 724 220.";
-                } 
-                else if (lowerQuery.includes('ceník') || lowerQuery.includes('cena') || lowerQuery.includes('kolik') || lowerQuery.includes('stojí')) {
-                    response = "💐 Ceny se liší podle typu květin a velikosti kytice:\n• Malá kytice: 200-400 Kč\n• Střední kytice: 400-800 Kč\n• Velká kytice: 800-1500 Kč\n• Růže (kus): 40-80 Kč\n\nPřesnou cenu vám rádi sdělíme po konzultaci. Všechny ceny jsou včetně DPH.";
-                }
-                else if (lowerQuery.includes('kde') || lowerQuery.includes('adresa') || lowerQuery.includes('nacházíte') || lowerQuery.includes('liberec')) {
-                    response = "📍 Najdete nás v OC Luna v Liberci na adrese:\nSídliště Kunratická Olbrachtova 618/37, Liberec 15\n\nPodívejte se na mapu: https://maps.app.goo.gl/example";
-                }
-                else if (lowerQuery.includes('objednat') || lowerQuery.includes('objednávka') || lowerQuery.includes('objednavka') || lowerQuery.includes('kytice')) {
-                    response = "💌 Kytici můžete objednat několika způsoby:\n1. Přijďte k nám do obchodu\n2. Zavolejte na +420 774 724 220\n3. Vyplňte formulář na stránce 'Objednat kytici'\n4. Napište nám na Instagram @kvetinarstvi.kamila";
-                }
-                else if (lowerQuery.includes('kontakt') || lowerQuery.includes('telefon') || lowerQuery.includes('číslo')) {
-                    response = "📞 Kontaktní údaje:\n• Telefon: +420 774 724 220\n• Adresa: OC Luna, Liberec\n• Email: kvetinarstvikamila@seznam.cz\n• Instagram: @kvetinarstvi.kamila\n• Facebook: Květinářství Kamila";
-                }
-                else if (lowerQuery.includes('služby') || lowerQuery.includes('sluzby') || lowerQuery.includes('co děláte') || lowerQuery.includes('nabízíte')) {
-                    response = "🌺 Nabízíme tyto služby:\n• Ručně vázané kytice\n• Hrnkové květiny\n• Svatební květiny\n• Pohřební květinovou výzdobu\n• Předobjednávky\n• Poradenství s výběrem\n• Dárkové balení";
-                }
-                else if (lowerQuery.includes('svatba') || lowerQuery.includes('svatební') || lowerQuery.includes('svatebni')) {
-                    response = "👰 Pro svatby nabízíme:\n• Květinovou výzdobu\n• Svatební kytice\n• Boutonniery pro ženicha\n• Květinové dekorace\n\nRezervace doporučujeme minimálně 2 měsíce předem. Rádi se s vámi setkáme na konzultaci.";
-                }
-                else if (lowerQuery.includes('pohřeb') || lowerQuery.includes('pohreb') || lowerQuery.includes('smuteční') || lowerQuery.includes('smutecni')) {
-                    response = "⚰️ Pro pohřby nabízíme:\n• Smuteční kytice a věnce\n• Květinové dekorace\n• Rychlé vyřízení objednávek\n• Citlivý přístup\n\nV případě potřeby nás prosím kontaktujte telefonicky pro rychlejší domluvu.";
-                }
-                else if (lowerQuery.includes('ahoj') || lowerQuery.includes('čau') || lowerQuery.includes('dobrý den') || lowerQuery.includes('dobry den')) {
-                    response = "Ahoj! 😊 Jsem rád, že jste tady. Jak vám dnes mohu pomoct?";
-                }
-                else if (lowerQuery.includes('děkuji') || lowerQuery.includes('diky') || lowerQuery.includes('díky') || lowerQuery.includes('děkuju')) {
-                    response = "Nemáte zač! 😊 Pokud máte další dotazy, jsem tu pro vás.";
-                }
-                else {
-                    response = "Promiňte, úplně nerozumím vašemu dotazu. Můžete se mě zeptat na:\n• Otevírací dobu\n• Ceník květin\n• Naši adresu\n• Jak objednat kytici\n• Naše služby\n\nNebo mi napište svůj dotas jinak, pokusím se vám pomoci!";
-                }
-                
-                addMessage(response);
-            }, 1000 + Math.random() * 1000); // Náhodné zpoždění mezi 1-2 vteřinami
+// Funkce pro zpracování dotazu uživatele
+function processUserQuery(query) {
+    const lowerQuery = query.toLowerCase().trim();
+    
+    // Simulujeme zpoždění odpovědi
+    showTypingIndicator();
+    
+    setTimeout(() => {
+        hideTypingIndicator();
+        
+        let response = "";
+        
+        // ============ OTEVÍRACÍ DOBA ============
+        if (/(otevírací|oteviraci|otevírací doba|oteviraci doba|otevřeno|otevreno|kdy otevřeno|kdy otvíráte|doba otevření|kdy máte otevřeno|kdy jste otevreni|kdy mate otevreno|provozní doba|pracovní doba|kdy fungujete|kdy jste dostupni|kdy zavíráte|zavírací doba|zavirací doba|kdy máte zavřeno|od kolika do kolika|kolikátá|kolikata|kolik hodin|jak dlouho|kdy příště|kdypříště|kdy příští|kdypřístí)/.test(lowerQuery)) {
+            response = "🕒 <strong>Naše otevírací doba:</strong><br><br>" +
+                       "• <strong>Momentálně máme zavřeno do 11.1.</strong> <br>" +
+                       " <strong></strong> <br>" +
+                       "• <strong>Pondělí - Pátek:</strong> 9:00-17:00<br>" +
+                       "• <strong>Sobota:</strong> 9:00-12:30<br>" +
+                       "• <strong>Neděle:</strong> Zavřeno<br><br>" +
+                       "🎯 <strong>Důležité:</strong><br>" +
+                       "• Objednávky přijímáme do 16:30<br>" +
+                       "• Vyzvednutí kytic možné do 17:00<br>" +
+                       "• Expresní objednávky: do 16:00<br><br>" +
+                       "📞 Telefon: +420 774 724 220";
+        } 
+        
+        // ============ CENY ============
+        else if (/(ceník|cena|ceník|ceny|kolik stojí|kolik stoji|za kolik|jaká cena|jaka cena|jaké ceny|jake ceny|cenovka|moc drahý|moc drahy|drahý|drahy|levný|levny|hodně stojí|hodne stoji|málo|moc|přesná cena|presna cena|kolik za|kolik to je|kolik kytice|kolik ruze|kolik ruzi|kolik tulipany|kolik gerbery|kolik kyticka|kolik kytici|kolik za malou|kolik za střední|kolik za velkou|kolik za malej|kolik za stredni|kolik za velkej|price|cost|how much|€|eur|dolar|dollar)/.test(lowerQuery)) {
+            response = "💐 <strong>Ceny květin - orientační přehled:</strong><br><br>" +
+                       "🌸 <strong>Vázané kytice:</strong><br>" +
+                       "• Malá kytice: 200-400 Kč<br>" +
+                       "• Střední kytice: 400-800 Kč<br>" +
+                       "• Velká/luxusní kytice: 800-1500 Kč<br><br>" +
+                       "🌹 <strong>Jednotlivé květiny (kus):</strong><br>" +
+                       "• Růže: 89 Kč<br>" +
+                       "• Tulipány: 25-45 Kč<br>" +
+                       "• Gerbery: 35-60 Kč<br>" +
+                       "• Lilie: 50-90 Kč<br>" +
+                       "• Orchideje: 120-250 Kč<br><br>" +
+                       "🎁 <strong>Speciální služby:</strong><br>" +
+                       "• Svatební kytice: od 800 Kč<br>" +
+                       "• Pohřební věnce: od 1000 Kč<br>" +
+                       "• Hrnkové rostliny: 150-800 Kč<br><br>" +
+                       "💡 <strong>Poznámka:</strong><br>" +
+                       "• Cena závisí na sezóně, druhu květin a velikosti kytice<br>" +
+                       "• Všechny ceny jsou včetně DPH<br>" +
+                       "• Přesnou cenu vám rádi sdělíme po konzultaci<br>" +
+                       "• Akceptujeme hotovost i kartu";
         }
+        
+        // ============ ADRESA / POLOHA ============
+        else if (/(kde se nacházíte|kde jste|adresa|kam jít|kde hledat|kde najdu|poloha|lokace|místo|kam přijít|kde sídlíte|jak se dostat|navigace|mapa|google maps|mapy|gps|souřadnice|ulice|číslo popisné|cislo popisne|liberec|liberecký|liberecky|oc luna|obchodní centrum|obchodni centrum|shopping|nákupní centrum|nakupni centrum|kde v liberci|v jaké části|v jake casti|kunratická|kunraticka|olbrachtova|sídliště|sidliste|kde parkovat|parkování|parkovani|doprava|mhd|bus|tramvaj|autobus)/.test(lowerQuery)) {
+            response = "📍 <strong>Kde nás najdete:</strong><br><br>" +
+                       "🏬 <strong>Adresa:</strong><br>" +
+                       "OC Luna Liberec<br>" +
+                       "Sídliště Kunratická<br>" +
+                       "Olbrachtova 618/37<br>" +
+                       "Liberec 15<br><br>" +
+                       "🗺️ <strong>Navigace:</strong><br>" +
+                       "• GPS: 50.76099°N, 15.09311°E<br>" +
+                       "• Google Maps: https://goo.gl/maps/...<br>" +
+                       "• Mapy.cz: https://mapy.cz/zakladni?q=...<br><br>" +
+                       "🚗 <strong>Doprava a parkování:</strong><br>" +
+                       "• Přímo před OC Luna zdarma<br>" +
+                       "• Velké parkoviště u obchodního centra<br>" +
+                       "• MHD: zastávka 'Luna' (linky 12, 17, 19)<br>" +
+                       "• 5 minut od centra Liberce";
+        }
+        
+        // ============ OBJEDNÁVKY ============
+        else if (/(objednat|objednávka|objednavka|koupit|zakoupit|koupit kytici|koupit kytice|koupit květiny|koupit kvetiny|nakupovat|nakoupit|kde objednat|jak objednat|online objednávka|online objednavka|e-shop|eshop|internetová objednávka|internetova objednavka|můžu objednat|mužu objednat|mohu objednat|chci objednat|potřebuji objednat|potrebuji objednat|chci kytici|potřebuji kytici|potrebuji kytici|rezervace|rezervovat|zarezervovat|předobjednávka|predobjednavka|objednat dopředu|objednat dopredu|expresní objednávka|expresni objednavka|rychlá objednávka|rychla objednavka|dnes ještě|ještě dnes|jeste dnes|do 17:00|do 17 hodin|dodání|dodani|doprava|rozvoz|donáška|donaska|přivezu|privezu|dovezu|doneste|přinesete|prinesete)/.test(lowerQuery)) {
+            response = "💌 <strong>Jak objednat kytici - 5 způsobů:</strong><br><br>" +
+                       "1️⃣ <strong>Telefonicky:</strong><br>" +
+                       "   📞 +420 774 724 220<br>" +
+                       "   (9:00-17:00 Po-Pá, 9:00-12:30 So)<br><br>" +
+                       "2️⃣ <strong>Osobně v obchodě:</strong><br>" +
+                       "   🏬 OC Luna, Liberec<br>" +
+                       "   (nejlepší pro konzultaci)<br><br>" +
+                       "3️⃣ <strong>Online formulář:</strong><br>" +
+                       "   📝 Na této stránce sekce 'Objednat kytici'<br>" +
+                       "   (vyplňte popis a my se ozveme)<br><br>" +
+                       "4️⃣ <strong>Sociální sítě:</strong><br>" +
+                       "   📱 Instagram: @kvetinarstvi.kamila<br>" +
+                       "   👍 Facebook: Květinářství Kamila<br><br>" +
+                       "5️⃣ <strong>E-mail:</strong><br>" +
+                       "   ✉️ kvetinarstvikamila@seznam.cz<br><br>" +
+                       "⚡ <strong>Expresní objednávky:</strong><br>" +
+                       "• Do 16:00 – vyzvednutí ještě dnes<br>" +
+                       "• Platba: hotovost, kartou, převodem<br>" +
+                       "• Dárek: přidáme přáníčko zdarma";
+        }
+        
+        // ============ KONTAKT ============
+        else if (/(kontakt|kontakty|telefon|číslo|cislo|mobil|telefonní číslo|telefoni cislo|číslo mobilu|cislo mobilu|volat|zavolat|zavolejte|volejte|zavolám|zavolam|zatelefonuji|zatelefonuju|sms|zpráva|zprava|e-mail|email|mail|adresa emailu|emailová adresa|emailova adresa|můj email|muj email|poslat email|poslat mail|napsat|napsat email|napsat mail|zavolej mi|volej mi|zavoláš|zavolas|kamarád|kamarat|kamarádka|kamaratka|známý|znamy|známá|znama)/.test(lowerQuery)) {
+            response = "📞 <strong>Kontaktní údaje:</strong><br><br>" +
+                       "📱 <strong>Telefon:</strong><br>" +
+                       "+420 774 724 220<br>" +
+                       "(volat Po-Pá 9:00-17:00, So 9:00-12:30)<br><br>" +
+                       "🏬 <strong>Adresa prodejny:</strong><br>" +
+                       "Květinářství Kamila<br>" +
+                       "OC Luna Liberec<br>" +
+                       "Olbrachtova 618/37, Liberec 15<br><br>" +
+                       "📧 <strong>E-mail:</strong><br>" +
+                       "kvetinarstvikamila@seznam.cz<br>" +
+                       "(odpovídáme do 24 hodin)<br><br>" +
+                       "🌐 <strong>Sociální sítě:</strong><br>" +
+                       "• Instagram: @kvetinarstvi.kamila<br>" +
+                       "• Facebook: Květinářství Kamila<br><br>" +
+                       "💬 <strong>Chat:</strong><br>" +
+                       "Právě jsme v kontaktu! 😊";
+        }
+        
+        // ============ SLUŽBY ============
+        else if (/(služby|sluzby|co děláte|co delate|co nabízíte|co nabizite|co prodáváte|co prodavate|co máte|co mate|co je u vás|co je u vas|co všechno|co vsechno|jaké služby|jake sluzby|jaké máte služby|jake mate sluzby|sortiment|nabídka|nabidka|produkty|zboží|zbozi|květiny|kvetiny|kytice|květinové vazby|kvetinove vazby|vázané kytice|vazane kytice|svatební|svatebni|pohřební|pohrební|pohrebni|smuteční|smutecni|hrnkové|hrnkove|pokojové rostliny|pokojove rostliny|rostliny v květináči|rostliny v kvetinaci|květiny v květináči|kvetiny v kvetinaci|darčeky|dárky|darky|darek|dárek|balení|baleni|dárkové balení|darkove baleni|kytice na míru|kytice na miru|na přání|na prani|speciální přání|specialni prani)/.test(lowerQuery)) {
+            response = "🌺 <strong>Naše služby - kompletní přehled:</strong><br><br>" +
+                       "💐 <strong>Vázané kytice:</strong><br>" +
+                       "• Sezónní kytice (jaro/léto/podzim/zima)<br>" +
+                       "• Romantické kytice (růže, tulipány)<br>" +
+                       "• Kytice na narozeniny, výročí, svátky<br>" +
+                       "• Děkuji, promiň, gratulace<br>" +
+                       "• Kytice na první rande<br><br>" +
+                       "👰 <strong>Svatební květiny:</strong><br>" +
+                       "• Svatební kytice nevěsty<br>" +
+                       "• Boutonniery pro ženicha<br>" +
+                       "• Květinová výzdoba obřadu<br>" +
+                       "• Květiny na svatební tabuli<br>" +
+                       "• Květiny pro družičky<br><br>" +
+                       "⚰️ <strong>Pohřební květiny:</strong><br>" +
+                       "• Smuteční kytice a věnce<br>" +
+                       "• Květinové dekorace<br>" +
+                       "• Stuhy s nápisy<br>" +
+                       "• Rychlé vyřízení (do 2 hodin)<br><br>" +
+                       "🏡 <strong>Hrnkové rostliny:</strong><br>" +
+                       "• Pokojové rostliny<br>" +
+                       "• Kaktusy a sukulenty<br>" +
+                       "• Bonsaje<br>" +
+                       "• Orchideje<br>" +
+                       "• Rostliny na terasu<br><br>" +
+                       "🎁 <strong>Doplňkové služby:</strong><br>" +
+                       "• Dárkové balení<br>" +
+                       "• Přáníčka zdarma<br>" +
+                       "• Poradenství s výběrem<br>" +
+                       "• Předobjednávky<br>" +
+                       "• Dárkové poukazy";
+        }
+        
+        // ============ SVATBY ============
+        else if (/(svatba|svatby|svatební|svatebni|svatebni kytice|svatební kytice|nevěsta|nevesta|ženich|zenich|družička|druzicka|svatební výzdoba|svatebni vyzdoba|obřad|obrad|hostina|oslava|veselka|snubní|snubni|prstýnek|prstynek|snoubenci|snoubenky|muz a zena|muž a žena|manželství|manzelstvi|oddavky|oddavkový sál|oddavkovy sal)/.test(lowerQuery)) {
+            response = "👰 <strong>Svatební služby - váš velký den:</strong><br><br>" +
+                       "💖 <strong>Co pro vás připravíme:</strong><br>" +
+                       "• Svatební kytice nevěsty na míru<br>" +
+                       "• Boutonniery pro ženicha a svědky<br>" +
+                       "• Květiny pro družičky a rodiče<br>" +
+                       "• Květinová výzdoba obřadu<br>" +
+                       "• Aranžmá na svatební tabuli<br>" +
+                       "• Květinové dekorace pro hosty<br><br>" +
+                       "📅 <strong>Postup:</strong><br>" +
+                       "1. Konzultace (osobně/telefonicky)<br>" +
+                       "2. Návrh a ukázka květin<br>" +
+                       "3. Rezervace termínu<br>" +
+                       "4. Příprava v den svatby<br>" +
+                       "5. Dodání na místo obřadu<br><br>" +
+                       "⏰ <strong>Časový harmonogram:</strong><br>" +
+                       "• Rezervace: min. 2 měsíce předem<br>" +
+                       "• Konzultace: 4-6 týdnů předem<br>" +
+                       "• Konečná domluva: 2 týdny předem<br>" +
+                       "• Příprava: den před svatbou<br><br>" +
+                       "💰 <strong>Ceny:</strong><br>" +
+                       "• Základní balíček: od 2 500 Kč<br>" +
+                       "• Kompletní výzdoba: od 5 000 Kč<br>" +
+                       "• Individuální cenová nabídka";
+        }
+        
+        // ============ POHŘEBY ============
+        else if (/(pohřeb|pohreb|pohřby|pohreby|smuteční|smutecni|smutek|úmrtí|umrti|zemřel|zemrel|zemřela|zemrela|zesnulý|zesnuly|zesnulá|zesnula|rozloučení|rozlouceni|poslední rozloučení|posledni rozlouceni|památka|pamatka|vzpomínka|vzpominka|smuteční kytice|smutecni kytice|smuteční věnec|smutecni venec|věnec|venec|kytice na rakev|květiny na rakev|kvetiny na rakev|dát květiny|dat kvetiny|položit květiny|položit kvetiny|vazba na pohřeb|vazba na pohreb)/.test(lowerQuery)) {
+            response = "⚰️ <strong>Pohřební služby - s úctou a citem:</strong><br><br>" +
+                       "🌸 <strong>Nabízíme:</strong><br>" +
+                       "• Smuteční kytice všech velikostí<br>" +
+                       "• Pohřební věnce (kulaté, srdce)<br>" +
+                       "• Květinové aranžmá na rakev<br>" +
+                       "• Stuhy s nápisy (sbohem, na památku)<br>" +
+                       "• Květiny do ruky pro pozůstalé<br><br>" +
+                       "⚡ <strong>Expresní služba:</strong><br>" +
+                       "• Rychlé vyřízení do 2 hodin<br>" +
+                       "• Donesení na místo rozloučení<br>" +
+                       "• Citlivý a diskrétní přístup<br>" +
+                       "• Poradenství s výběrem<br><br>" +
+                       "📞 <strong>Jak objednat:</strong><br>" +
+                       "• Telefon: +420 774 724 220<br>" +
+                       "• Uveďte: jméno zesnulého, datum a místo pohřbu<br>" +
+                       "• Vyberte: druh, barvu, velikost, nápis<br><br>" +
+                       "💐 <strong>Doporučené květiny:</strong><br>" +
+                       "• Bílé růže - čistota a úcta<br>" +
+                       "• Lilie - nevinnost<br>" +
+                       "• Chryzantémy - věčnost<br>" +
+                       "• Karafiáty - láska";
+        }
+        
+        // ============ DOPRAVA / ROZVOZ ============
+        else if (/(doprava|rozvoz|donáška|donaska|donesení|doneseni|přivezu|privezu|dovezu|doneste|přinesete|prinesete|zavezete|zavezete mi|donášíte|donasite|rozvážíte|rozvazite|doručení|doručeni|kurýr|kurýrní služba|kurýrni sluzba|expresní doprava|expresni doprava|rychlá doprava|rychla doprava|doprava květin|doprava kvetin|doprava kytic|doprava domu|domů|domu|na adresu|do domu|do bytu|do práce|do prace|na pracoviště|na pracoviste|dopravné|dopravne|poštovné|poštovne|pošta|posta|zásilka|zasilka|balík|balik)/.test(lowerQuery)) {
+            response = "🚚 <strong>Doprava a rozvoz květin:</strong><br><br>" +
+                       "📍 <strong>Rozvoz v Liberci:</strong><br>" +
+                       "• Do 5 km od prodejny: 79 Kč<br>" +
+                       "• 5-10 km: 129 Kč<br>" +
+                       "• 10-15 km: 179 Kč<br>" +
+                       "• Nad 15 km: individuálně<br><br>" +
+                       "⚡ <strong>Časy doručení:</strong><br>" +
+                       "• Objednávky do 14:00 – doručení tentýž den<br>" +
+                       "• Expresní doručení do 2 hodin: +100 Kč<br>" +
+                       "• Přesný čas doručení: domluvíme telefonicky<br><br>" +
+                       "🎁 <strong>Co s doručením:</strong><br>" +
+                       "• Diskrétní doručení<br>" +
+                       "• Foto doklad o doručení<br>" +
+                       "• Přáníčko s vzkazem<br>" +
+                       "• Možnost platby kurýrovi<br><br>" +
+                       "📦 <strong>Mimo Liberec:</strong><br>" +
+                       "• Možnost zaslání přes zásilkovnu<br>" +
+                       "• Cena podle tarifu přepravce<br>" +
+                       "• Speciální balení na cestu";
+        }
+        
+        // ============ PLATBY ============
+        else if (/(platba|platit|zaplatit|zaplatit kartou|kartou|platební karta|platebni karta|hotovost|hotovostí|hotovosti|převod|prevod|bankovní převod|bankovni prevod|bankovní účet|bankovni ucet|číslo účtu|cislo uctu|variabilní symbol|variabilni symbol|faktura|fakturu|účet|ucet|paragon|paragón|paragon|daňový doklad|danovy doklad|DPH|dph|můžu platit|mužu platit|mohu platit|jak zaplatit|jak platit|platba online|online platba|platba kartou online|platit přes internet|platit pres internet|apple pay|google pay)/.test(lowerQuery)) {
+            response = "💳 <strong>Možnosti platby:</strong><br><br>" +
+                       "💰 <strong>V prodejně:</strong><br>" +
+                       "• Hotovost (Kč)<br>" +
+                       "• Platební karty (Visa, MasterCard)<br>" +
+                       "• Apple Pay, Google Pay<br>" +
+                       "• Dárkové poukazy<br><br>" +
+                       "🌐 <strong>Online platby:</strong><br>" +
+                       "• Bankovní převod předem<br>" +
+                       "• Platba kartou online<br>" +
+                       "• Hotově kurýrovi při doručení<br><br>" +
+                       "🧾 <strong>Doklady:</strong><br>" +
+                       "• Paragon (vždy)<br>" +
+                       "• Faktura s IČO na vyžádání<br>" +
+                       "• Vše s DPH 21%<br><br>" +
+                       "🏦 <strong>Firemní údaje:</strong><br>" +
+                       "• IČO: 06644392<br>" +
+                       "• Datová schránka: zbqv4hk<br>" +
+                       "• Fyzická osoba podnikající";
+        }
+        
+        // ============ DÁRKOVÉ POUKAZY ============
+        else if (/(dárkový poukaz|darkovy poukaz|dárkové poukazy|darkove poukazy|poukaz|poukazy|dárkový certifikát|darkovy certifikat|certifikát|certifikat|kupón|kupon|voucher|vouchery|dárek|darek|dar|dárkový|darkovy|dát jako dárek|dat jako darek|koupit jako dárek|koupit jako darek|poukaz na květiny|poukaz na kvetiny|poukaz na kytici|dárkový list|darkovy list|dárkový balíček|darkovy balicek)/.test(lowerQuery)) {
+            response = "🎁 <strong>Dárkové poukazy - ideální dárek:</strong><br><br>" +
+                       "💝 <strong>Druhy poukazů:</strong><br>" +
+                       "• Na konkrétní částku (300, 500, 1000, 2000 Kč)<br>" +
+                       "• Na konkrétní kytici (Romantická, Jarní, Luxusní)<br>" +
+                       "• Univerzální (libovolná kytice dle výběru)<br><br>" +
+                       "✨ <strong>Výhody:</strong><br>" +
+                       "• Platnost 12 měsíců<br>" +
+                       "• Krásné dárkové balení<br>" +
+                       "• Přáníčko s osobním vzkazem<br>" +
+                       "• Možnost doručení adresátovi<br><br>" +
+                       "🛒 <strong>Jak koupit:</strong><br>" +
+                       "1. Osobně v prodejně<br>" +
+                       "2. Telefonicky s doručením<br>" +
+                       "3. Online s e-mailem poukazu<br><br>" +
+                       "💡 <strong>Tip:</strong> Poukaz na 500 Kč = střední kytice + dárkové balení!";
+        }
+        
+        // ============ PORADENSTVÍ ============
+        else if (/(poradenství|poradenstvi|rada|rady|poradit|poradíte|poradite|doporučení|doporuceni|doporučit|doporucit|jakou kytici|jakou kytici vybrat|jaké květiny|jake kvetiny|co vybrat|co zvolit|jak na to|jak vybrat|pomoc s výběrem|pomoc s vyberem|konzultace|konzultovat|zeptat se|zeptat|dotaz|dotazy|nejlepší kytice|nejlepsi kytice|nejvhodnější|nejvhodnejsi|co byste doporučili|co byste doporucili|co doporučujete|co doporucujete)/.test(lowerQuery)) {
+            response = "🤝 <strong>Poradenství - rádi vám pomůžeme:</strong><br><br>" +
+                       "💬 <strong>Co vám poradíme:</strong><br>" +
+                       "• Výběr květin podle příležitosti<br>" +
+                       "• Kombinace barev a druhů květin<br>" +
+                       "• Velikost kytice podle rozpočtu<br>" +
+                       "• Květiny, které vydrží nejdéle<br>" +
+                       "• Význam květin a jejich barev<br><br>" +
+                       "🎯 <strong>Nejčastější dotazy:</strong><br>" +
+                       "• <strong>První rande:</strong> Malá kytice růží nebo tulipánů<br>" +
+                       "• <strong>Narozeniny:</strong> Barevná kytice podle znamení<br>" +
+                       "• <strong>Výročí:</strong> Červené růže + bílé lilie<br>" +
+                       "• <strong>Poděkování:</strong> Žluté gerbery nebo slunečnice<br>" +
+                       "• <strong>Promiň:</strong> Bílé růže s modrými květy<br><br>" +
+                       "📞 <strong>Jak nás kontaktovat:</strong><br>" +
+                       "• Telefon: +420 774 724 220<br>" +
+                       "• Osobně v prodejně<br>" +
+                       "• Chatujte s námi zde 😊";
+        }
+        
+        // ============ SEZÓNNÍ KVĚTINY ============
+        else if (/(sezónní|sezonni|sezóna|sezona|jarní|jarni|letní|letni|podzimní|podzimni|zimní|zimni|aktuální květiny|aktualni kvetiny|co teď kvete|co ted kvete|květiny v sezóně|kvetiny v sezone|co je v sezóně|co je v sezone|čerstvé květiny|cerstve kvetiny|dnešní květiny|dnesni kvetiny|dodávka|dodavka|kdy jaké květiny|kdy jake kvetiny|měsíc|mesic|leden|únor|unor|březen|brezen|duben|květen|kveten|červen|cerven|červenec|cervenec|srpen|září|zari|říjen|rijen|listopad|prosinec)/.test(lowerQuery)) {
+            response = "🌷 <strong>Sezónní květiny - co právě nabízíme:</strong><br><br>" +
+                       "🌸 <strong>Jaro (březen-květen):</strong><br>" +
+                       "• Tulipány (všechny barvy)<br>" +
+                       "• Narcisy, hyacinty<br>" +
+                       "• Fialky, primulky<br>" +
+                       "• Sakury (třešňové květy)<br><br>" +
+                       "🌺 <strong>Léto (červen-srpen):</strong><br>" +
+                       "• Růže (červené, bílé, žluté)<br>" +
+                       "• Slunečnice, gerbery<br>" +
+                       "• Lilie, gladioly<br>" +
+                       "• Levandule<br><br>" +
+                       "🍂 <strong>Podzim (září-listopad):</strong><br>" +
+                       "• Chryzantémy<br>" +
+                       "• Jiřiny, astry<br>" +
+                       "• Vřes, okrasné trávy<br>" +
+                       "• Dýně jako dekorace<br><br>" +
+                       "❄️ <strong>Zima (prosinec-únor):</strong><br>" +
+                       "• Vánoční hvězdy (poinsettie)<br>" +
+                       "• Amarylis, vánoční kaktus<br>" +
+                       "• Jehličí a vánoční dekorace<br>" +
+                       "• Orchideje<br><br>" +
+                       "🌿 <strong>Celoročně:</strong><br>" +
+                       "• Růže z Holandska<br>" +
+                       "• Orchideje z Asie<br>" +
+                       "• Pokojové rostliny";
+        }
+        
+        // ============ POKOJOVÉ ROSTLINY ============
+        else if (/(pokojové rostliny|pokojove rostliny|rostliny v květináči|rostliny v kvetinaci|květiny v květináči|kvetiny v kvetinaci|hrnkové květiny|hrnkove kvetiny|kvetináč|kvetinac|hrnek|květináče|kvetinace|pokojovka|pokojovky|sukulenty|kaktusy|bonsaje|bonsaj|orchideje|orchidej|fíkus|fikus|dracena|dracéna|tchynin jazyk|tchynin jazyk|zamiokulkas|zamioculcas|monstera|šťávovky|stavovky|tilandsie|tilandsia|kapradí|kapradi|bazalka|bylinky|bylinky v květináči|bylinky v kvetinaci)/.test(lowerQuery)) {
+            response = "🌿 <strong>Pokojové rostliny - zeleň do interiéru:</strong><br><br>" +
+                       "🏡 <strong>Naše nabídka:</strong><br>" +
+                       "• Pokojové rostliny všech velikostí<br>" +
+                       "• Sukulenty a kaktusy<br>" +
+                       "• Bonsaje (od 10 cm do 50 cm)<br>" +
+                       "• Orchideje (phalaenopsis, dendrobium)<br>" +
+                       "• Popínavé rostliny (potos, šplhavnice)<br><br>" +
+                       "💧 <strong>Péče o rostliny:</strong><br>" +
+                       "• Poradenství s pěstováním<br>" +
+                       "• Vhodné místo podle světla<br>" +
+                       "• Frekvence zalévání<br>" +
+                       "• Hnojiva a substráty<br>" +
+                       "• Přesazování<br><br>" +
+                       "💰 <strong>Ceny:</strong><br>" +
+                       "• Malé rostliny: 150-350 Kč<br>" +
+                       "• Střední rostliny: 350-700 Kč<br>" +
+                       "• Velké rostliny: 700-1500 Kč<br>" +
+                       "• Bonsaje: od 500 Kč<br><br>" +
+                       "🎁 <strong>Ideální dárek:</strong><br>" +
+                       "Orchidej v květináči = dárek, který roste!";
+        }
+        
+        // ============ ZDRAVÍ KVĚTIN ============
+        else if (/(jak dlouho vydrží|jak dlouho vydrzi|jak dlouho květiny vydrží|jak dlouho kvetiny vydrzi|jak udržet květiny čerstvé|jak udrzet kvetiny cerstve|jak pečovat|jak pečovat o kytici|jak pečovat o kvetiny|jak se starat|jak se starat o kytici|jak se starat o kvetiny|jak prodloužit životnost|jak prodlouzit životnost|jak aby vydržely|jak aby vydrzely|váza|vaza|voda ve váze|voda ve vaze|přísada do vody|prisada do vody|kytice vydrží|kytice vydrzi|čerstvost|cerstvost|usychají|usychaji|uvadají|uvadaji|zvadlé|zvadle|suché|suche|žluté listy|zlute listy|opadávají|opadavaji)/.test(lowerQuery)) {
+            response = "💧 <strong>Jak prodloužit životnost květin:</strong><br><br>" +
+                       "🌡️ <strong>Základní pravidla:</strong><br>" +
+                       "1. <strong>Čerstvá voda:</strong> Měňte každý 2-3 dny<br>" +
+                       "2. <strong>Teplota:</strong> 18-22°C, ne u topení<br>" +
+                       "3. <strong>Stříhání stonků:</strong> Šikmo každý 3. den<br>" +
+                       "4. <strong>Odstraňování listů:</strong> Ne v kontaktu s vodou<br>" +
+                       "5. <strong>Výživa:</strong> Přidáme sáček s výživou<br><br>" +
+                       "⏳ <strong>Jak dlouho vydrží:</strong><br>" +
+                       "• Růže: 7-10 dní<br>" +
+                       "• Tulipány: 5-7 dní<br>" +
+                       "• Lilie: 10-14 dní<br>" +
+                       "• Gerbery: 7-10 dní<br>" +
+                       "• Orchideje: 2-4 týdny<br><br>" +
+                       "🚫 <strong>Čemu se vyhnout:</strong><br>" +
+                       "• Přímému slunci<br>" +
+                       "• Průvanu<br>" +
+                       "• Ovoce vedle květin (ethylen)<br>" +
+                       "• Klimatizaci přímo na květiny<br><br>" +
+                       "🎯 <strong>Naše tipy:</strong><br>" +
+                       "Přidáme vám výživový sáček zdarma!";
+        }
+        
+        // ============ VÝZNAM KVĚTIN ============
+        else if (/(význam květin|vyznam kvetin|co znamenají květiny|co znamenaji kvetiny|symbolika květin|symbolika kvetin|co znamená růže|co znamena ruze|co znamenají tulipány|co znamenaji tulipany|co znamenají lilie|co znamenaji lilie|barvy květin|barvy kvetin|co která barva|co jaka barva|význam barev|vyznam barev|červená růže|cervena ruze|bílá růže|bila ruze|žlutá růže|zluta ruze|růžová růže|ruzova ruze|modré květiny|modre kvetiny|fialové květiny|fialove kvetiny|květinový jazyk|kvetinovy jazyk|řeč květin|rec kvetin)/.test(lowerQuery)) {
+            response = "🌹 <strong>Význam květin a jejich barev:</strong><br><br>" +
+                       "❤️ <strong>Růže - láska:</strong><br>" +
+                       "• <strong>Červená:</strong> Vášeň, hluboká láska<br>" +
+                       "• <strong>Bílá:</strong> Čistota, nevinnost, úcta<br>" +
+                       "• <strong>Žlutá:</strong> Přátelství, radost<br>" +
+                       "• <strong>Růžová:</strong> Něha, vděčnost, obdiv<br>" +
+                       "• <strong>Oranžová:</strong> Nadšení, energie<br><br>" +
+                       "🌷 <strong>Tulipány:</strong><br>" +
+                       "• <strong>Červené:</strong> Dokonalá láska<br>" +
+                       "• <strong>Žluté:</strong> Veselí, slunce<br>" +
+                       "• <strong>Fialové:</strong> Královská důstojnost<br>" +
+                       "• <strong>Bílé:</strong> Odpuštění<br><br>" +
+                       "🌸 <strong>Lilie:</strong><br>" +
+                       "• <strong>Bílá:</strong> Čistota, nevinnost<br>" +
+                       "• <strong>Oranžová:</strong> Hrdost, bohatství<br>" +
+                       "• <strong>Růžová:</strong> Prosperita, hojnost<br><br>" +
+                       "🌼 <strong>Gerbery:</strong> Radost, pozitivní energie<br>" +
+                       "🌻 <strong>Slunečnice:</strong> Oddanost, obdiv<br>" +
+                       "🌺 <strong>Orchideje:</strong> Luxus, krása, síla<br><br>" +
+                       "💡 <strong>Tip:</strong> Rádi vám poradíme s výběrem podle příležitosti!";
+        }
+        
+        // ============ SPECIÁLNÍ PŘÁNÍ ============
+        else if (/(speciální přání|specialni prani|na míru|na miru|přizpůsobit|prizpusobit|upravit|změnit|zmenit|jiná barva|jina barva|jiný druh|jiny druh|jiné květiny|jine kvetiny|originální|originalni|jedinečná|jedinecna|unikátní|unikatni|netypická|netypicka|jinak než obvykle|jinak nez obvykle|podle fotky|podle fotografie|kopie|stejná jako|stejna jako|jako na obrázku|jako na obrazku|inspirace|inspirovat se|návrh|navrh|nápad|napad)/.test(lowerQuery)) {
+            response = "✨ <strong>Speciální přání - vytvoříme na míru:</strong><br><br>" +
+                       "🎨 <strong>Co můžeme přizpůsobit:</strong><br>" +
+                       "• Výběr konkrétních květin<br>" +
+                       "• Barvy podle vašich preferencí<br>" +
+                       "• Velikost kytice<br>" +
+                       "• Styl vazby (moderní, klasický, rustikální)<br>" +
+                       "• Doplňky (stuhy, dekorační prvky)<br><br>" +
+                       "📸 <strong>Podle fotografie:</strong><br>" +
+                       "• Pošlete nám inspiraci (WhatsApp, e-mail)<br>" +
+                       "• Pokusíme se co nejvíce přiblížit<br>" +
+                       "• Upravíme podle dostupných květin<br>" +
+                       "• Cenová nabídka po konzultaci<br><br>" +
+                       "💬 <strong>Jak postupovat:</strong><br>" +
+                       "1. Kontaktujte nás telefonicky<br>" +
+                       "2. Popište nebo pošlete inspiraci<br>" +
+                       "3. Domluvíme se na detailech<br>" +
+                       "4. Potvrdíme cenu a termín<br><br>" +
+                       "⏰ <strong>Časová náročnost:</strong><br>" +
+                       "• Jednoduché úpravy: 1-2 dny<br>" +
+                       "• Komplexní kytice na míru: 3-5 dnů";
+        }
+        
+        // ============ RECENZE / REFERENCE ============
+        else if (/(recenze|reference|hodnocení|hodnoceni|názory|nazory|zkušenosti|zkusenosti|co říkají zákazníci|co rikaji zakaznici|spokojenost|spokojeni|nespokojenost|nespokojeni|hodně hvězdiček|hodne hvezdicek|málo hvězdiček|málo hvezdicek|hodnotit|ohodnotit|komentáře|komentare|feedback|zpětná vazba|zpetna vazba|co si o vás myslí|co si o vas mysli|reputace|jméno|jmeno|pověst|povest|doporučujete|doporucujete|doporučení|doporuceni)/.test(lowerQuery)) {
+            response = "⭐ <strong>Recenze našich zákazníků:</strong><br><br>" +
+                       "🌟 <strong>Hodnocení:</strong><br>" +
+                       "• Google: ★★★★★ (4.9/5)<br>" +
+                       "• Facebook: ★★★★★ (5/5)<br>" +
+                       "• Instagram: mnoho spokojených zákazníků<br><br>" +
+                       "💬 <strong>Co o nás říkají:</strong><br>" +
+                       "„Přátelský, ale profesionální přístup, určitě přijdu i příště!“<br>" +
+                       "– Beach Volley Vratislavice<br><br>" +
+                       "„Jsem maximálně spokojena – kupovala jsem už několik kytic a všechny byly luxusní!“<br>" +
+                       "– Dagmar F.<br><br>" +
+                       "„Velice příjemná a komunikativní paní majitelka, květiny krásné.“<br>" +
+                       "– Petra H.<br><br>" +
+                       "„Vazba květin je bezchybná, ceny přiměřené, paní majitelka milá a komunikativní.“<br>" +
+                       "– Libor K.<br><br>" +
+                       "📝 <strong>Přidejte svou recenzi:</strong><br>" +
+                       "Na Google, Facebooku nebo Instagramu!";
+        }
+        
+        // ============ O FIRMĚ ============
+        else if (/(o vás|o vas|kdo jste|kdo je kamila|majitel|majitelka|vlastník|vlastnik|proprietor|zakladatel|zakladatelka|historie|příběh|pribeh|jak dlouho|kolik let|zkušenosti|zkusenosti|tradice|firemní kultura|firemni kultura|poslání|poslani|mise|vize|hodnoty|cíle|cile|tým|tym|zaměstnanci|zamestnanci|květinářství|kvetinarstvi|kdy vzniklo|kdy vzniklo květinářství|kdy bylo založeno|kdy bylo zalozene)/.test(lowerQuery)) {
+            response = "🏪 <strong>O nás - Květinářství Kamila:</strong><br><br>" +
+                       "👩 <strong>Majitelka:</strong> Kamila<br>" +
+                       "📍 <strong>Sídlo:</strong> Liberec, OC Luna<br>" +
+                       "📅 <strong>Na trhu od:</strong> 2023<br>" +
+                       "🌺 <strong>Specializace:</strong> Ručně vázané kytice<br><br>" +
+                       "💖 <strong>Naše filosofie:</strong><br>" +
+                       "„Každá kytice má svůj příběh a každá vazba je vytvořena s láskou k detailu a individuálním přístupem k zákazníkovi.“<br><br>" +
+                       "🌟 <strong>Co nás odlišuje:</strong><br>" +
+                       "• Osobní přístup ke každému zákazníkovi<br>" +
+                       "• Pouze čerstvé sezónní květiny<br>" +
+                       "• Ruční vazba přímo na místě<br>" +
+                       "• Flexibilita a ochota vyjít vstříc<br><br>" +
+                       "🏆 <strong>Naše hodnoty:</strong><br>" +
+                       "Čerstvost, kvalita, osobní přístup, krása!";
+        }
+        
+        // ============ POZDRAVY / ÚVOD ============
+        else if (/(ahoj|čau|cau|zdar|nazdar|dobrý den|dobry den|dobrý večer|dobry vecer|dobré ráno|dobre rano|dobrý podvečer|dobry podvečer|hello|hi|hey|yo|čus|cus|čauky|čauky lidi|čauky lidičky|čauky všichni|ahojky|ahojte|čaujte|čaujte vsichni|dobre odpoledne|dobré odpoledne|dobrý poledne|dobry poledne|pozdrav|pozdravy|jak se máš|jak se mas|jak se máte|jak se mate|jak je|jak se daří|jak se dari|jak to jde|jak to jde|co je nového|co je noveho|co nového|co noveho)/.test(lowerQuery)) {
+            response = "👋 <strong>Ahoj! Vítejte u Květinářství Kamila!</strong> 😊<br><br>" +
+                       "Jsem váš AI asistent a jsem tu, abych vám pomohl s výběrem květin, zodpověděl dotazy nebo vás nasměroval k objednávce.<br><br>" +
+                       "📌 <strong>Na co se mě můžete zeptat:</strong><br>" +
+                       "• Otevírací doba a kontakty<br>" +
+                       "• Ceny květin a kytic<br>" +
+                       "• Jak objednat kytici<br>" +
+                       "• Naše služby (svatby, pohřby)<br>" +
+                       "• Poradenství s výběrem<br>" +
+                       "• Doprava a platby<br>" +
+                       "• Cokoliv jiného!<br><br>" +
+                       "Jak vám mohu dnes pomoci? 🌸";
+        }
+        
+        // ============ PODĚKOVÁNÍ ============
+        else if (/(děkuji|dekuji|díky|diky|děkuju|dekuju|díky moc|diky moc|děkuji mnohokrát|dekuji mnohokrat|děkuji za pomoc|dekuji za pomoc|děkuji za radu|dekuji za radu|děkuji za informace|dekuji za informace|moc děkuji|moc dekuji|velmi děkuji|velmi dekuji|super díky|super diky|perfektní díky|perfektni diky|skvělé díky|skvele diky|výborně díky|vyborne diky|ok díky|ok diky|jo díky|jo diky|thanks|thank you|thx|tnx|merci|gracias|danke)/.test(lowerQuery)) {
+            response = "😊 <strong>Nemáte zač! Jsem rád, že jsem mohl pomoci.</strong><br><br>" +
+                       "Pokud budete mít další dotazy, jsem tu pro vás. Nebo nás můžete kontaktovat přímo:<br><br>" +
+                       "📞 Telefon: +420 774 724 220<br>" +
+                       "🏬 Osobně: OC Luna, Liberec<br>" +
+                       "📱 Instagram: @kvetinarstvi.kamila<br><br>" +
+                       "Těšíme se na vaši návštěvu nebo objednávku!<br><br>" +
+                       "S pozdravem,<br>" +
+                       "AI asistent Květinářství Kamila 🌸";
+        }
+        
+        // ============ NEGATIVNÍ / STÍŽNOSTI ============
+        else if (/(sračka|sracka|blbost|kokotina|hovno|hovně|hovne|pitomost|kravina|nesmysl|hloupost|debilní|debilni|blbý|blby|na hovno|nahovno|špatně|spatne|špatný|spatny|špatná|spatna|špatné|spatne|špatná služba|spatna sluzba|nekvalitní|nekvalitni|nestojí to za nic|nestoji to za nic|předražené|predrazene|předražený|predrazeny|předražená|predrazena|nekvalita|nekvalitně|nekvalitne|stížnost|stiznost|reklamace|reklamovat|reklamuji|stěžuji si|stezuji si|stěžovat si|stezovat si|nelíbí se mi|nelibi se mi|nemám rád|nemam rad|nemám ráda|nemam rada|nemám rádi|nemam radi|nenávidím|nenavidim|nesnáším|nesnasim|otravný|otravny|otravuješ|otravujes|otravuje mě|otravuje me|štve mě|stve me|naštvaný|nastvany|naštvaná|nastvana|naštvaní|nastvani|zlobí mě|zlobi me|seru na to|seru na vás|seru na vas|do prdele|do píče|do pice|kurva|kurevsky|kurevský)/.test(lowerQuery)) {
+            response = "😔 <strong>Omlouvám se, pokud jste měli špatnou zkušenost.</strong><br><br>" +
+                       "V Květinářství Kamila se snažíme o maximální spokojenost každého zákazníka. Pokud něco nebylo v pořádku, velmi nás to mrzí a rádi bychom to napravili.<br><br>" +
+                       "📞 <strong>Kontakt na majitelku:</strong><br>" +
+                       "Kamila, tel: +420 774 724 220<br>" +
+                       "(volat Po-Pá 9:00-17:00)<br><br>" +
+                       "✉️ <strong>E-mail pro stížnosti:</strong><br>" +
+                       "kvetinarstvikamila@seznam.cz<br><br>" +
+                       "🤝 <strong>Co můžeme udělat:</strong><br>" +
+                       "• Osobní konzultaci a vysvětlení<br>" +
+                       "• Náhradní kytici nebo vrácení peněz<br>" +
+                       "• Zohlednění při příští objednávce<br><br>" +
+                       "Děkujeme za zpětnou vazbu, pomáhá nám zlepšovat služby.";
+        }
+        
+        // ============ VTIPY / SARKASMUS ============
+        else if (/(vtip|vtípek|vtipný|vtipny|vtipná|vtipna|vtipné|vtipne|vtipálek|vtipalek|sranda|srandista|srandistka|žert|zert|žertovat|zertovat|legrace|legrační|legracni|vtipkujete|vtipkujes|sarkasmus|sarkastický|sarkasticky|ironie|ironický|ironicky|smích|smíchy|humor|humorný|humorny|komedie|komik|komický|komicky|baviš mě|bavis me|pobavil jsi mě|pobavil jsi me|pobavil si mě|pobavil si me|směju se|smeju se|smějeme se|smejeme se|ha ha|haha|hihi|hehe|hoho|checht|chechtám se|chechtam se)/.test(lowerQuery)) {
+            response = "😄 <strong>To je ale vtipálek!</strong> 🌸<br><br>" +
+                       "Jako AI asistent mám také smysl pro humor, ale raději vám pomůžu s výběrem květin!<br><br>" +
+                       "📌 <strong>Vtipný fakt o květinách:</strong><br>" +
+                       "Věděli jste, že některé květiny dokážou 'spát'? Tulipány se na noc zavírají!<br><br>" +
+                       "🌺 <strong>Vtipná nabídka:</strong><br>" +
+                       "Můžeme vám vytvořit kytici, která bude vypadat tak dobře, že vás i rozesměje!<br><br>" +
+                       "🎭 <strong>Seriózně ale ne moc:</strong><br>" +
+                       "Opravdu vám mohu pomoci s objednávkou nebo informacemi. Co vás zajímá?";
+        }
+        
+        // ============ FLIRT / ROMANTIKA ============
+        else if (/(flirt|flirtovat|flirtuješ|flirtujes|flirtujete|miluju tě|miluju te|lásku|lasku|láska|laska|zamilovaný|zamilovany|zamilovaná|zamilovana|zamilovaní|zamilovani|romantika|romantický|romanticky|romantická|romantická|romantické|romanticke|svatba|svatby|manželství|manzelstvi|první rande|prvni rande|rande|randění|randeni|partner|partnerka|přítel|prítel|přítelkyně|pritelkyně|přítelkyně|pritelkyně|chlap|chlapa|kluk|kluka|holka|holku|žena|zena|muž|muže|muz|muze|miláček|milacek|miláčku|miláčku|miláčku|miláčku|sladký|sladky|sladká|sladka)/.test(lowerQuery)) {
+            response = "💖 <strong>Romantika je naše specialita!</strong><br><br>" +
+                       "Máme mnoho zkušeností s květinami pro milostné příležitosti:<br><br>" +
+                       "🌹 <strong>První rande:</strong><br>" +
+                       "• Malá kytice růží (3-5 ks)<br>" +
+                       "• Tulipány v pastelových barvách<br>" +
+                       "• Jemné květiny bez přílišného parfému<br><br>" +
+                       "💑 <strong>Výročí:</strong><br>" +
+                       "• Červené růže (počet podle let)<br>" +
+                       "• Kombinace růží a lilií<br>" +
+                       "• Luxusní kytice s ozdobnou vazbou<br><br>" +
+                       "💍 <strong>Žádost o ruku:</strong><br>" +
+                       "• Bílé růže symbolizující čistotu<br>" +
+                       "• Kytice s místem na prstýnek<br>" +
+                       "• Romantická vazba s krajkou<br><br>" +
+                       "📞 <strong>Rádi poradíme:</strong><br>" +
+                       "Zavolejte na +420 774 724 220 a řekněte nám váš příběh!";
+        }
+        
+        // ============ NEVÍM / NÁHODA ============
+        else if (/(nevím|nevim|nemám tušení|nemam tuseni|nemám ponětí|nemam poneti|netuším|netusim|neznám|neznam|nevědět|nevedet|co dělat|co delat|co mám dělat|co mam delat|co mám udělat|co mam udelat|jak mám postupovat|jak mam postupovat|co byste doporučili|co byste doporucili|co doporučujete|co doporucujete|poradíte mi|poradite mi|pomůžete mi|pomuzete mi|můžete mi poradit|muzete mi poradit|můžete mi pomoci|muzete mi pomoci|nejsem si jistý|nejsem si jisty|nejsem si jistá|nejsem si jista|já nevím|ja nevim)/.test(lowerQuery)) {
+            response = "🤔 <strong>Žádný problém, rádi vám poradíme!</strong><br><br>" +
+                       "🎯 <strong>Nejčastější situace a naše doporučení:</strong><br><br>" +
+                       "1. <strong>Nevíte, jakou kytici vybrat?</strong><br>" +
+                       "   Řekněte nám: příležitost, barvu, rozpočet<br>" +
+                       "   My navrhneme 2-3 varianty<br><br>" +
+                       "2. <strong>Nevíte, jestli objednat?</strong><br>" +
+                       "   Zavolejte na +420 774 724 220<br>" +
+                       "   Bez závazku se poradíme<br><br>" +
+                       "3. <strong>Nevíte, jak překvapit?</strong><br>" +
+                       "   Máme dárkové poukazy<br>" +
+                       "   Nebo vytvoříme kytici na míru<br><br>" +
+                       "4. <strong>Nevíte, jestli květiny dorazí včas?</strong><br>" +
+                       "   Expresní doručení do 2 hodin<br>" +
+                       "   Vyzvednutí ještě dnes do 17:00<br><br>" +
+                       "📞 <strong>Zavolejte nám, rádi vám pomůžeme rozhodnout se!</strong>";
+        }
+        
+        // ============ DEFAULT ODPOVĚĎ ============
+        else {
+            response = "🤔 <strong>Promiňte, úplně nerozumím vašemu dotazu.</strong><br><br>" +
+                       "Jsem AI asistent Květinářství Kamila a nejlépe rozumím těmto tématům:<br><br>" +
+                       "🌺 <strong>Květiny a ceny:</strong><br>" +
+                       "• Otevírací doba<br>" +
+                       "• Ceník květin a kytic<br>" +
+                       "• Kde nás najdete<br>" +
+                       "• Jak objednat kytici<br><br>" +
+                       "💐 <strong>Služby:</strong><br>" +
+                       "• Svatební květiny<br>" +
+                       "• Pohřební kytice<br>" +
+                       "• Pokojové rostliny<br>" +
+                       "• Dárkové poukazy<br><br>" +
+                       "📞 <strong>Kontakty:</strong><br>" +
+                       "Telefon: +420 774 724 220<br>" +
+                       "Adresa: OC Luna, Liberec<br><br>" +
+                       "📝 <strong>Zkuste svůj dotaz formulovat jinak, nebo se zeptejte konkrétněji.</strong><br>" +
+                       "Jsem tu pro vás! 😊";
+        }
+        
+        addMessage(response);
+    }, 800 + Math.random() * 800); // Náhodné zpoždění 0.8-1.6 sekundy
+}
         
         // Odeslání zprávy
         function sendMessage() {
