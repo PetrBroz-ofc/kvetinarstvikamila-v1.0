@@ -2346,51 +2346,46 @@
   line-height: 1 !important;
 }
     }
- /* Silné pravidlo: na mobilu (uprav breakpoint pokud chceš širší) */
+/* Zmenšit hlavičku chat okna a quick-replies na mobilech */
 @media (max-width: 520px) {
-  /* zmenšíme tlačítko na kruh */
-  .ai-assistant, .assistant-btn, .floating-assistant {
-    width: 56px !important;
-    height: 56px !important;
-    padding: 6px !important;
-    border-radius: 50% !important;
-    display: inline-flex !important;
-    align-items: center !important;
-    justify-content: center !important;
-    overflow: hidden !important;
-    font-size: 0 !important;         /* skryje textové uzly */
-    color: transparent !important;   /* preventivně skryje text */
-    background-clip: padding-box !important;
+  /* menší hlavička (výška, padding a font) */
+  #chatbot-container.mobile-open #chat-header,
+  #chatbot-window #chat-header {
+    padding: 10px 12px !important;
+    font-size: 14px !important;
+    min-height: 40px !important;
+    gap: 8px !important;
   }
 
-  /* pokud je text v elementu .label nebo v přímém span, skryjeme ho */
-  .ai-assistant .label,
-  .assistant-btn .label,
-  .floating-assistant .label,
-  .ai-assistant > span,
-  .assistant-btn > span,
-  .floating-assistant > span {
-    display: none !important;
-    visibility: hidden !important;
-    line-height: 0 !important;
-    height: 0 !important;
+  #chatbot-container.mobile-open #chat-header h3,
+  #chatbot-window #chat-header h3 {
+    font-size: 16px !important;
     margin: 0 !important;
-    padding: 0 !important;
-    font-size: 0 !important;
   }
 
-  /* znovu nastavíme velikost ikony (ikony používají vlastní font-size) */
-  .ai-assistant .icon,
-  .assistant-btn .icon,
-  .floating-assistant .icon,
-  .ai-assistant i,
-  .assistant-btn i,
-  .floating-assistant i {
-    font-size: 1.3rem !important;
-    color: #fff !important; /* případně uprav barvu */
+  /* quick-replies: menší tlačítka, méně výšky a menší font */
+  #chatbot-container.mobile-open #quick-replies .quick-reply,
+  #chatbot-window #quick-replies .quick-reply {
+    padding: 6px 8px !important;
+    font-size: 12px !important;
+    border-radius: 10px !important;
+    min-height: 34px !important;
     line-height: 1 !important;
   }
+
+  /* pokud jsou quick-replies v gridu, upravíme mezeru a zalamování */
+  #chatbot-container.mobile-open #quick-replies {
+    gap: 6px !important;
+    display: flex !important;
+    flex-wrap: wrap !important;
+    justify-content: flex-start !important;
+    align-items: center !important;
+    overflow-x: auto !important;
+    padding-bottom: 6px !important;
+  }
 }
+  
+
 </style>
 
 <div id="chatbot-container">
