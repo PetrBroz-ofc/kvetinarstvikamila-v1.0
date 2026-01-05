@@ -2315,17 +2315,36 @@
         #chatbot-container {
             bottom: 15px;
             right: 15px;
-        }
-        
-        #chatbot-toggle {
-            width: 55px;
-            height: 55px;
-        }
-        
-        #chatbot-window {
-            width: calc(100vw - 30px);
-            height: 400px;
-        }
+      /* --- VLOŽIT DO EXISTUJÍCÍ @media (max-width: 480px) --- */
+#chatbot-toggle {
+  width: 56px !important;
+  height: 56px !important;
+  padding: 6px !important;
+  border-radius: 50% !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  overflow: hidden !important;
+  font-size: 0 !important;           /* skryje textové uzly */
+  color: transparent !important;     /* pojistka pro text */
+}
+
+#chatbot-toggle span {
+  display: none !important;
+  visibility: hidden !important;
+  font-size: 0 !important;
+  line-height: 0 !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+#chatbot-toggle i,
+#chatbot-toggle .fas,
+#chatbot-toggle .fa-robot {
+  font-size: 1.4rem !important;    /* velikost ikony */
+  color: #fff !important;          /* uprav barvu podle potřeby */
+  line-height: 1 !important;
+}
     }
  /* Silné pravidlo: na mobilu (uprav breakpoint pokud chceš širší) */
 @media (max-width: 520px) {
