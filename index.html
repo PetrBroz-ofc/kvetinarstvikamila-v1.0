@@ -564,35 +564,26 @@
             gap: 1.2rem; /* Zmenšené */
         }
 
-        .gallery-item {
-            border-radius: 12px; /* Zmenšené */
-            overflow: hidden;
-            height: 250px; /* Zmenšené */
-            position: relative;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-            transition: var(--transition);
-            display: none;
-        }
+        /* VARIANTA B: mírné snížení výšky a posun ořezu směrem nahoru */
+.gallery-item {
+  border-radius: 12px;
+  overflow: hidden;
+  height: 200px;            /* menší výška => méně viditelný crop */
+  position: relative;
+}
 
-        .gallery-item.active {
-            display: block;
-        }
+.gallery-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;        /* zachová pokrytí, ale ořeže méně díky menší výšce */
+  object-position: center 30%; /* posune motiv trochu nahoru (u květin často lepší) */
+  transition: transform .4s;
+}
 
-        .gallery-item img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: var(--transition);
-        }
-
-        .gallery-item:hover {
-            transform: translateY(-8px); /* Zmenšené */
-            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
-        }
-
-        .gallery-item:hover img {
-            transform: scale(1.1);
-        }
+/* při hover zvětšit pro efekt a viditelnost detailu */
+.gallery-item:hover img {
+  transform: scale(1.05);
+}
 
         /* Reviews Section */
         .reviews {
