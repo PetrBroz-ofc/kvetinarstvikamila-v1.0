@@ -2327,51 +2327,49 @@
             height: 400px;
         }
     }
-    /* --- AI asistents: zobrazit text na desktopu, na mobilech jen ikonu --- */
-
-/* Základní (desktop): zajistit, že textová labelka je viditelná */
-.ai-assistant, .assistant-btn, .floating-assistant {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;           /* mezera mezi ikonou a textem */
-  padding: 8px 12px;
-  height: auto;
-  min-width: 56px;
-  border-radius: 50px; /* nebo 50% pokud chceš kruh */
-  font-size: 0.95rem;
-  line-height: 1;
-}
-
-/* Pokud máš v elementu ikonku a text:
-   <button class="ai-assistant">
-     <i class="icon fa-solid fa-robot"></i>
-     <span class="label">AI Asistent</span>
-   </button>
-   tak .label bude viditelná na větších obrazovkách. */
-
-/* Mobile: skryt text, zmenšit na kruh a ukázat jen ikonu */
-@media (max-width: 480px) {
+ /* Silné pravidlo: na mobilu (uprav breakpoint pokud chceš širší) */
+@media (max-width: 520px) {
+  /* zmenšíme tlačítko na kruh */
   .ai-assistant, .assistant-btn, .floating-assistant {
-    width: 56px;
-    height: 56px;
-    padding: 8px;
-    border-radius: 50%;
-    font-size: 0;           /* skryje případný doprovodný text v buttonu */
-    gap: 0;
-    overflow: hidden;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
+    width: 56px !important;
+    height: 56px !important;
+    padding: 6px !important;
+    border-radius: 50% !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    overflow: hidden !important;
+    font-size: 0 !important;         /* skryje textové uzly */
+    color: transparent !important;   /* preventivně skryje text */
+    background-clip: padding-box !important;
   }
 
-  .ai-assistant .icon, .assistant-btn .icon, .floating-assistant .icon {
-    font-size: 1.4rem;      /* viditelná ikona */
-    color: #fff;            /* uprav podle designu */
+  /* pokud je text v elementu .label nebo v přímém span, skryjeme ho */
+  .ai-assistant .label,
+  .assistant-btn .label,
+  .floating-assistant .label,
+  .ai-assistant > span,
+  .assistant-btn > span,
+  .floating-assistant > span {
+    display: none !important;
+    visibility: hidden !important;
+    line-height: 0 !important;
+    height: 0 !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    font-size: 0 !important;
   }
 
-  .ai-assistant .label, .assistant-btn .label, .floating-assistant .label {
-    display: none !important; /* přepíše stávající styly a skryje text */
+  /* znovu nastavíme velikost ikony (ikony používají vlastní font-size) */
+  .ai-assistant .icon,
+  .assistant-btn .icon,
+  .floating-assistant .icon,
+  .ai-assistant i,
+  .assistant-btn i,
+  .floating-assistant i {
+    font-size: 1.3rem !important;
+    color: #fff !important; /* případně uprav barvu */
+    line-height: 1 !important;
   }
 }
 </style>
