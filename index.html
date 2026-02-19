@@ -564,37 +564,411 @@
             gap: 1.2rem; /* Zmenšené */
         }
 
+        /* Pro upravení galerie */
         .gallery-item {
-            border-radius: 12px; /* Zmenšené */
-            overflow: hidden;
-            height: 250px; /* Zmenšené */
-            position: relative;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-            transition: var(--transition);
-            display: none;
-        }
+    border-radius: 12px;
+    overflow: hidden;
+    position: relative;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    transition: var(--transition);
+    display: none;
+    background: #f5f5f5;
+}
 
         .gallery-item.active {
             display: block;
         }
 
         .gallery-item img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: var(--transition);
-        }
+    width: 100%;
+    height: auto;
+    max-height: 420px; /* aby to nebylo extrémně vysoké */
+    object-fit: contain; /* NIC se neřeže */
+    display: block;
+    margin: 0 auto;
+    transition: var(--transition);
+}
 
         .gallery-item:hover {
             transform: translateY(-8px); /* Zmenšené */
             box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
         }
 
-        .gallery-item:hover img {
-            transform: scale(1.1);
-        }
+       .gallery-item:hover img {
+    transform: scale(1.03);
+}
+
 
         /* Reviews Section */
+        /* ============ MODERN GOOGLE REVIEWS SECTION ============ */
+.google-stats {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    border-radius: 16px;
+    padding: 2rem;
+    margin-bottom: 3rem;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.rating-overview {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 2rem;
+}
+
+.rating-number {
+    text-align: center;
+    min-width: 180px;
+}
+
+.big-rating {
+    font-size: 3.5rem;
+    font-weight: 700;
+    color: white;
+    display: block;
+    line-height: 1;
+}
+
+.stars-large {
+    color: #FFD700;
+    font-size: 1.5rem;
+    margin: 0.5rem 0;
+    letter-spacing: 2px;
+}
+
+.rating-count {
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 0.9rem;
+}
+
+.rating-bars {
+    flex: 1;
+    max-width: 400px;
+}
+
+.rating-bar {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 8px;
+}
+
+.rating-bar span:first-child {
+    color: white;
+    width: 70px;
+    font-size: 0.9rem;
+}
+
+.rating-bar span:last-child {
+    color: white;
+    width: 40px;
+    text-align: right;
+    font-weight: 600;
+}
+
+.bar-container {
+    flex: 1;
+    height: 8px;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+.bar-fill {
+    height: 100%;
+    background: linear-gradient(to right, #FFD700, #FFA500);
+    border-radius: 4px;
+    transition: width 1.5s ease-out;
+}
+
+/* Reviews Carousel */
+.reviews-carousel-container {
+    position: relative;
+    margin: 3rem 0;
+    padding: 0 3rem;
+}
+
+.reviews-carousel {
+    display: flex;
+    gap: 1.5rem;
+    overflow-x: auto;
+    scroll-behavior: smooth;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    padding: 1rem 0;
+    scroll-snap-type: x mandatory;
+}
+
+.reviews-carousel::-webkit-scrollbar {
+    display: none;
+}
+
+.review-card.google-review {
+    flex: 0 0 calc(33.333% - 1rem);
+    scroll-snap-align: start;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    border-radius: 16px;
+    padding: 1.8rem;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    min-height: 280px;
+    display: flex;
+    flex-direction: column;
+}
+
+.review-card.google-review:hover {
+    transform: translateY(-10px);
+    background: rgba(255, 255, 255, 0.15);
+    border-color: rgba(255, 255, 255, 0.3);
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
+}
+
+.review-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 1.2rem;
+    position: relative;
+}
+
+.reviewer-avatar {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 1.3rem;
+    margin-right: 1rem;
+    flex-shrink: 0;
+}
+
+.reviewer-info {
+    flex: 1;
+}
+
+.reviewer-info h4 {
+    font-size: 1.1rem;
+    color: white;
+    margin-bottom: 0.3rem;
+}
+
+.review-meta {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.review-stars {
+    color: #FFD700;
+    font-size: 0.9rem;
+}
+
+.review-date {
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 0.85rem;
+}
+
+.google-badge {
+    background: white;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #4285F4;
+    font-size: 1rem;
+    flex-shrink: 0;
+}
+
+.review-text {
+    color: rgba(255, 255, 255, 0.9);
+    line-height: 1.6;
+    font-size: 0.95rem;
+    margin-bottom: 1.2rem;
+    flex: 1;
+    font-style: normal;
+}
+
+.review-photos {
+    display: flex;
+    gap: 8px;
+    margin-top: auto;
+}
+
+.review-photo {
+    width: 60px;
+    height: 60px;
+    border-radius: 8px;
+    background-size: cover;
+    background-position: center;
+    border: 2px solid rgba(255, 255, 255, 0.2);
+}
+
+/* Carousel Navigation */
+.carousel-nav {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(255, 255, 255, 0.9);
+    border: none;
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    color: var(--accent-color);
+    font-size: 1.2rem;
+    transition: all 0.3s ease;
+    z-index: 10;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.carousel-nav:hover {
+    background: white;
+    transform: translateY(-50%) scale(1.1);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+}
+
+.carousel-nav.prev {
+    left: 0;
+}
+
+.carousel-nav.next {
+    right: 0;
+}
+
+.carousel-dots {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    margin-top: 2rem;
+}
+
+.dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.3);
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.dot.active {
+    background: white;
+    transform: scale(1.3);
+}
+
+/* CTA Button */
+.reviews-cta {
+    text-align: center;
+    margin-top: 3rem;
+    padding-top: 2rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.btn-google-review {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background: linear-gradient(135deg, #4285F4, #34A853);
+    color: white;
+    padding: 1rem 2rem;
+    border-radius: 50px;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 1.1rem;
+    transition: all 0.3s ease;
+    box-shadow: 0 6px 20px rgba(66, 133, 244, 0.3);
+}
+
+.btn-google-review:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 30px rgba(66, 133, 244, 0.4);
+    background: linear-gradient(135deg, #3367D6, #2E8B57);
+}
+
+.cta-note {
+    color: rgba(255, 255, 255, 0.8);
+    margin-top: 1rem;
+    font-size: 0.95rem;
+    max-width: 500px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* Responsive Design for Carousel */
+@media (max-width: 1024px) {
+    .review-card.google-review {
+        flex: 0 0 calc(50% - 1rem);
+    }
+}
+
+@media (max-width: 768px) {
+    .reviews-carousel-container {
+        padding: 0 2.5rem;
+    }
+    
+    .review-card.google-review {
+        flex: 0 0 calc(100% - 1rem);
+    }
+    
+    .rating-overview {
+        flex-direction: column;
+        text-align: center;
+    }
+    
+    .rating-bars {
+        max-width: 100%;
+    }
+    
+    .carousel-nav {
+        width: 40px;
+        height: 40px;
+        font-size: 1rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .reviews-carousel-container {
+        padding: 0 2rem;
+    }
+    
+    .review-card.google-review {
+        padding: 1.5rem;
+    }
+    
+    .google-stats {
+        padding: 1.5rem;
+    }
+    
+    .big-rating {
+        font-size: 3rem;
+    }
+    
+    .btn-google-review {
+        padding: 0.9rem 1.5rem;
+        font-size: 1rem;
+        width: 100%;
+        justify-content: center;
+    }
+}
+
+/* Animation for bars */
+@keyframes fillBar {
+    from { width: 0; }
+    to { width: var(--target-width); }
+}
+
+.bar-fill {
+    animation: fillBar 1.5s ease-out forwards;
+}
         .reviews {
             padding: var(--section-padding);
             background: linear-gradient(to right, var(--dark-color), #444);
@@ -1100,6 +1474,61 @@
                 font-size: 1.3rem; /* Zmenšené */
             }
         }
+
+        /* Mobile friendly */
+        @media (max-width: 768px) {
+    .gallery-item img {
+        max-height: 320px;
+    }
+}
+/* NEKONEČNÝ MARATON */
+.reviews-carousel-container {
+    overflow: hidden !important;
+    padding: 0 !important;
+}
+
+.reviews-carousel {
+    display: flex !important;
+    gap: 1.5rem !important;
+    animation: marquee 40s linear infinite !important;
+    width: fit-content !important;
+    flex-wrap: nowrap !important;
+}
+
+.reviews-carousel:hover {
+    animation-play-state: paused !important;
+}
+
+.review-card.google-review {
+    flex: 0 0 380px !important;
+    width: 380px !important;
+}
+
+.marquee-content {
+    display: flex !important;
+    gap: 1.5rem !important;
+    flex-shrink: 0 !important;
+}
+
+@keyframes marquee {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(calc(-380px * 5 - 1.5rem * 5)); }
+}
+
+.carousel-nav, .carousel-dots {
+    display: none !important;
+}
+
+@media (max-width: 768px) {
+    .review-card.google-review {
+        flex: 0 0 300px !important;
+        width: 300px !important;
+    }
+    @keyframes marquee {
+        100% { transform: translateX(calc(-300px * 5 - 1rem * 5)); }
+    }
+}
+
     </style>
 </head>
 <body>
@@ -1117,6 +1546,7 @@
                     <li><a href="#domu">Domů</a></li>
                     <li><a href="#sluzby">Naše služby</a></li>
                     <li><a href="#onas">O Nás</a></li>
+                    <li><a href="#workshopy">Workshopy</a></li>
                     <li><a href="#galerie">Galerie</a></li>
                     <li><a href="#recenze">Recenze</a></li>
                     <li><a href="#kontakt">Objednat kytici</a></li>
@@ -1137,7 +1567,7 @@
             <div class="hero-features">
                 <div class="feature-item">
                     <i class="fas fa-check-circle"></i>
-                    <span>Čerstve květiny </span>
+                    <span>Čerstvé květiny </span>
                 </div>
                 <div class="feature-item">
                     <i class="fas fa-check-circle"></i>
@@ -1149,7 +1579,7 @@
                 </div>
             </div>
             
-            <p><strong>Objednejte do 17:00 a vyzvedněte ještě dnes</strong></p>
+            <p><strong>Objednejte do 16:30 a vyzvedněte ještě dnes</strong></p>
             
             <div class="hero-buttons">
                 <a href="#kontakt" class="btn btn-primary">
@@ -1217,9 +1647,10 @@
                     <div class="service-icon">
                         <i class="fas fa-store"></i>
                     </div>
-                    <h3>Vyzvednutí v obchodě</h3>
-                    <p>Najdete nás v obchodním centru Luna v Liberci. Těšíme se na vaši návštěvu a prohlídku naší nabídky.</p>
+                    <h3>Workshopy</h3>
+                    <p>Nabízíme individuální nebo skupinové workshopy. Přijďe si k nám vyrobit věnce nebo uvázat kytici.</p>
                 </div>
+                
             </div>
         </div>
     </section>
@@ -1249,6 +1680,42 @@
                         <div>
                             <h4>Sezónní květiny</h4>
                             <p>Používáme pouze čerstvé sezónní květiny, které zajistí dlouhou životnost a krásu vašich kytic.</p>
+                        </div>
+                    </div>
+
+                    <div class="about-feature">
+                        <i class="fas fa-ticket"></i>
+                        <div>
+                            <h4>Dárkové poukázky</h4>
+                            <p>Pokud nevíte co Vaší polovičce udělá radost, můžete u nás zakoupit dárkové poukázky.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Workshopy Section -->
+    <section class="workshopy" id="workshopy">
+        <div class="container about-container">
+            <div class="about-content">
+                <h2>Workshopy</h2>
+                <p>Nabízíme individuální nebo skupinové workshopy. Přijďe si k nám vyrobit věnce nebo uvázat kytici.</p>
+        
+                <div class="about-features">
+                    <div class="about-feature">
+                        <i class="fas fa-heart"></i>
+                        <div>
+                            <h4>Individuální</h4>
+                            <p> Zastavte se u nás a uvažte si květinu Vašich přaní. Jediná podmínka je se objednat předem.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="about-feature">
+                        <i class="fas fa-leaf"></i>
+                        <div>
+                            <h4>Skupinové</h4>
+                            <p>Nechcete přijít sami? Přijďte klidně ve skupině. Můžete si uvázat květiny nebo vyrobit věnce na různá období.</p>
                         </div>
                     </div>
                 </div>
@@ -1347,11 +1814,19 @@
                 
                 <!-- Pohřební kvítí (skryté při načtení) -->
                 <div class="gallery-item" data-category="pohrebni">
-                    <img src="pohrebnikviti.jpg" alt="Pohřební kvítí 1">
+                    <img src="poh1.jpg" alt="Pohřební kvítí 1">
                 </div>
                 
                 <div class="gallery-item" data-category="pohrebni">
-                    <img src="pohrebnikviti2.jpg" alt="Pohřební kvítí 1">
+                    <img src="poh2.jpg" alt="Pohřební kvítí 1">
+                </div>
+
+                <div class="gallery-item" data-category="pohrebni">
+                    <img src="poh3.jpg" alt="Pohřební kvítí 1">
+                </div>
+
+                <div class="gallery-item" data-category="pohrebni">
+                    <img src="poh4.jpg" alt="Pohřební kvítí 1">
                 </div>
                 
                 <!-- Svatební kvítí (skryté při načtení) -->
@@ -1371,101 +1846,412 @@
         </div>
     </section>
 
-    <!-- Reviews Section -->
-    <section class="reviews" id="recenze">
-        <div class="container">
-            <div class="section-title">
-                <h2 style="color: white;">Recenze našich zákazníků</h2>
+    <!-- Reviews Section - MODERN GOOGLE REVIEWS -->
+<section class="reviews" id="recenze">
+    <div class="container">
+        <div class="section-title">
+            <h2 style="color: white;">Recenze zákazníků z Google</h2>
+            <p style="color: rgba(255,255,255,0.8); max-width: 700px; margin: 1rem auto 0;">Skutečné hodnocení od našich zákazníků</p>
+        </div>
+        
+        <!-- Google Reviews Stats -->
+        <div class="google-stats">
+            <div class="rating-overview">
+                <div class="rating-number">
+                    <span class="big-rating">5</span>
+                    <div class="stars-large">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <span class="rating-count">na základě 11 recenzí</span>
+                </div>
+                <div class="rating-bars">
+                    <div class="rating-bar">
+                        <span>5 hvězd</span>
+                        <div class="bar-container">
+                            <div class="bar-fill" style="width: 100%"></div>
+                        </div>
+                        <span>100%</span>
+                    </div>
+                    <div class="rating-bar">
+                        <span>4 hvězdy</span>
+                        <div class="bar-container">
+                            <div class="bar-empty" style="width: 0%"></div>
+                        </div>
+                        <span>0%</span>
+                    </div>
+                    <div class="rating-bar">
+                        <span>3 hvězdy</span>
+                        <div class="bar-container">
+                            <div class="bar-empty" style="width: 0%"></div>
+                        </div>
+                        <span>0%</span>
+                    </div>
+                    <div class="rating-bar">
+                        <span>2 hvězdy</span>
+                        <div class="bar-container">
+                            <div class="bar-empty" style="width: 0%"></div>
+                        </div>
+                        <span>0%</span>
+                    </div>
+                    <div class="rating-bar">
+                        <span>1 hvězda</span>
+                        <div class="bar-container">
+                            <div class="bar-empty" style="width: 0%"></div>
+                        </div>
+                        <span>0%</span>
+                    </div>
+                </div>
             </div>
-            
-            <div class="reviews-grid">
-                <div class="review-card">
+        </div>
+        
+        <!-- Reviews Carousel -->
+        <div class="reviews-carousel-container">
+            <div class="reviews-carousel" id="reviews-carousel">
+
+                 <!-- Review 5 -->
+                <div class="review-card google-review">
                     <div class="review-header">
-                        <div class="review-avatar">
+                        <div class="reviewer-avatar" style="background: #4285F4;">
                             <i class="fas fa-user"></i>
                         </div>
-                        <div class="review-info">
-                            <h4>Beach Volley</h4>
-                            <div class="review-stars">
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
+                        <div class="reviewer-info">
+                            <h4>Jakub Varga</h4>
+                            <div class="review-meta">
+                                <div class="review-stars">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                </div>
+                                <span class="review-date">před pár dny</span>
                             </div>
+                        </div>
+                        <div class="google-badge">
+                            <i class="fab fa-google"></i>
+                        </div>
+                    </div>
+                    <div class="review-text">
+                        "Velmi milý přístup paní prodavačky. Poradila vybrat květiny pro přítelkyni jako překvapení, ale trefila se úplně přesně. Příště se tu pro kytičku zase rád zastavím"
+                    </div>
+                </div>
+            
+
+                 <!-- Review 5 -->
+                <div class="review-card google-review">
+                    <div class="review-header">
+                        <div class="reviewer-avatar" style="background: #4285F4;">
+                            <i class="fas fa-user"></i>
+                        </div>
+                        <div class="reviewer-info">
+                            <h4>Petr Lhoták</h4>
+                            <div class="review-meta">
+                                <div class="review-stars">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                </div>
+                                <span class="review-date">před pár dny</span>
+                            </div>
+                        </div>
+                        <div class="google-badge">
+                            <i class="fab fa-google"></i>
+                        </div>
+                    </div>
+                    
+                </div>
+            
+
+                 <!-- Review 5 -->
+                <div class="review-card google-review">
+                    <div class="review-header">
+                        <div class="reviewer-avatar" style="background: #4285F4;">
+                            <i class="fas fa-user"></i>
+                        </div>
+                        <div class="reviewer-info">
+                            <h4>Petr Brož</h4>
+                            <div class="review-meta">
+                                <div class="review-stars">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                </div>
+                                <span class="review-date">před 11 měsící</span>
+                            </div>
+                        </div>
+                        <div class="google-badge">
+                            <i class="fab fa-google"></i>
+                        </div>
+                    </div>
+                    <div class="review-text">
+                        "Příjemná obsluha"
+                    </div>
+                </div>
+            
+
+                <!-- Review 5 -->
+                <div class="review-card google-review">
+                    <div class="review-header">
+                        <div class="reviewer-avatar" style="background: #4285F4;">
+                            <i class="fas fa-user"></i>
+                        </div>
+                        <div class="reviewer-info">
+                            <h4>Miroslav Laska</h4>
+                            <div class="review-meta">
+                                <div class="review-stars">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                </div>
+                                <span class="review-date">před rokem</span>
+                            </div>
+                        </div>
+                        <div class="google-badge">
+                            <i class="fab fa-google"></i>
+                        </div>
+                    </div>
+                   
+                </div>
+            
+
+            <!-- Review 5 -->
+                <div class="review-card google-review">
+                    <div class="review-header">
+                        <div class="reviewer-avatar" style="background: #4285F4;">
+                            <i class="fas fa-user"></i>
+                        </div>
+                        <div class="reviewer-info">
+                            <h4>FankinCZ</h4>
+                            <div class="review-meta">
+                                <div class="review-stars">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                </div>
+                                <span class="review-date">před rokem</span>
+                            </div>
+                        </div>
+                        <div class="google-badge">
+                            <i class="fab fa-google"></i>
+                        </div>
+                    </div>
+                    <div class="review-text">
+                        "Paní velmi milá, a pomohla mi vybrat kytici pro přítelkyni a udělalo jí to radost."
+                    </div>
+                </div>
+            
+
+            <!-- Review 5 -->
+                <div class="review-card google-review">
+                    <div class="review-header">
+                        <div class="reviewer-avatar" style="background: #4285F4;">
+                            <i class="fas fa-user"></i>
+                        </div>
+                        <div class="reviewer-info">
+                            <h4>Petra Havlíčková</h4>
+                            <div class="review-meta">
+                                <div class="review-stars">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                </div>
+                                <span class="review-date">před rokem</span>
+                            </div>
+                        </div>
+                        <div class="google-badge">
+                            <i class="fab fa-google"></i>
+                        </div>
+                    </div>
+                    <div class="review-text">
+                        "Velice příjemná a komunikativní paní majitelka, květiny krásné  👍. Ať se daří a mnoho spokojených dalších zákazníků 😊. …"
+                    </div>
+                </div>
+            
+
+                <!-- Review 5 -->
+                <div class="review-card google-review">
+                    <div class="review-header">
+                        <div class="reviewer-avatar" style="background: #4285F4;">
+                            <i class="fas fa-user"></i>
+                        </div>
+                        <div class="reviewer-info">
+                            <h4>Jiri Cach</h4>
+                            <div class="review-meta">
+                                <div class="review-stars">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                </div>
+                                <span class="review-date">před rokem</span>
+                            </div>
+                        </div>
+                        <div class="google-badge">
+                            <i class="fab fa-google"></i>
+                        </div>
+                    </div>
+                    <div class="review-text">
+                        
+                    </div>
+                </div>
+            
+
+                <!-- Review 1 -->
+                <div class="review-card google-review">
+                    <div class="review-header">
+                        <div class="reviewer-avatar" style="background: #4285F4;">
+                            <i class="fas fa-user"></i>
+                        </div>
+                        <div class="reviewer-info">
+                            <h4>Beach Volley Vratislavice</h4>
+                            <div class="review-meta">
+                                <div class="review-stars">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                </div>
+                                <span class="review-date">před 2 lety</span>
+                            </div>
+                        </div>
+                        <div class="google-badge">
+                            <i class="fab fa-google"></i>
                         </div>
                     </div>
                     <div class="review-text">
                         "Přátelský, ale profesionální přístup, určitě přijdu i příště"
                     </div>
+                    
                 </div>
                 
-                <div class="review-card">
+                <!-- Review 2 -->
+                <div class="review-card google-review">
                     <div class="review-header">
-                        <div class="review-avatar">
+                        <div class="reviewer-avatar" style="background: #EA4335;">
                             <i class="fas fa-user"></i>
                         </div>
-                        <div class="review-info">
-                            <h4>Dagmar F.</h4>
-                            <div class="review-stars">
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
+                        <div class="reviewer-info">
+                            <h4>Dagmar Forejtová</h4>
+                            <div class="review-meta">
+                                <div class="review-stars">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                </div>
+                                <span class="review-date">před 2 roky</span>
                             </div>
+                        </div>
+                        <div class="google-badge">
+                            <i class="fab fa-google"></i>
                         </div>
                     </div>
                     <div class="review-text">
-                        "Jsem s tímto kvetinarstvim maximálně spokojena - kupovala jsem už nekolik kytic a všechny byly luxusní 👏🤗"
+                        "Jsem s tímto kvetinarstvim maximálně spokojena - kupovala jsem už nekolik kytic a všechny byly luxusní 👏🤗 …"
                     </div>
                 </div>
                 
-                <div class="review-card">
+                <!-- Review 3 -->
+                <div class="review-card google-review">
                     <div class="review-header">
-                        <div class="review-avatar">
+                        <div class="reviewer-avatar" style="background: #34A853;">
                             <i class="fas fa-user"></i>
                         </div>
-                        <div class="review-info">
-                            <h4>Petra H.</h4>
-                            <div class="review-stars">
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
+                        <div class="reviewer-info">
+                            <h4>Jiřina Petrová</h4>
+                            <div class="review-meta">
+                                <div class="review-stars">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                </div>
+                                <span class="review-date">před 2 roky</span>
                             </div>
+                        </div>
+                        <div class="google-badge">
+                            <i class="fab fa-google"></i>
                         </div>
                     </div>
                     <div class="review-text">
-                        "Velice příjemná a komunikativní paní majitelka, květiny krásné 👍. Ať se daří a mnoho spokojených dalších zákazníků 😊."
+                        "Od syna k narozeninám jsem dostala překrásnou kytici z tohoto květinářství.  Dělala mi velkou radost celých 11 dní."
                     </div>
                 </div>
-
-                <div class="review-card">
+                
+                <!-- Review 4 -->
+                <div class="review-card google-review">
                     <div class="review-header">
-                        <div class="review-avatar">
+                        <div class="reviewer-avatar" style="background: #FBBC05;">
                             <i class="fas fa-user"></i>
                         </div>
-                        <div class="review-info">
-                            <h4>Libor K.</h4>
-                            <div class="review-stars">
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
+                        <div class="reviewer-info">
+                            <h4>Libor Kafka</h4>
+                            <div class="review-meta">
+                                <div class="review-stars">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                </div>
+                                <span class="review-date">před 2 roky</span>
                             </div>
+                        </div>
+                        <div class="google-badge">
+                            <i class="fab fa-google"></i>
                         </div>
                     </div>
                     <div class="review-text">
                         "Je mi ctí přidat první recenzi. První den zaplnili prodejnu zákazníci i podporovatelé, všechny přivítala majitelka hosty malým pohoštěním. Vazba květin je bezchybná, ceny přiměřené, paní majitelka milá a komunikativní."
                     </div>
+                    
                 </div>
                 
+            
+            
+            <!-- Carousel Navigation -->
+            <button class="carousel-nav prev" id="carousel-prev">
+                <i class="fas fa-chevron-left"></i>
+            </button>
+            <button class="carousel-nav next" id="carousel-next">
+                <i class="fas fa-chevron-right"></i>
+            </button>
+            
+            <!-- Carousel Dots -->
+            <div class="carousel-dots" id="carousel-dots">
+                <span class="dot active"></span>
+                <span class="dot"></span>
+                <span class="dot"></span>
             </div>
         </div>
-    </section>
+        
+        <!-- CTA Button -->
+        <div class="reviews-cta">
+            <a href="https://maps.app.goo.gl/vJgbsNjhYYzFhFfv6" target="_blank" class="btn btn-google-review">
+                <i class="fab fa-google"></i> Zanechte recenzi na Google
+            </a>
+            <p class="cta-note">Vaše hodnocení nám pomáhá zlepšovat služby a inspirovat další zákazníky 🌸</p>
+        </div>
+    </div>
+</section>
 
     <!-- Contact/Order Section -->
     <section class="contact" id="kontakt">
@@ -1573,6 +2359,7 @@
                     <li><a href="#domu">Domovská stránka</a></li>
                     <li><a href="#sluzby">Naše služby</a></li>
                     <li><a href="#onas">O Nás</a></li>
+                    <li><a href="#workshopy">Workshopy</a></li>
                     <li><a href="#galerie">Galerie</a></li>
                     <li><a href="#recenze">Recenze</a></li>
                     <li><a href="#kontakt">Objednat kytici</a></li>
@@ -3129,6 +3916,135 @@ function processUserQuery(query) {
             }
         }, 10000);
     });
+    // Google Reviews Carousel
+document.addEventListener('DOMContentLoaded', function() {
+    const carousel = document.getElementById('reviews-carousel');
+    const prevBtn = document.getElementById('carousel-prev');
+    const nextBtn = document.getElementById('carousel-next');
+    const dots = document.querySelectorAll('.carousel-dots .dot');
+    const reviewCards = document.querySelectorAll('.review-card.google-review');
+    
+    let currentIndex = 0;
+    const cardWidth = reviewCards[0].offsetWidth + 24; // width + gap
+    
+    // Calculate visible cards based on screen size
+    function getVisibleCards() {
+        if (window.innerWidth <= 768) return 1;
+        if (window.innerWidth <= 1024) return 2;
+        return 3;
+    }
+    
+    // Update carousel position
+    function updateCarousel() {
+        const visibleCards = getVisibleCards();
+        const maxIndex = Math.max(0, reviewCards.length - visibleCards);
+        
+        // Clamp currentIndex
+        currentIndex = Math.max(0, Math.min(currentIndex, maxIndex));
+        
+        // Calculate scroll position
+        const scrollPosition = currentIndex * cardWidth;
+        carousel.scrollTo({
+            left: scrollPosition,
+            behavior: 'smooth'
+        });
+        
+        // Update dots
+        dots.forEach((dot, index) => {
+            dot.classList.toggle('active', index === Math.floor(currentIndex / visibleCards));
+        });
+    }
+    
+    // Next button
+    nextBtn.addEventListener('click', function() {
+        const visibleCards = getVisibleCards();
+        const maxIndex = Math.max(0, reviewCards.length - visibleCards);
+        
+        if (currentIndex < maxIndex) {
+            currentIndex++;
+            updateCarousel();
+        }
+    });
+    
+    // Previous button
+    prevBtn.addEventListener('click', function() {
+        if (currentIndex > 0) {
+            currentIndex--;
+            updateCarousel();
+        }
+    });
+    
+    // Dot navigation
+    dots.forEach((dot, index) => {
+        dot.addEventListener('click', function() {
+            currentIndex = index * getVisibleCards();
+            updateCarousel();
+        });
+    });
+    
+    // Auto-scroll every 5 seconds
+    let autoScroll = setInterval(() => {
+        const visibleCards = getVisibleCards();
+        const maxIndex = Math.max(0, reviewCards.length - visibleCards);
+        
+        if (currentIndex < maxIndex) {
+            currentIndex++;
+        } else {
+            currentIndex = 0;
+        }
+        updateCarousel();
+    }, 5000);
+    
+    // Pause auto-scroll on hover
+    carousel.addEventListener('mouseenter', () => {
+        clearInterval(autoScroll);
+    });
+    
+    carousel.addEventListener('mouseleave', () => {
+        autoScroll = setInterval(() => {
+            const visibleCards = getVisibleCards();
+            const maxIndex = Math.max(0, reviewCards.length - visibleCards);
+            
+            if (currentIndex < maxIndex) {
+                currentIndex++;
+            } else {
+                currentIndex = 0;
+            }
+            updateCarousel();
+        }, 5000);
+    });
+    
+    // Handle window resize
+    window.addEventListener('resize', function() {
+        cardWidth = reviewCards[0].offsetWidth + 24;
+        updateCarousel();
+    });
+    
+    // Initialize
+    updateCarousel();
+    
+    // Animate rating bars on scroll
+    const observerOptions = {
+        threshold: 0.5
+    };
+    
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                const bars = entry.target.querySelectorAll('.bar-fill');
+                bars.forEach(bar => {
+                    const width = bar.style.width;
+                    bar.style.width = '0';
+                    setTimeout(() => {
+                        bar.style.width = width;
+                    }, 300);
+                });
+            }
+        });
+    }, observerOptions);
+    
+    observer.observe(document.querySelector('.google-stats'));
+});
 </script>
 </body>
 </html>
