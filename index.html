@@ -4057,19 +4057,92 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 </script>
 
-    <!-- Cookie Banner – vložit před </body> -->
-<div id="cookie-banner" style="display:none;position:fixed;bottom:0;left:0;right:0;background:#333;color:#fff;padding:1rem 2rem;z-index:99999;display:flex;align-items:center;justify-content:space-between;gap:1rem;flex-wrap:wrap;box-shadow:0 -4px 20px rgba(0,0,0,0.3);">
-  <p style="margin:0;font-size:0.85rem;opacity:0.9;">🍪 Tento web používá cookies ke zlepšení vašeho zážitku.</p>
-  <div style="display:flex;gap:0.75rem;">
-    <button onclick="acceptCookies()" style="background:#d4507f;color:#fff;border:none;padding:0.6rem 1.5rem;border-radius:50px;font-weight:600;cursor:pointer;">OK</button>
-    <button onclick="declineCookies()" style="background:transparent;color:rgba(255,255,255,0.6);border:1px solid rgba(255,255,255,0.3);padding:0.6rem 1.2rem;border-radius:50px;cursor:pointer;">Odmítnout</button>
-  </div>
+    <!-- ========================================================================= -->
+<!-- RŮŽOVÁ COOKIE LIŠTA PRO ONLINE KVĚTINÁŘSTVÍ (ID: G-SKK18SH7LB) -->
+<!-- ========================================================================= -->
+<div id="cookie-bar-container" style="display: none; position: fixed; bottom: 0; left: 0; width: 100%; background-color: #ffffff; box-shadow: 0 -4px 25px rgba(232, 67, 147, 0.15); padding: 20px 40px; z-index: 999999; font-family: sans-serif; box-sizing: border-box; border-top: 3px solid #f78fb3;">
+    <div style="max-width: 1400px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 20px;">
+        
+        <!-- Text pro online objednávky a vyhledávání květin -->
+        <div style="flex: 1; min-width: 300px; max-width: 800px;">
+            <h3 style="margin-top: 0; margin-bottom: 6px; color: #d63031; font-size: 18px; font-weight: bold; letter-spacing: 0.5px;">🍪 Nastavení ochrany soukromí</h3>
+            <p style="margin: 0; font-size: 14px; color: #555555; line-height: 1.5;">
+                Abychom vám usnadnili online objednávku květin a zajistili správné fungování vyhledávání, potřebujeme váš souhlas s cookies. Kliknutím na „Přijmout vše“ nám navíc umožníte sledovat návštěvnost pomocí Google Analytics, což nám pomáhá zlepšovat pozice webu ve vyhledávačích (Search Console).
+            </p>
+        </div>
+
+        <!-- Růžová zaoblená tlačítka -->
+        <div style="display: flex; align-items: center; gap: 15px; flex-wrap: wrap;">
+            <button onclick="cookieManager.rejectAll()" style="background-color: #f5f5f5; color: #666666; border: 1px solid #dddddd; padding: 12px 24px; font-size: 13px; font-weight: bold; text-transform: uppercase; border-radius: 30px; cursor: pointer; letter-spacing: 0.5px; transition: all 0.2s;">Odmítnout vše</button>
+            <button onclick="cookieManager.acceptAll()" style="background-color: #e84393; color: #ffffff; border: none; padding: 12px 28px; font-size: 13px; font-weight: bold; text-transform: uppercase; border-radius: 30px; cursor: pointer; letter-spacing: 0.5px; transition: all 0.2s;">PŘIJMOUT VŠE</button>
+        </div>
+
+    </div>
 </div>
+
 <script>
-if (!localStorage.getItem('kamila_cookies')) document.getElementById('cookie-banner').style.display = 'flex';
-function acceptCookies() { localStorage.setItem('kamila_cookies','accepted'); document.getElementById('cookie-banner').style.display='none'; }
-function declineCookies() { localStorage.setItem('kamila_cookies','declined'); document.getElementById('cookie-banner').style.display='none'; }
+    // Tvůj konkrétní klíč pro Google Analytics
+    const GA_MEASUREMENT_ID = 'G-SKK18SH7LB';
+
+    const cookieManager = {
+        init: function() {
+            // Kontrola pro aktuální návštěvu (session)
+            const consent = sessionStorage.getItem('flower_shop_cookie_consent');
+            if (!consent) {
+                document.getElementById('cookie-bar-container').style.display = 'block';
+            } else if (consent === 'granted') {
+                this.spustitRozsireneFunkce();
+            }
+        },
+        
+        acceptAll: function() {
+            sessionStorage.setItem('flower_shop_cookie_consent', 'granted');
+            document.getElementById('cookie-bar-container').style.display = 'none';
+            this.spustitRozsireneFunkce();
+        },
+        
+        rejectAll: function() {
+            sessionStorage.setItem('flower_shop_cookie_consent', 'denied');
+            document.getElementById('cookie-bar-container').style.display = 'none';
+            console.log('Nezbytné cookies pro online objednávky jsou aktivní. Analytika vypnuta.');
+        },
+
+        spustitRozsireneFunkce: function() {
+            // Spuštění měření Google Analytics s tvým ID
+            this.loadGoogleAnalytics();
+            // Spuštění funkcí vyhledávání
+            this.loadSearchFeatures();
+        },
+
+        loadGoogleAnalytics: function() {
+            if (!GA_MEASUREMENT_ID) return;
+
+            // Dynamické načtení Google Analytics skriptu až po udělení souhlasu
+            const gaScript = document.createElement('script');
+            gaScript.async = true;
+            gaScript.src = 'https://www.googletagmanager.com/gtag/js?id=' + GA_MEASUREMENT_ID;
+            document.head.appendChild(gaScript);
+
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', GA_MEASUREMENT_ID);
+            
+            console.log('Google Analytics (G-SKK18SH7LB) úspěšně spuštěn na základě souhlasu.');
+        },
+
+        loadSearchFeatures: function() {
+            console.log('Rozšířené funkce vyhledávání květin povoleny.');
+            // Pokud tvůj vyhledávací panel na webu potřebuje speciální cookies/skripty, vlož je sem.
+        }
+    };
+
+    document.addEventListener('DOMContentLoaded', function() {
+        cookieManager.init();
+    });
 </script>
-    
+<!-- ========================================================================= -->
+<!-- KONEC COOKIE LIŠTY -->
+<!-- ========================================================================= -->
 </body>
 </html>
